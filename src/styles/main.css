@@ -1,0 +1,35 @@
+#events {
+	background-color: pink;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#eventsInput {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: 1em;
+}
+
+#eventsOutput {
+	max-width: 500px;
+	min-width: 300px;
+	max-height: 500px;
+	overflow: scroll;
+	background: white;
+}
+
+.myEvents:first-child,
+.friendsEvents:first-child {
+	font-size: 1.5em;
+}
+
+.myEvents {
+	background-color: lightblue;
+}
+.friendsEvents {
+	background-color: lightgreen;
+}
