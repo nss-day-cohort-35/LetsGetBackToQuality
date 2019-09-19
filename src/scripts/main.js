@@ -43,6 +43,24 @@ API = {
 		return fetch(`http://localhost:3000/events/${eventId}`, {
 			method: "DELETE"
 		});
+	},
+	getEvent: eventId => {
+		return fetch(`http://localhost:3000/journalArray/${eventId}`).then(
+			response => response.json()
+		);
+	},
+	editEvent: eventId => {
+		return fetch(`http://localhost:3000/journalArray/${entryId}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(updatedObject)
+		})
+			.then(res => res.json())
+			.then(() => {
+				document.querySelector("#eventId").value = "";
+			});
 	}
 };
 
@@ -96,15 +114,31 @@ document.querySelector("#submitEvent").addEventListener("click", event => {
 	API.saveEvent(newEvent).then(() => {
 		API.getEvents().then(data => DOM.addEventsToDom(data));
 	});
+	document.querySelector("#eventTitle").value = "";
+	document.querySelector("#eventDate").value = "";
+	document.querySelector("#eventLocation").value = "";
 });
 
-//populate the event dom
+//populate the event dom on first load
 API.getEvents().then(data => DOM.addEventsToDom(data));
+
+//delete entry
 
 document.querySelector("#eventsOutput").addEventListener("click", event => {
 	if (event.target.id.startsWith("delete--")) {
 		const eventToDelete = event.target.id.split("--")[1];
 		API.deleteEvent(eventToDelete).then(() => {
+			API.getEvents().then(data => DOM.addEventsToDom(data));
+		});
+	}
+});
+
+//edit entry
+
+document.querySelector("#eventsOutput").addEventListener("click", event => {
+	if (event.target.id.startsWith("edit--")) {
+		const eventToEdit = event.target.id.split("--")[1];
+		API.deleteEvent(eventToEdit).then(() => {
 			API.getEvents().then(data => DOM.addEventsToDom(data));
 		});
 	}
