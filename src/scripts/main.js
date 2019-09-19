@@ -36,7 +36,7 @@ API = {
 			console.log("search", searchString);
 		});
 		return fetch(
-			`http://localhost:3000/events/?userId=${currentUserId}${searchString}&_order=desc`
+			`http://localhost:3000/events/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
 		).then(response => response.json());
 	}
 };
