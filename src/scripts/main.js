@@ -38,6 +38,11 @@ API = {
 		return fetch(
 			`http://localhost:3000/events/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
 		).then(response => response.json());
+	},
+	deleteEvent: eventId => {
+		return fetch(`http://localhost:3000/events/${eventId}`, {
+			method: "DELETE"
+		});
 	}
 };
 
@@ -95,3 +100,12 @@ document.querySelector("#submitEvent").addEventListener("click", event => {
 
 //populate the event dom
 API.getEvents().then(data => DOM.addEventsToDom(data));
+
+document.querySelector("#eventsOutput").addEventListener("click", event => {
+	if (event.target.id.startsWith("delete--")) {
+		const eventToDelete = event.target.id.split("--")[1];
+		API.deleteEvent(eventToDelete).then(() => {
+			API.getEvents().then(data => DOM.addEventsToDom(data));
+		});
+	}
+});
