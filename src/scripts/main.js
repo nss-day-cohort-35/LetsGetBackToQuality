@@ -4,8 +4,20 @@
     or the dashboard should be rendered.
 */
 
+import authorization from "./auth/eventListeners.js"
+
+
+
 const message = "Time to build an application that gives you all the information you need in a Nutshell"
 
 document.querySelector("#container").innerHTML = `<h1>${message}</h1>`
 
 console.log(message)
+
+
+
+//
+authorization()
+
+console.log("main.js sessionStorage.userId: ", sessionStorage.getItem("userId"))
+
