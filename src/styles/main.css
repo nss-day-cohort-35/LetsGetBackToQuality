@@ -1,5 +1,7 @@
+/* events css */
+
 #events {
-	background-color: pink;
+	border: 1px solid red;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -7,6 +9,7 @@
 }
 
 #eventsInput {
+	border: 1px solid red;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -15,6 +18,7 @@
 }
 
 #eventsOutput {
+	border: 1px solid red;
 	max-width: 500px;
 	min-width: 300px;
 	max-height: 500px;

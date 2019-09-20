@@ -13,9 +13,9 @@ console.log(message);
 
 //EVENT SECTION
 
-//current user
+//current user/friend array
 const currentUserId = 1;
-const currentUserFriends = [2, 3, 8, 9];
+const currentUserFriends = [2, 3];
 let searchString = "";
 
 //API Object
@@ -45,12 +45,17 @@ API = {
 		});
 	},
 	getEvent: eventId => {
-		return fetch(`http://localhost:3000/journalArray/${eventId}`).then(
-			response => response.json()
+		return fetch(`http://localhost:3000/events/${eventId}`).then(response =>
+			response.json()
 		);
 	},
 	editEvent: eventId => {
-		return fetch(`http://localhost:3000/journalArray/${entryId}`, {
+		const updatedObject = {
+			title: document.querySelector("#eventTitle").value,
+			date: document.querySelector("#eventDate").value,
+			location: document.querySelector("#eventLocation").value
+		};
+		return fetch(`http://localhost:3000/events/${eventId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json"
@@ -103,26 +108,38 @@ DOM = {
 	}
 };
 
-//Event Listener for Submitting
-document.querySelector("#submitEvent").addEventListener("click", event => {
-	const newEvent = {
-		userId: currentUserId,
-		title: document.querySelector("#eventTitle").value,
-		date: document.querySelector("#eventDate").value,
-		location: document.querySelector("#eventLocation").value
-	};
-	API.saveEvent(newEvent).then(() => {
-		API.getEvents().then(data => DOM.addEventsToDom(data));
-	});
-	document.querySelector("#eventTitle").value = "";
-	document.querySelector("#eventDate").value = "";
-	document.querySelector("#eventLocation").value = "";
-});
-
 //populate the event dom on first load
+
 API.getEvents().then(data => DOM.addEventsToDom(data));
 
-//delete entry
+//Event Listener for Submitting/editing
+
+document.querySelector("#submitEvent").addEventListener("click", event => {
+	let hiddenId = document.querySelector("#eventId").value;
+	console.log("what", hiddenId);
+	if (hiddenId === "") {
+		let hiddenId = document.querySelector("#eventId").name;
+		console.log("what", hiddenId);
+		const newEvent = {
+			userId: currentUserId,
+			title: document.querySelector("#eventTitle").value,
+			date: document.querySelector("#eventDate").value,
+			location: document.querySelector("#eventLocation").value
+		};
+		API.saveEvent(newEvent).then(() => {
+			API.getEvents().then(data => DOM.addEventsToDom(data));
+		});
+		document.querySelector("#eventTitle").value = "";
+		document.querySelector("#eventDate").value = "";
+		document.querySelector("#eventLocation").value = "";
+	} else {
+		API.editEvent(hiddenId).then(() => {
+			API.getEvents().then(data => DOM.addEventsToDom(data));
+		});
+	}
+});
+
+//delete event
 
 document.querySelector("#eventsOutput").addEventListener("click", event => {
 	if (event.target.id.startsWith("delete--")) {
@@ -133,13 +150,16 @@ document.querySelector("#eventsOutput").addEventListener("click", event => {
 	}
 });
 
-//edit entry
+//when edit event button is pressed, populate event info into form
 
 document.querySelector("#eventsOutput").addEventListener("click", event => {
 	if (event.target.id.startsWith("edit--")) {
 		const eventToEdit = event.target.id.split("--")[1];
-		API.deleteEvent(eventToEdit).then(() => {
-			API.getEvents().then(data => DOM.addEventsToDom(data));
+		API.getEvent(eventToEdit).then(data => {
+			document.querySelector("#eventId").value = data.id;
+			document.querySelector("#eventDate").value = data.date;
+			document.querySelector("#eventTitle").value = data.title;
+			document.querySelector("#eventLocation").value = data.location;
 		});
 	}
 });
