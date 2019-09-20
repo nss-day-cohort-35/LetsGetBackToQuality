@@ -15,12 +15,28 @@ const friendListObject = {
             console.log(element)
             friendListElement.innerHTML +=
                 `
-            <div id = "friendCell-${mainUserNum}-${element.userNum}" class = "friendCell"> 
+            <div id = "friendCell-${element.id}" class = "friendCell"> 
                 <p>${element.userName}</p>
-                <button id = "delete-${mainUserNum}-${element.userNum}">Remove Friend</button>
-            <div>
+                <button id = "delete-${element.id}">Remove Friend</button>
+            </div>
             `
         });
+    },
+
+    addToFriendsList: function (event) {
+        const userIDAdded = event.target.id.split("-");
+        const addedFriend = {
+            userId: userIDAdded[1],
+            friendInitiate: 1
+        }
+
+        fetch("http://localhost:8088/friends", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(addedFriend)
+        })
     }
 }
 
@@ -34,6 +50,7 @@ const chatObject = {
                 let objectArray = []; //Array of users
                 parsedData.forEach(dataElement => {
                     const friendObject = { //Collects the id and username of each user.
+                        id: dataElement.id,
                         userNum: dataElement.user.id,
                         userName: dataElement.user.userName
                     }
@@ -59,7 +76,7 @@ const chatObject = {
                     if (mainUserNum === element.userId) { //If the userID matches the user's post...
                         document.querySelector("#chat-room").innerHTML += // Add the edit button with the DOM
                             `
-                        <div id = "message-${element.userId}" class = "message">
+                        <div id = "message-${element.user.id}" class = "message">
                         <span id = "userId-${element.userId}">${element.user.userName}::</span>
                         <span id = "date-${element.userId}">${element.date}:</span>
                         <p id = "message-${element.userId}">${element.message}</p>
@@ -69,13 +86,19 @@ const chatObject = {
                     else {
                         document.querySelector("#chat-room").innerHTML +=
                             `
-                            <div id = "message-${element.userId}" class = "message">
-                            <span id = "userId-${element.userId}">${element.user.userName}</span>
-                            <span id = "date-${element.userId}">${element.date}</span>
+                            <div id = "message-${element.user.id}" class = "message">
+                            <span id = "userId-${element.userId}">${element.user.userName}::</span>
+                            <span id = "date-${element.userId}">${element.date}:</span>
                             <p id = "message-${element.userId}">${element.message}</p>
                         `
                     }
                 })
+                return parsedData
+            })
+            .then(parsedData => {
+                parsedData.forEach(element => {
+                   document.querySelector(`#userId-${element.userId}`).addEventListener("click",friendListObject.addToFriendsList)
+                });
             })
     }
 }
@@ -88,14 +111,14 @@ var friendArray = []
 
 chatObject.returnFriendArray(1)
     .then(data => {
-        friendArray = data
+        friendArray = data;
         chatObject.returnMessagesArray(friendArray, 1);
         friendListObject.fillFriendList(friendArray, 1);
         return friendArray;
     })
     .then(data => {
         data.forEach(element => {
-            document.querySelector(`#friendCell-1-${element.userNum}`).addEventListener("click", friendEvents.friendDelete)
+            document.querySelector(`#friendCell-${element.id}`).addEventListener("click", friendEvents.friendDelete)
         });
     });
 
