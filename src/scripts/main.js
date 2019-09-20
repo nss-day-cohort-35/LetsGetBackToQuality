@@ -21,7 +21,7 @@ let searchString = "";
 //API Object
 API = {
 	saveArticle: articleObj => {
-		return fetch("http://localhost:3000/articles", {
+		return fetch("http://localhost:8088/articles", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -36,16 +36,16 @@ API = {
 			console.log("search", searchString);
 		});
 		return fetch(
-			`http://localhost:3000/articles/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
+			`http://localhost:8088/articles/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
 		).then(response => response.json());
 	},
 	deleteArticle: articleId => {
-		return fetch(`http://localhost:3000/articles/${articleId}`, {
+		return fetch(`http://localhost:8088/articles/${articleId}`, {
 			method: "DELETE"
 		});
 	},
 	getArticle: articleId => {
-		return fetch(`http://localhost:3000/articles/${articleId}`).then(response =>
+		return fetch(`http://localhost:8088/articles/${articleId}`).then(response =>
 			response.json()
 		);
 	},
@@ -56,7 +56,7 @@ API = {
 			url: document.querySelector("#articleURL").value,
 			summary: document.querySelector("#articleSummary").value
 		};
-		return fetch(`http://localhost:3000/articles/${articleId}`, {
+		return fetch(`http://localhost:8088/articles/${articleId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json"
