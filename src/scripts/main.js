@@ -21,7 +21,7 @@ let searchString = "";
 //API Object
 API = {
 	saveTask: taskObj => {
-		return fetch("http://localhost:3000/tasks", {
+		return fetch("http://localhost:8088/tasks", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -36,7 +36,7 @@ API = {
 			console.log("search", searchString);
 		});
 		return fetch(
-			`http://localhost:3000/tasks/?userId=${currentUserId}${searchString}&_sort=dueDate&_order=asc&completed=no`
+			`http://localhost:8088/tasks/?userId=${currentUserId}${searchString}&_sort=dueDate&_order=asc&completed=no`
 		).then(response => response.json());
 	},
 	getFinishedTasks: () => {
@@ -46,16 +46,16 @@ API = {
 			console.log("search", searchString);
 		});
 		return fetch(
-			`http://localhost:3000/tasks/?userId=${currentUserId}${searchString}&_sort=dueDate&_order=asc&completed=yes`
+			`http://localhost:8088/tasks/?userId=${currentUserId}${searchString}&_sort=dueDate&_order=asc&completed=yes`
 		).then(response => response.json());
 	},
 	deleteTask: taskId => {
-		return fetch(`http://localhost:3000/tasks/${taskId}`, {
+		return fetch(`http://localhost:8088/tasks/${taskId}`, {
 			method: "DELETE"
 		});
 	},
 	getTask: taskId => {
-		return fetch(`http://localhost:3000/tasks/${taskId}`).then(response =>
+		return fetch(`http://localhost:8088/tasks/${taskId}`).then(response =>
 			response.json()
 		);
 	},
@@ -66,7 +66,7 @@ API = {
 			dueDate: document.querySelector("#taskDueDate").value
 			// completed: document.querySelector("#taskCompleted").value
 		};
-		return fetch(`http://localhost:3000/tasks/${taskId}`, {
+		return fetch(`http://localhost:8088/tasks/${taskId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json"
@@ -87,7 +87,7 @@ API = {
 			completed: document.querySelector(".taskCompleted").value
 		};
 		console.log(updatedObject);
-		return fetch(`http://localhost:3000/tasks/${taskId}`, {
+		return fetch(`http://localhost:8088/tasks/${taskId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json"
