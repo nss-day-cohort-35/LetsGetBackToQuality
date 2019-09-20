@@ -11,7 +11,7 @@ document.querySelector("#container").innerHTML = `<h1>${message}</h1>`;
 
 console.log(message);
 
-//EVENT SECTION
+//article SECTION
 
 //current user/friend array
 const currentUserId = 1;
@@ -20,42 +20,43 @@ let searchString = "";
 
 //API Object
 API = {
-	saveEvent: eventObj => {
-		return fetch("http://localhost:3000/events", {
+	saveArticle: articleObj => {
+		return fetch("http://localhost:3000/articles", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify(eventObj)
+			body: JSON.stringify(articleObj)
 		});
 	},
-	getEvents: () => {
+	getArticles: () => {
 		let searchString = "";
 		currentUserFriends.forEach(id => {
 			searchString += `&userId=${id}`;
 			console.log("search", searchString);
 		});
 		return fetch(
-			`http://localhost:3000/events/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
+			`http://localhost:3000/articles/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
 		).then(response => response.json());
 	},
-	deleteEvent: eventId => {
-		return fetch(`http://localhost:3000/events/${eventId}`, {
+	deleteArticle: articleId => {
+		return fetch(`http://localhost:3000/articles/${articleId}`, {
 			method: "DELETE"
 		});
 	},
-	getEvent: eventId => {
-		return fetch(`http://localhost:3000/events/${eventId}`).then(response =>
+	getArticle: articleId => {
+		return fetch(`http://localhost:3000/articles/${articleId}`).then(response =>
 			response.json()
 		);
 	},
-	editEvent: eventId => {
+	editArticle: articleId => {
 		const updatedObject = {
-			title: document.querySelector("#eventTitle").value,
-			date: document.querySelector("#eventDate").value,
-			location: document.querySelector("#eventLocation").value
+			title: document.querySelector("#articleTitle").value,
+			date: document.querySelector("#articleDate").value,
+			url: document.querySelector("#articleURL").value,
+			summary: document.querySelector("#articleSummary").value
 		};
-		return fetch(`http://localhost:3000/events/${eventId}`, {
+		return fetch(`http://localhost:3000/articles/${articleId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json"
@@ -64,33 +65,36 @@ API = {
 		})
 			.then(res => res.json())
 			.then(() => {
-				document.querySelector("#eventId").value = "";
-				document.querySelector("#eventTitle").value = "";
-				document.querySelector("#eventDate").value = "";
-				document.querySelector("#eventLocation").value = "";
+				document.querySelector("#articleId").value = "";
+				document.querySelector("#articleTitle").value = "";
+				document.querySelector("#articleDate").value = "";
+				document.querySelector("#articleURL").value = "";
+				document.querySelector("#articleSummary").value = "";
 			});
 	}
 };
 
 //web component obj
 WEB = {
-	myEventHTML: obj => {
+	myArticleHTML: obj => {
 		return `
-            <div class="myEvents">
+            <div class="myarticles">
                 <h5>${obj.title}<h5>
                 <p>Date: ${obj.date} </p>
-                <p>location: ${obj.location}</p>
+                <p>url: ${obj.url}</p>
+                <p>summary: ${obj.summary}</p>
                 <button type="button" id="edit--${obj.id}">EDIT</button>
                 <button type="button" id="delete--${obj.id}">DELETE</button>
             </div>
             `;
 	},
-	friendEventHTML: obj => {
+	friendArticleHTML: obj => {
 		return `
-            <div class="friendsEvents">
+            <div class="friendsarticles">
                 <h5>${obj.title}<h5>
                 <p>Date: ${obj.date} </p>
-                <p>location: ${obj.location}</p>
+                <p>url: ${obj.url}</p>
+                <p>summary: ${obj.summary}</p>
             </div>
             `;
 	}
@@ -98,71 +102,73 @@ WEB = {
 
 //dom object
 DOM = {
-	addEventsToDom(events) {
-		const eventContainer = document.querySelector("#eventsOutput");
-		eventContainer.innerHTML = "";
-		for (let i = 0; i < events.length; i++) {
-			if (events[i].userId === currentUserId) {
-				eventContainer.innerHTML += WEB.myEventHTML(events[i]);
+	addArticlesToDom(articles) {
+		const articleContainer = document.querySelector("#articlesOutput");
+		articleContainer.innerHTML = "";
+		for (let i = 0; i < articles.length; i++) {
+			if (articles[i].userId === currentUserId) {
+				articleContainer.innerHTML += WEB.myArticleHTML(articles[i]);
 			} else {
-				eventContainer.innerHTML += WEB.friendEventHTML(events[i]);
+				articleContainer.innerHTML += WEB.friendArticleHTML(articles[i]);
 			}
 		}
 	}
 };
 
-//populate the event dom on first load
+//populate the article dom on first load
 
-API.getEvents().then(data => DOM.addEventsToDom(data));
+API.getArticles().then(data => DOM.addArticlesToDom(data));
 
-//Event Listener for Submitting/editing
+//article Listener for Submitting/editing
 
-document.querySelector("#submitEvent").addEventListener("click", event => {
-	let hiddenId = document.querySelector("#eventId").value;
-	console.log("what", hiddenId);
+document.querySelector("#submitArticle").addEventListener("click", event => {
+	let hiddenId = document.querySelector("#articleId").value;
 	if (hiddenId === "") {
-		let hiddenId = document.querySelector("#eventId").name;
+		let hiddenId = document.querySelector("#articleId").name;
 		console.log("what", hiddenId);
-		const newEvent = {
+		const newArticle = {
 			userId: currentUserId,
-			title: document.querySelector("#eventTitle").value,
-			date: document.querySelector("#eventDate").value,
-			location: document.querySelector("#eventLocation").value
+			title: document.querySelector("#articleTitle").value,
+			date: document.querySelector("#articleDate").value,
+			location: document.querySelector("#articleURL").value,
+			summary: document.querySelector("#articleSummary").value
 		};
-		API.saveEvent(newEvent).then(() => {
-			API.getEvents().then(data => DOM.addEventsToDom(data));
+		API.saveArticle(newArticle).then(() => {
+			API.getArticles().then(data => DOM.addArticlesToDom(data));
 		});
-		document.querySelector("#eventTitle").value = "";
-		document.querySelector("#eventDate").value = "";
-		document.querySelector("#eventLocation").value = "";
+		document.querySelector("#articleTitle").value = "";
+		document.querySelector("#articleDate").value = "";
+		document.querySelector("#articleURL").value = "";
+		document.querySelector("#articleSummary").value = "";
 	} else {
-		API.editEvent(hiddenId).then(() => {
-			API.getEvents().then(data => DOM.addEventsToDom(data));
+		API.editArticle(hiddenId).then(() => {
+			API.getArticles().then(data => DOM.addArticlesToDom(data));
 		});
 	}
 });
 
-//delete event
+//delete article
 
-document.querySelector("#eventsOutput").addEventListener("click", event => {
+document.querySelector("#articlesOutput").addEventListener("click", event => {
 	if (event.target.id.startsWith("delete--")) {
-		const eventToDelete = event.target.id.split("--")[1];
-		API.deleteEvent(eventToDelete).then(() => {
-			API.getEvents().then(data => DOM.addEventsToDom(data));
+		const articleToDelete = event.target.id.split("--")[1];
+		API.deleteArticle(articleToDelete).then(() => {
+			API.getArticles().then(data => DOM.addArticlesToDom(data));
 		});
 	}
 });
 
-//when edit event button is pressed, populate event info into form
+//when edit article button is pressed, populate article info into form
 
-document.querySelector("#eventsOutput").addEventListener("click", event => {
+document.querySelector("#articlesOutput").addEventListener("click", event => {
 	if (event.target.id.startsWith("edit--")) {
-		const eventToEdit = event.target.id.split("--")[1];
-		API.getEvent(eventToEdit).then(data => {
-			document.querySelector("#eventId").value = data.id;
-			document.querySelector("#eventDate").value = data.date;
-			document.querySelector("#eventTitle").value = data.title;
-			document.querySelector("#eventLocation").value = data.location;
+		const articleToEdit = event.target.id.split("--")[1];
+		API.getArticle(articleToEdit).then(data => {
+			document.querySelector("#articleId").value = data.id;
+			document.querySelector("#articleDate").value = data.date;
+			document.querySelector("#articleTitle").value = data.title;
+			document.querySelector("#articleURL").value = data.url;
+			document.querySelector("#articleSummary").value = data.summary;
 		});
 	}
 });

@@ -1,6 +1,6 @@
-/* events css */
+/* articles css */
 
-#events {
+#articles {
 	border: 1px solid red;
 	display: flex;
 	flex-direction: column;
@@ -8,7 +8,7 @@
 	align-items: center;
 }
 
-#eventsInput {
+#articlesInput {
 	border: 1px solid red;
 	display: flex;
 	flex-direction: row;
@@ -17,7 +17,7 @@
 	margin-bottom: 1em;
 }
 
-#eventsOutput {
+#articlesOutput {
 	border: 1px solid red;
 	max-width: 500px;
 	min-width: 300px;
@@ -26,14 +26,14 @@
 	background: white;
 }
 
-.myEvents:first-child,
-.friendsEvents:first-child {
+.myarticles:first-child,
+.friendsarticles:first-child {
 	font-size: 1.5em;
 }
 
-.myEvents {
+.myarticles {
 	background-color: lightblue;
 }
-.friendsEvents {
+.friendsarticles {
 	background-color: lightgreen;
 }
