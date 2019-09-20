@@ -19,3 +19,5 @@ console.log(message)
 //
 authorization()
 
+console.log("main.js sessionStorage.userId: ", sessionStorage.getItem("userId"))
+
