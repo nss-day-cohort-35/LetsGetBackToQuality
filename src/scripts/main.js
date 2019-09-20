@@ -62,7 +62,7 @@ API = {
 	editTask: taskId => {
 		const updatedObject = {
 			title: document.querySelector("#taskTitle").value,
-			createdDate: document.querySelector("#taskCreatedDate").value,
+
 			dueDate: document.querySelector("#taskDueDate").value
 			// completed: document.querySelector("#taskCompleted").value
 		};
@@ -77,7 +77,7 @@ API = {
 			.then(() => {
 				document.querySelector("#taskId").value = "";
 				document.querySelector("#taskTitle").value = "";
-				document.querySelector("#taskCreatedDate").value = "";
+
 				document.querySelector("#taskDueDate").value = "";
 				// document.querySelector("#taskCompleted").value = "";
 			});
@@ -105,7 +105,7 @@ WEB = {
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: 	<input type="checkbox" id="taskCompleted--${obj.id}" class="taskCompleted" value="yes"></p>
-                <p>created date: ${obj.createdDate}</p>
+                
                 <button type="button" id="edit--${obj.id}">EDIT</button>
                 <button type="button" id="delete--${obj.id}">DELETE</button>
             </div>
@@ -117,7 +117,7 @@ WEB = {
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>
-                <p>created date: ${obj.createdDate}</p>
+                
             </div>
             `;
 	},
@@ -127,7 +127,7 @@ WEB = {
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>
-                <p>created date: ${obj.createdDate}</p>
+                
                 <button type="button" id="delete--${obj.id}">DELETE</button>
             </div>
             `;
@@ -138,7 +138,7 @@ WEB = {
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>
-                <p>created date: ${obj.createdDate}</p>
+                
             </div>
             `;
 	}
@@ -185,14 +185,14 @@ document.querySelector("#submitTask").addEventListener("click", event => {
 			userId: currentUserId,
 			title: document.querySelector("#taskTitle").value,
 			dueDate: document.querySelector("#taskDueDate").value,
-			createdDate: document.querySelector("#taskCreatedDate").value,
+
 			completed: "no"
 		};
 		API.saveTask(newTask).then(() => {
 			API.getTasks().then(data => DOM.addTasksToDom(data));
 		});
 		document.querySelector("#taskTitle").value = "";
-		document.querySelector("#taskCreatedDate").value = "";
+
 		document.querySelector("#taskDueDate").value = "";
 		// document.querySelector("#taskCompleted").value = "";
 	} else {
@@ -222,7 +222,7 @@ document.querySelector("#tasksOutput").addEventListener("click", event => {
 			document.querySelector("#taskId").value = data.id;
 			document.querySelector("#taskDueDate").value = data.dueDate;
 			document.querySelector("#taskTitle").value = data.title;
-			document.querySelector("#taskCreatedDate").value = data.createdDate;
+
 			// document.querySelector("#taskCompleted").value = data.completed;
 		});
 	}
