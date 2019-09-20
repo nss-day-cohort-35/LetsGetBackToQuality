@@ -4,11 +4,20 @@
     or the dashboard should be rendered.
 */
 
+<<<<<<< HEAD
 const message =
 	"Time to build an application that gives you all the information you need in a Nutshell";
+=======
+import authorization from "./auth/eventListeners.js"
+
+
+
+const message = "Time to build an application that gives you all the information you need in a Nutshell"
+>>>>>>> master
 
 document.querySelector("#container").innerHTML = `<h1>${message}</h1>`;
 
+<<<<<<< HEAD
 console.log(message);
 
 //EVENT SECTION
@@ -166,3 +175,14 @@ document.querySelector("#eventsOutput").addEventListener("click", event => {
 		});
 	}
 });
+=======
+console.log(message)
+
+
+
+//
+authorization()
+
+console.log("main.js sessionStorage.userId: ", sessionStorage.getItem("userId"))
+
+>>>>>>> master
