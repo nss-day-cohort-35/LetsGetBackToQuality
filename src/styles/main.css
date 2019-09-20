@@ -1,0 +1,32 @@
+#chatroom-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 2px black solid;
+}
+
+#chat-room{
+    width: 80%;
+    overflow: auto;
+    height: 420px;
+}
+
+#friends-list{
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    overflow: auto;
+    height: 420px;
+    border-left: 0.01em solid black;
+}
+
+.message{
+    border-bottom: 2px lightgray solid;
+    padding-left: 2%;
+}
+
+.friendCell{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

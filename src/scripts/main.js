@@ -1,13 +1,32 @@
-import chatAndFriends from "./friends/eventListeners"
+import friendEvents from "./friends/eventListeners"
 /*
     Import all the tools into main.js that are needed to display
     the initial UI to the user. Either the login form should appear
     or the dashboard should be rendered.
 */
 
+//Friends List Object
+//****************************
+
+const friendListObject = {
+    fillFriendList: function (friendArray, mainUserNum) {
+        const friendListElement = document.querySelector("#friends-list")
+        friendArray.forEach(element => {
+            console.log(element)
+            friendListElement.innerHTML +=
+                `
+            <div id = "friendCell-${mainUserNum}-${element.userNum}" class = "friendCell"> 
+                <p>${element.userName}</p>
+                <button id = "delete-${mainUserNum}-${element.userNum}">Remove Friend</button>
+            <div>
+            `
+        });
+    }
+}
+
 //JM-Chatlog
 //**********************
-const chatAndFriends = {
+const chatObject = {
     returnFriendArray: function (mainUserNum) { //Load function with the current user id
         return fetch("http://localhost:8088/friends/?friendInitiate=1&_expand=user") //Fetch the friends of the user
             .then(data => data.json())
@@ -41,19 +60,19 @@ const chatAndFriends = {
                         document.querySelector("#chat-room").innerHTML += // Add the edit button with the DOM
                             `
                         <div id = "message-${element.userId}" class = "message">
-                        <p id = "userId-${element.userId}">${element.user.userName}</p>
+                        <span id = "userId-${element.userId}">${element.user.userName}::</span>
+                        <span id = "date-${element.userId}">${element.date}:</span>
                         <p id = "message-${element.userId}">${element.message}</p>
                         <button id = "edit-${element.userId}">Edit</button>
-                        <p id "date-${element.userId}">${element.date}</p>
                     `
                     }
                     else {
                         document.querySelector("#chat-room").innerHTML +=
-                        `
-                        <div id = "message-${element.userId}" class = "message">
-                        <p id = "userId-${element.userId}">${element.user.userName}</p>
-                        <p id = "message-${element.userId}">${element.message}</p>
-                        <p id "date-${element.userId}">${element.date}</p>
+                            `
+                            <div id = "message-${element.userId}" class = "message">
+                            <span id = "userId-${element.userId}">${element.user.userName}</span>
+                            <span id = "date-${element.userId}">${element.date}</span>
+                            <p id = "message-${element.userId}">${element.message}</p>
                         `
                     }
                 })
@@ -61,20 +80,22 @@ const chatAndFriends = {
     }
 }
 
-//Populates the chatlog
+
+//Populates the chatlog and friend list
 //****************************
 
 var friendArray = []
 
-chatAndFriends.returnFriendArray(1).then(data => {
-    friendArray = data
-    chatAndFriends.returnMessagesArray(friendArray,1);
-})
+chatObject.returnFriendArray(1)
+    .then(data => {
+        friendArray = data
+        chatObject.returnMessagesArray(friendArray, 1);
+        friendListObject.fillFriendList(friendArray, 1);
+        return friendArray;
+    })
+    .then(data => {
+        data.forEach(element => {
+            document.querySelector(`#friendCell-1-${element.userNum}`).addEventListener("click", friendEvents.friendDelete)
+        });
+    });
 
-
-
-
-
-const message = "Time to build an application that gives you all the information you need in a Nutshell"
-
-document.querySelector("#container").innerHTML = `<h1>${message}</h1>`
