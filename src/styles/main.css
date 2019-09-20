@@ -26,11 +26,6 @@
 	background: white;
 }
 
-.mytasks:first-child,
-.friendstasks:first-child {
-	font-size: 1.5em;
-}
-
 .mytasks {
 	background-color: lightblue;
 }
