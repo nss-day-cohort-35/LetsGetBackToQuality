@@ -12,12 +12,11 @@ const friendListObject = {
     fillFriendList: function (friendArray, mainUserNum) {
         const friendListElement = document.querySelector("#friends-list")
         friendArray.forEach(element => {
-            console.log(element)
             friendListElement.innerHTML +=
                 `
             <div id = "friendCell-${element.id}" class = "friendCell"> 
                 <p>${element.userName}</p>
-                <button id = "delete-${element.id}">Remove Friend</button>
+                <button id = "delete-${element.id}" class = "deleteButton">Remove Friend</button>
             </div>
             `
         });
@@ -37,6 +36,28 @@ const friendListObject = {
             },
             body: JSON.stringify(addedFriend)
         })
+            .then(data => {
+                return fetch(`http://localhost:8088/friends?userId=${addedFriend.userId}&friendInitiate=${addedFriend.friendInitiate}&_expand=user`)
+                    .then(newFriend => newFriend.json())
+                    .then(parsedFriend => {
+                        const friendListElement = document.querySelector("#friends-list")
+                        friendListElement.innerHTML +=
+                            `
+            <div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
+                <p>${parsedFriend[0].user.userName}</p>
+                <button id = "delete-${parsedFriend[0].id}" class = "deleteButton">Remove Friend</button>
+            </div>
+            `
+                        return parsedFriend
+                    })
+            })
+            .then(data => {
+                const buttonList = document.querySelectorAll(".deleteButton")
+                buttonList.forEach(element => {
+                    console.log(element.id)
+                    element.addEventListener("click", friendEvents.friendDelete)
+                });
+            })
     }
 }
 
@@ -62,12 +83,7 @@ const chatObject = {
 
     returnMessagesArray: function (fetchedArray, mainUserNum) { //Returns the friend array and ID of current user
         //Populates the fetch string with multiple querys.
-        let fetchString = `http://localhost:8088/messages?_expand=user&_sort=date&_order=asc&userId=${mainUserNum}&`
-        fetchedArray.forEach(element => { //For each friend...
-            const concatingString = "userId=" + element.userNum + "&" //Concat the new search query
-            fetchString = fetchString.concat(concatingString)
-        });
-
+        let fetchString = "http://localhost:8088/messages?_expand=user&_sort=date&_order=asc"
         return fetch(fetchString)
             .then(data => data.json())
             .then(parsedData => {
@@ -76,28 +92,29 @@ const chatObject = {
                     if (mainUserNum === element.userId) { //If the userID matches the user's post...
                         document.querySelector("#chat-room").innerHTML += // Add the edit button with the DOM
                             `
-                        <div id = "message-${element.user.id}" class = "message">
+                        <div id = "message-${element.id}" class = "message">
                         <span id = "userId-${element.userId}">${element.user.userName}::</span>
-                        <span id = "date-${element.userId}">${element.date}:</span>
-                        <p id = "message-${element.userId}">${element.message}</p>
-                        <button id = "edit-${element.userId}">Edit</button>
+                        <span id = "date-${element.id}">${element.date}:</span>
+                        <p id = "innermessage-${element.userId}">${element.message}</p>
+                        <button id = "edit-${element.Id}">Edit</button>
                     `
                     }
                     else {
                         document.querySelector("#chat-room").innerHTML +=
                             `
-                            <div id = "message-${element.user.id}" class = "message">
+                            <div id = "message-${element.id}" class = "message">
                             <span id = "userId-${element.userId}">${element.user.userName}::</span>
-                            <span id = "date-${element.userId}">${element.date}:</span>
-                            <p id = "message-${element.userId}">${element.message}</p>
+                            <span id = "date-${element.id}">${element.date}:</span>
+                            <p id = "innermessage-${element.id}">${element.message}</p>
                         `
                     }
                 })
                 return parsedData
             })
             .then(parsedData => {
+                console.log(parsedData);
                 parsedData.forEach(element => {
-                   document.querySelector(`#userId-${element.userId}`).addEventListener("click",friendListObject.addToFriendsList)
+                    document.querySelector(`#userId-${element.id}`).addEventListener("click", friendListObject.addToFriendsList)
                 });
             })
     }
