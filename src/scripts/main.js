@@ -21,7 +21,7 @@ let searchString = "";
 //API Object
 API = {
 	saveEvent: eventObj => {
-		return fetch("http://localhost:3000/events", {
+		return fetch("http://localhost:8088/events", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -36,16 +36,16 @@ API = {
 			console.log("search", searchString);
 		});
 		return fetch(
-			`http://localhost:3000/events/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
+			`http://localhost:8088/events/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
 		).then(response => response.json());
 	},
 	deleteEvent: eventId => {
-		return fetch(`http://localhost:3000/events/${eventId}`, {
+		return fetch(`http://localhost:8088/events/${eventId}`, {
 			method: "DELETE"
 		});
 	},
 	getEvent: eventId => {
-		return fetch(`http://localhost:3000/events/${eventId}`).then(response =>
+		return fetch(`http://localhost:8088/events/${eventId}`).then(response =>
 			response.json()
 		);
 	},
@@ -55,7 +55,7 @@ API = {
 			date: document.querySelector("#eventDate").value,
 			location: document.querySelector("#eventLocation").value
 		};
-		return fetch(`http://localhost:3000/events/${eventId}`, {
+		return fetch(`http://localhost:8088/events/${eventId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json"
