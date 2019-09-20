@@ -65,6 +65,9 @@ API = {
 			.then(res => res.json())
 			.then(() => {
 				document.querySelector("#eventId").value = "";
+				document.querySelector("#eventTitle").value = "";
+				document.querySelector("#eventDate").value = "";
+				document.querySelector("#eventLocation").value = "";
 			});
 	}
 };
