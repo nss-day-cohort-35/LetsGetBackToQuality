@@ -1,6 +1,6 @@
-/* articles css */
+/* tasks css */
 
-#articles {
+#tasks {
 	border: 1px solid red;
 	display: flex;
 	flex-direction: column;
@@ -8,7 +8,7 @@
 	align-items: center;
 }
 
-#articlesInput {
+#tasksInput {
 	border: 1px solid red;
 	display: flex;
 	flex-direction: row;
@@ -17,7 +17,7 @@
 	margin-bottom: 1em;
 }
 
-#articlesOutput {
+#tasksOutput {
 	border: 1px solid red;
 	max-width: 500px;
 	min-width: 300px;
@@ -26,15 +26,15 @@
 	background: white;
 }
 
-.myarticles:first-child,
-.friendsarticles:first-child {
+.mytasks:first-child,
+.friendstasks:first-child {
 	font-size: 1.5em;
 }
 
-.myarticles {
+.mytasks {
 	background-color: lightblue;
 }
-.friendsarticles {
+.friendstasks {
 	background-color: lightgreen;
 	font-style: italic;
 }

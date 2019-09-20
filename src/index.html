@@ -9,20 +9,21 @@
 	</head>
 
 	<body>
-		<!-- articles Section -->
-		<section id="articles">
+		<!-- tasks Section -->
+		<section id="tasks">
 			<h1></h1>
-			<div id="articlesInput">
-				<input type="date" placeholder="articleDate" id="articleDate" />
-				<input type="text" placeholder="Article Title" id="articleTitle" />
-				<input type="text" placeholder="Article Summary" id="articleSummary" />
-				<input type="text" placeholder="article Url" id="articleURL" />
-				<input style="display: none" name="" id="articleId" />
-				<button type="button" id="submitArticle">Submit article</button>
+			<div id="tasksInput">
+				<input type="date" placeholder="taskDate" id="taskCreatedDate" />
+				<input type="text" placeholder="Task Title" id="taskTitle" />
+				<input type="date" placeholder="Task Due" id="taskDueDate" />
+				<!-- <input type="checkbox" id="taskCompleted" value="false" /> -->
+				<!-- <input type="text" placeholder="task Completed" id="taskCompleted" /> -->
+				<input style="display: none" name="" id="taskId" />
+				<button type="button" id="submitTask">Submit task</button>
 			</div>
-			<article id="articlesOutput"></article>
+			<task id="tasksOutput"></task>
 		</section>
 
-		<article id="container"></article>
+		<task id="container"></task>
 	</body>
 </html>
