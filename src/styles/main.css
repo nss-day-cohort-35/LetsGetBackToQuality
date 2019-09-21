@@ -120,3 +120,33 @@
 	background-color: lightgreen;
 	font-style: italic;
 }
+
+/* dropdown accordian */
+
+.dropdown-content {
+	overflow: hidden;
+	height: 0;
+	opacity: 0;
+	transition: height 0ms 500ms, opacity 500ms 0ms;
+}
+
+.show {
+	height: auto;
+	opacity: 1;
+	transition: height 0ms 0ms, opacity 800ms 0ms;
+}
+
+.dropBtn {
+	cursor: pointer;
+}
+
+.noClick {
+	pointer-events: none;
+}
+
+#myDropdown {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
