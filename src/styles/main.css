@@ -26,10 +26,97 @@
 	background: white;
 }
 
-.mytasks {
+.myTasks:first-child,
+.friendsTasks:first-child {
+	font-size: 1.5em;
+}
+
+.myTasks {
 	background-color: lightblue;
 }
-.friendstasks {
+.friendsTasks {
+	background-color: lightgreen;
+	font-style: italic;
+}
+
+/* articles CSS */
+
+#articles {
+	border: 1px solid red;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#articlesInput {
+	border: 1px solid red;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: 1em;
+}
+
+#articlesOutput {
+	border: 1px solid red;
+	max-width: 500px;
+	min-width: 300px;
+	max-height: 500px;
+	overflow: scroll;
+	background: white;
+}
+
+.myArticles:first-child,
+.friendsArticles:first-child {
+	font-size: 1.5em;
+}
+
+.myArticles {
+	background-color: lightblue;
+}
+.friendsArticles {
+	background-color: lightgreen;
+	font-style: italic;
+}
+
+/* events css */
+
+#events {
+	border: 1px solid red;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#eventsInput {
+	border: 1px solid red;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: 1em;
+}
+
+#eventsOutput {
+	border: 1px solid red;
+	max-width: 500px;
+	min-width: 300px;
+	max-height: 500px;
+	overflow: scroll;
+	background: white;
+}
+
+.myEvents:first-child,
+.friendsEvents:first-child {
+	font-size: 1.5em;
+}
+
+.myEvents {
+	background-color: lightblue;
+}
+.friendsEvents {
 	background-color: lightgreen;
 	font-style: italic;
 }

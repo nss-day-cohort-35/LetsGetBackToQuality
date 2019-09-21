@@ -9,9 +9,11 @@
 	</head>
 
 	<body>
+		<!-- login section -->
+		<article id="container"></article>
 		<!-- tasks Section -->
 		<section id="tasks">
-			<h1></h1>
+			<h1>TASKS</h1>
 			<div id="tasksInput">
 				<input type="text" placeholder="Task Title" id="taskTitle" />
 				<input type="date" placeholder="Task Due" id="taskDueDate" />
@@ -24,9 +26,33 @@
 				<button type="button" id="unfinishedTasks">Unfinished</button>
 				<button type="button" id="finishedTasks">Finished</button>
 			</div>
-			<task id="tasksOutput"></task>
+			<article id="tasksOutput"></article>
+		</section>
+		<!-- articles Section -->
+		<section id="articles">
+			<h1>ARTICLES</h1>
+			<div id="articlesInput">
+				<input type="date" placeholder="articleDate" id="articleDate" />
+				<input type="text" placeholder="Article Title" id="articleTitle" />
+				<input type="text" placeholder="Article Summary" id="articleSummary" />
+				<input type="text" placeholder="article Url" id="articleURL" />
+				<input style="display: none" name="" id="articleId" />
+				<button type="button" id="submitArticle">Submit article</button>
+			</div>
+			<article id="articlesOutput"></article>
 		</section>
 
-		<task id="container"></task>
+		<!-- Events Section -->
+		<section id="events">
+			<h1>EVENTS</h1>
+			<div id="eventsInput">
+				<input type="date" placeholder="eventDate" id="eventDate" />
+				<input type="text" placeholder="Event Title" id="eventTitle" />
+				<input type="text" placeholder="Event location" id="eventLocation" />
+				<input style="display: none" name="" id="eventId" />
+				<button type="button" id="submitEvent">Submit Event</button>
+			</div>
+			<article id="eventsOutput"></article>
+		</section>
 	</body>
 </html>
