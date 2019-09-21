@@ -60,3 +60,23 @@ window.addEventListener("click", event => {
 		}
 	}
 });
+
+// //creating friend array
+
+const getFriends = currentUserId => {
+	return fetch(
+		`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
+	).then(response => response.json());
+};
+
+const friendArray = [];
+
+const createFriendArray = () => {
+	currentUserId = sessionStorage.getItem("userId");
+	getFriends(currentUserId).then(data => {
+		data.forEach(obj => {
+			friendArray.push(obj.userId);
+		});
+		console.log(friendArray);
+	});
+};
