@@ -4,20 +4,59 @@
     or the dashboard should be rendered.
 */
 
-import authorization from "./auth/eventListeners.js"
+import authorization from "./auth/eventListeners.js";
+import eventEvents from "./events/eventListeners.js";
+import articleEvents from "./articles/eventListeners.js";
+import taskEvents from "./tasks/eventListeners";
 
+authorization();
 
+console.log(
+	"main.js sessionStorage.userId: ",
+	sessionStorage.getItem("userId")
+);
 
-const message = "Time to build an application that gives you all the information you need in a Nutshell"
+//event event listeners
+eventEvents.getAllEvents();
+eventEvents.submitEditEvent();
+eventEvents.deleteEvent();
+eventEvents.editEvent();
 
-document.querySelector("#container").innerHTML = `<h1>${message}</h1>`
+//article event listeners
+articleEvents.getAllArticles();
+articleEvents.submitEditArticles();
+articleEvents.deleteArticle();
+articleEvents.editArticle();
 
-console.log(message)
+//task event listeners
 
+taskEvents.getAllTasks();
+taskEvents.submitEditTasks();
+taskEvents.deleteTask();
+taskEvents.editTask();
+taskEvents.taskComplete();
+taskEvents.finishedTasks();
+taskEvents.standardTasks();
 
+//dropdown sections
 
-//
-authorization()
-
-console.log("main.js sessionStorage.userId: ", sessionStorage.getItem("userId"))
-
+window.addEventListener("click", event => {
+	if (event.target.matches(".dropBtn")) {
+		//turn off when clicked if open
+		if (event.target.querySelector("#myDropdown").classList.contains("show")) {
+			event.target.querySelector("#myDropdown").classList.toggle("show");
+		} else {
+			//cycle through all dropdown elements and close anything not clicked on
+			var dropdowns = document.getElementsByClassName("dropdown-content");
+			var i;
+			for (i = 0; i < dropdowns.length; i++) {
+				var openDropdown = dropdowns[i];
+				if (openDropdown.classList.contains("show")) {
+					openDropdown.classList.remove("show");
+				}
+			}
+			//open clicked element
+			event.target.querySelector("#myDropdown").classList.toggle("show");
+		}
+	}
+});
