@@ -4,8 +4,6 @@ const currentUserId = parseInt(stringId);
 
 const currentUserFriends = [2, 3];
 
-console.log("eventpage", currentUserId);
-
 const API = {
 	saveEvent: eventObj => {
 		return fetch("http://localhost:8088/events", {
@@ -22,7 +20,6 @@ const API = {
 			searchString += `&userId=${id}`;
 			// console.log("search", searchString);
 		});
-		console.log("prefetch", currentUserId);
 		return fetch(
 			`http://localhost:8088/events/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
 		).then(response => response.json());
@@ -99,8 +96,6 @@ const DOM = {
 	}
 };
 
-//populate the event dom on first load
-
 const eventEvents = {
 	getAllEvents: () => {
 		API.getEvents().then(data => DOM.addEventsToDom(data));
@@ -108,10 +103,7 @@ const eventEvents = {
 	submitEditEvent: () => {
 		document.querySelector("#submitEvent").addEventListener("click", event => {
 			let hiddenId = document.querySelector("#eventId").value;
-			console.log("what", hiddenId);
 			if (hiddenId === "") {
-				let hiddenId = document.querySelector("#eventId").name;
-				console.log("what", hiddenId);
 				const newEvent = {
 					userId: currentUserId,
 					title: document.querySelector("#eventTitle").value,

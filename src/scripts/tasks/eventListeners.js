@@ -1,6 +1,5 @@
 //task SECTION
 
-//current user/friend array
 const stringId = sessionStorage.getItem("userId");
 
 const currentUserId = parseInt(stringId);
@@ -22,7 +21,6 @@ const API = {
 		let searchString = "";
 		currentUserFriends.forEach(id => {
 			searchString += `&userId=${id}`;
-			console.log("search", searchString);
 		});
 		return fetch(
 			`http://localhost:8088/tasks/?userId=${currentUserId}${searchString}&_sort=dueDate&_order=asc&completed=no`
@@ -32,7 +30,6 @@ const API = {
 		let searchString = "";
 		currentUserFriends.forEach(id => {
 			searchString += `&userId=${id}`;
-			console.log("search", searchString);
 		});
 		return fetch(
 			`http://localhost:8088/tasks/?userId=${currentUserId}${searchString}&_sort=dueDate&_order=asc&completed=yes`
@@ -51,9 +48,7 @@ const API = {
 	editTask: taskId => {
 		const updatedObject = {
 			title: document.querySelector("#taskTitle").value,
-
 			dueDate: document.querySelector("#taskDueDate").value
-			// completed: document.querySelector("#taskCompleted").value
 		};
 		return fetch(`http://localhost:8088/tasks/${taskId}`, {
 			method: "PATCH",
@@ -66,16 +61,13 @@ const API = {
 			.then(() => {
 				document.querySelector("#taskId").value = "";
 				document.querySelector("#taskTitle").value = "";
-
 				document.querySelector("#taskDueDate").value = "";
-				// document.querySelector("#taskCompleted").value = "";
 			});
 	},
 	completeTask: taskId => {
 		const updatedObject = {
 			completed: document.querySelector(".taskCompleted").value
 		};
-		console.log(updatedObject);
 		return fetch(`http://localhost:8088/tasks/${taskId}`, {
 			method: "PATCH",
 			headers: {
@@ -94,7 +86,6 @@ const WEB = {
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: 	<input type="checkbox" id="taskCompleted--${obj.id}" class="taskCompleted" value="yes"></p>
-                
                 <button type="button" id="edit--${obj.id}">EDIT</button>
                 <button type="button" id="delete--${obj.id}">DELETE</button>
             </div>
@@ -106,7 +97,6 @@ const WEB = {
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>
-                
             </div>
             `;
 	},
@@ -116,7 +106,6 @@ const WEB = {
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>
-                
                 <button type="button" id="delete--${obj.id}">DELETE</button>
             </div>
             `;
@@ -126,8 +115,7 @@ const WEB = {
             <div class="friendsTasks">
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
-                <p>completed?: ${obj.completed}</p>
-                
+                <p>completed?: ${obj.completed}</p>   
             </div>
             `;
 	}
@@ -161,31 +149,25 @@ const DOM = {
 
 const taskEvents = {
 	//populate the task dom on first load
-
 	getAllTasks: () => {
 		API.getTasks().then(data => DOM.addTasksToDom(data));
 	},
-
 	//task Listener for Submitting/editing
-
 	submitEditTasks: () => {
 		document.querySelector("#submitTask").addEventListener("click", event => {
 			let hiddenId = document.querySelector("#taskId").value;
 			if (hiddenId === "") {
 				let hiddenId = document.querySelector("#taskId").name;
-				console.log("what", hiddenId);
 				const newTask = {
 					userId: currentUserId,
 					title: document.querySelector("#taskTitle").value,
 					dueDate: document.querySelector("#taskDueDate").value,
-
 					completed: "no"
 				};
 				API.saveTask(newTask).then(() => {
 					API.getTasks().then(data => DOM.addTasksToDom(data));
 				});
 				document.querySelector("#taskTitle").value = "";
-
 				document.querySelector("#taskDueDate").value = "";
 				// document.querySelector("#taskCompleted").value = "";
 			} else {
@@ -195,7 +177,6 @@ const taskEvents = {
 			}
 		});
 	},
-
 	//delete task
 	deleteTask: () => {
 		document.querySelector("#tasksOutput").addEventListener("click", event => {
@@ -207,9 +188,7 @@ const taskEvents = {
 			}
 		});
 	},
-
 	//when edit task button is pressed, populate task info into form
-
 	editTask: () => {
 		document.querySelector("#tasksOutput").addEventListener("click", event => {
 			if (event.target.id.startsWith("edit--")) {
@@ -218,29 +197,23 @@ const taskEvents = {
 					document.querySelector("#taskId").value = data.id;
 					document.querySelector("#taskDueDate").value = data.dueDate;
 					document.querySelector("#taskTitle").value = data.title;
-
 					// document.querySelector("#taskCompleted").value = data.completed;
 				});
 			}
 		});
 	},
-
 	//mark task as completed, remove from standard task view
-
 	taskComplete: () => {
 		document.querySelector("#tasksOutput").addEventListener("click", event => {
 			if (event.target.id.startsWith("taskCompleted--")) {
 				const taskToEdit = event.target.id.split("--")[1];
-				console.log("taks to edit", taskToEdit);
 				API.completeTask(taskToEdit).then(data => {
 					API.getTasks().then(data => DOM.addTasksToDom(data));
 				});
 			}
 		});
 	},
-
 	//view finished tasks
-
 	finishedTasks: () => {
 		document
 			.querySelector("#finishedTasks")
@@ -248,7 +221,6 @@ const taskEvents = {
 				API.getFinishedTasks().then(data => DOM.addFinishedTasksToDom(data));
 			});
 	},
-
 	//view standard tasks
 	standardTasks: () => {
 		document

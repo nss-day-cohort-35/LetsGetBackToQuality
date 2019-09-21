@@ -21,7 +21,6 @@ const API = {
 		let searchString = "";
 		currentUserFriends.forEach(id => {
 			searchString += `&userId=${id}`;
-			console.log("search", searchString);
 		});
 		return fetch(
 			`http://localhost:8088/articles/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
@@ -103,23 +102,18 @@ const DOM = {
 	}
 };
 
-//populate the article dom on first load
-
 const articleEvents = {
+	//populate the article dom on first load
 	getAllArticles: () => {
 		API.getArticles().then(data => DOM.addArticlesToDom(data));
 	},
-
 	//article Listener for Submitting/editing
-
 	submitEditArticles: () => {
 		document
 			.querySelector("#submitArticle")
 			.addEventListener("click", event => {
 				let hiddenId = document.querySelector("#articleId").value;
 				if (hiddenId === "") {
-					let hiddenId = document.querySelector("#articleId").name;
-					console.log("what", hiddenId);
 					const newArticle = {
 						userId: currentUserId,
 						title: document.querySelector("#articleTitle").value,
@@ -141,9 +135,7 @@ const articleEvents = {
 				}
 			});
 	},
-
 	//delete article
-
 	deleteArticle: () => {
 		document
 			.querySelector("#articlesOutput")
@@ -156,9 +148,7 @@ const articleEvents = {
 				}
 			});
 	},
-
 	//when edit article button is pressed, populate article info into form
-
 	editArticle: () => {
 		document
 			.querySelector("#articlesOutput")
