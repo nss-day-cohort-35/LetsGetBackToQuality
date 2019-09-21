@@ -9,9 +9,11 @@
 	</head>
 
 	<body>
+		<!-- log in -->
+		<article id="container"></article>
 		<!-- articles Section -->
 		<section id="articles">
-			<h1></h1>
+			<h1>ARTICLES</h1>
 			<div id="articlesInput">
 				<input type="date" placeholder="articleDate" id="articleDate" />
 				<input type="text" placeholder="Article Title" id="articleTitle" />
@@ -19,10 +21,22 @@
 				<input type="text" placeholder="article Url" id="articleURL" />
 				<input style="display: none" name="" id="articleId" />
 				<button type="button" id="submitArticle">Submit article</button>
+		
+		<article id="articlesOutput"></article>
+		</section>
+		<!-- Events Section -->
+		<section id="events">
+			<h1>EVENTS</h1>
+			<div id="eventsInput">
+				<input type="date" placeholder="eventDate" id="eventDate" />
+				<input type="text" placeholder="Event Title" id="eventTitle" />
+				<input type="text" placeholder="Event location" id="eventLocation" />
+				<input style="display: none" name="" id="eventId" />
+				<button type="button" id="submitEvent">Submit Event</button>
 			</div>
-			<article id="articlesOutput"></article>
+			<article id="eventsOutput"></article>
 		</section>
 
-		<article id="container"></article>
+		
 	</body>
 </html>

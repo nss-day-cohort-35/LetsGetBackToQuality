@@ -4,12 +4,15 @@
     or the dashboard should be rendered.
 */
 
-const message =
-	"Time to build an application that gives you all the information you need in a Nutshell";
+import authorization from "./auth/eventListeners.js";
+import eventEvents from "./events/eventListeners.js";
 
-document.querySelector("#container").innerHTML = `<h1>${message}</h1>`;
+authorization();
 
-console.log(message);
+console.log(
+	"main.js sessionStorage.userId: ",
+	sessionStorage.getItem("userId")
+);
 
 //article SECTION
 
@@ -172,3 +175,10 @@ document.querySelector("#articlesOutput").addEventListener("click", event => {
 		});
 	}
 });
+//event event listeners
+eventEvents.getAllEvents();
+eventEvents.submitEditEvent();
+eventEvents.deleteEvent();
+eventEvents.editEvent();
+
+//EVENT SECTION
