@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const API = {
 	getRecord(input) {
 		let query = "";
@@ -55,6 +56,10 @@ const API = {
 		}).then(response => response.json());
 	}
 };
+=======
+import API from "../api.js"
+
+>>>>>>> master
 
 //
 let authPanel = status => {
@@ -151,12 +156,32 @@ const removeSignSection = label => {
 };
 
 //
+<<<<<<< HEAD
 const sessionStorageData = data => {
 	// Save data to sessionStorage
 	sessionStorage.setItem("username", data.username);
 	sessionStorage.setItem("password", data.password);
 	sessionStorage.setItem("userId", data.userId);
 };
+=======
+const sessionStorageData = (data) => {
+    // Save data to sessionStorage
+    sessionStorage.setItem("username", data.username);
+    sessionStorage.setItem("password", data.password);
+    sessionStorage.setItem("userId", data.userId);
+    /*
+        // Get saved data from sessionStorage
+        let data = sessionStorage.getItem('key');
+
+        // Remove saved data from sessionStorage
+        sessionStorage.removeItem('key');
+
+        // Remove all saved data from sessionStorage
+        sessionStorage.clear();
+    */
+}
+
+>>>>>>> master
 
 //
 const newSignData = (username, password, userId) => {
