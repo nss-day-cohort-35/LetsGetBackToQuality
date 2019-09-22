@@ -1,10 +1,29 @@
 //task SECTION
 
-const stringId = sessionStorage.getItem("userId");
+//create current user and friend Array
 
+//create current user ID
+const stringId = sessionStorage.getItem("userId");
 const currentUserId = parseInt(stringId);
 
-const currentUserFriends = [2, 3];
+//fetch friends
+const getFriends = currentUserId => {
+	return fetch(
+		`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
+	).then(response => response.json());
+};
+//create friends Array
+const currentUserFriends = [];
+//populate friends Array
+const createFriendArray = () => {
+	let currentUserId = sessionStorage.getItem("userId");
+	return getFriends(currentUserId).then(data => {
+		data.forEach(obj => {
+			currentUserFriends.push(obj.userId);
+		});
+		console.log(currentUserFriends);
+	});
+};
 
 //API Object
 const API = {
@@ -150,7 +169,9 @@ const DOM = {
 const taskEvents = {
 	//populate the task dom on first load
 	getAllTasks: () => {
-		API.getTasks().then(data => DOM.addTasksToDom(data));
+		createFriendArray().then(() => {
+			API.getTasks().then(data => DOM.addTasksToDom(data));
+		});
 	},
 	//task Listener for Submitting/editing
 	submitEditTasks: () => {
