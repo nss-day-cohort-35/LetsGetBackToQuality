@@ -60,5 +60,3 @@ window.addEventListener("click", event => {
 		}
 	}
 });
-
-// //creating friend array
