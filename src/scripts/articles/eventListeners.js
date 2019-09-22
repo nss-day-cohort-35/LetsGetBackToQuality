@@ -1,10 +1,27 @@
 //article SECTION
 
 const stringId = sessionStorage.getItem("userId");
-
 const currentUserId = parseInt(stringId);
+const currentUserFriends = [];
 
-const currentUserFriends = [2, 3];
+//fetch friends
+const getFriends = currentUserId => {
+	currentUserFriends.length = 0;
+	return fetch(
+		`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
+	).then(response => response.json());
+};
+
+//populate friends Array
+const createFriendArray = () => {
+	let currentUserId = sessionStorage.getItem("userId");
+	return getFriends(currentUserId).then(data => {
+		data.forEach(obj => {
+			currentUserFriends.push(obj.userId);
+		});
+		console.log(currentUserFriends);
+	});
+};
 
 //API Object
 const API = {
@@ -105,7 +122,9 @@ const DOM = {
 const articleEvents = {
 	//populate the article dom on first load
 	getAllArticles: () => {
-		API.getArticles().then(data => DOM.addArticlesToDom(data));
+		createFriendArray().then(() => {
+			API.getArticles().then(data => DOM.addArticlesToDom(data));
+		});
 	},
 	//article Listener for Submitting/editing
 	submitEditArticles: () => {
@@ -122,7 +141,9 @@ const articleEvents = {
 						summary: document.querySelector("#articleSummary").value
 					};
 					API.saveArticle(newArticle).then(() => {
-						API.getArticles().then(data => DOM.addArticlesToDom(data));
+						articleEvents
+							.getAllArticles()
+							.then(data => DOM.addArticlesToDom(data));
 					});
 					document.querySelector("#articleTitle").value = "";
 					document.querySelector("#articleDate").value = "";
@@ -130,7 +151,9 @@ const articleEvents = {
 					document.querySelector("#articleSummary").value = "";
 				} else {
 					API.editArticle(hiddenId).then(() => {
-						API.getArticles().then(data => DOM.addArticlesToDom(data));
+						articleEvents
+							.getAllArticles()
+							.then(data => DOM.addArticlesToDom(data));
 					});
 				}
 			});
@@ -143,7 +166,9 @@ const articleEvents = {
 				if (event.target.id.startsWith("delete--")) {
 					const articleToDelete = event.target.id.split("--")[1];
 					API.deleteArticle(articleToDelete).then(() => {
-						API.getArticles().then(data => DOM.addArticlesToDom(data));
+						articleEvents
+							.getAllArticles()
+							.then(data => DOM.addArticlesToDom(data));
 					});
 				}
 			});

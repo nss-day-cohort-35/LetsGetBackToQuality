@@ -1,8 +1,25 @@
 const stringId = sessionStorage.getItem("userId");
-
 const currentUserId = parseInt(stringId);
+const currentUserFriends = [];
 
-const currentUserFriends = [2, 3];
+//fetch friends
+const getFriends = currentUserId => {
+	currentUserFriends.length = 0;
+	return fetch(
+		`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
+	).then(response => response.json());
+};
+
+//populate friends Array
+const createFriendArray = () => {
+	let currentUserId = sessionStorage.getItem("userId");
+	return getFriends(currentUserId).then(data => {
+		data.forEach(obj => {
+			currentUserFriends.push(obj.userId);
+		});
+		console.log(currentUserFriends);
+	});
+};
 
 const API = {
 	saveEvent: eventObj => {
@@ -98,7 +115,9 @@ const DOM = {
 
 const eventEvents = {
 	getAllEvents: () => {
-		API.getEvents().then(data => DOM.addEventsToDom(data));
+		createFriendArray().then(() => {
+			API.getEvents().then(data => DOM.addEventsToDom(data));
+		});
 	},
 	submitEditEvent: () => {
 		document.querySelector("#submitEvent").addEventListener("click", event => {
@@ -111,14 +130,14 @@ const eventEvents = {
 					location: document.querySelector("#eventLocation").value
 				};
 				API.saveEvent(newEvent).then(() => {
-					API.getEvents().then(data => DOM.addEventsToDom(data));
+					eventEvents.getAllEvents().then(data => DOM.addEventsToDom(data));
 				});
 				document.querySelector("#eventTitle").value = "";
 				document.querySelector("#eventDate").value = "";
 				document.querySelector("#eventLocation").value = "";
 			} else {
 				API.editEvent(hiddenId).then(() => {
-					API.getEvents().then(data => DOM.addEventsToDom(data));
+					eventEvents.getAllEvents().then(data => DOM.addEventsToDom(data));
 				});
 			}
 		});
@@ -128,7 +147,7 @@ const eventEvents = {
 			if (event.target.id.startsWith("delete--")) {
 				const eventToDelete = event.target.id.split("--")[1];
 				API.deleteEvent(eventToDelete).then(() => {
-					API.getEvents().then(data => DOM.addEventsToDom(data));
+					eventEvents.getAllEvents().then(data => DOM.addEventsToDom(data));
 				});
 			}
 		});

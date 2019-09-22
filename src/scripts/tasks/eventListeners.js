@@ -5,15 +5,16 @@
 //create current user ID
 const stringId = sessionStorage.getItem("userId");
 const currentUserId = parseInt(stringId);
+const currentUserFriends = [];
 
 //fetch friends
 const getFriends = currentUserId => {
+	currentUserFriends.length = 0;
 	return fetch(
 		`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
 	).then(response => response.json());
 };
-//create friends Array
-const currentUserFriends = [];
+
 //populate friends Array
 const createFriendArray = () => {
 	let currentUserId = sessionStorage.getItem("userId");
@@ -186,14 +187,14 @@ const taskEvents = {
 					completed: "no"
 				};
 				API.saveTask(newTask).then(() => {
-					API.getTasks().then(data => DOM.addTasksToDom(data));
+					taskEvents.getAllTasks().then(data => DOM.addTasksToDom(data));
 				});
 				document.querySelector("#taskTitle").value = "";
 				document.querySelector("#taskDueDate").value = "";
 				// document.querySelector("#taskCompleted").value = "";
 			} else {
 				API.editTask(hiddenId).then(() => {
-					API.getTasks().then(data => DOM.addTasksToDom(data));
+					taskEvents.getAllTasks().then(data => DOM.addTasksToDom(data));
 				});
 			}
 		});
@@ -204,7 +205,7 @@ const taskEvents = {
 			if (event.target.id.startsWith("delete--")) {
 				const taskToDelete = event.target.id.split("--")[1];
 				API.deleteTask(taskToDelete).then(() => {
-					API.getTasks().then(data => DOM.addTasksToDom(data));
+					taskEvents.getAllTasks().then(data => DOM.addTasksToDom(data));
 				});
 			}
 		});
@@ -229,7 +230,7 @@ const taskEvents = {
 			if (event.target.id.startsWith("taskCompleted--")) {
 				const taskToEdit = event.target.id.split("--")[1];
 				API.completeTask(taskToEdit).then(data => {
-					API.getTasks().then(data => DOM.addTasksToDom(data));
+					taskEvents.getAllTasks().then(data => DOM.addTasksToDom(data));
 				});
 			}
 		});
@@ -247,7 +248,7 @@ const taskEvents = {
 		document
 			.querySelector("#unfinishedTasks")
 			.addEventListener("click", event => {
-				API.getTasks().then(data => DOM.addTasksToDom(data));
+				taskEvents.getallTasks().then(data => DOM.addTasksToDom(data));
 			});
 	}
 };
