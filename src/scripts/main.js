@@ -10,6 +10,35 @@ import taskEvents from "./tasks/eventListeners";
     or the dashboard should be rendered.
 */
 
+authorization();
+
+console.log(
+	"main.js sessionStorage.userId: ",
+	sessionStorage.getItem("userId")
+);
+
+//event event listeners
+eventEvents.getAllEvents();
+eventEvents.submitEditEvent();
+eventEvents.deleteEvent();
+eventEvents.editEvent();
+
+//article event listeners
+articleEvents.getAllArticles();
+articleEvents.submitEditArticles();
+articleEvents.deleteArticle();
+articleEvents.editArticle();
+
+//task event listeners
+
+taskEvents.getAllTasks();
+taskEvents.submitEditTasks();
+taskEvents.deleteTask();
+taskEvents.editTask();
+taskEvents.taskComplete();
+taskEvents.finishedTasks();
+taskEvents.standardTasks();
+
 //Friends List Object
 //****************************
 
@@ -98,19 +127,21 @@ const chatObject = {
                         document.querySelector("#chat-room").innerHTML += // Add the edit button with the DOM
                             `
                         <div id = "message-${element.id}" class = "message">
-                        <span id = "userId-${element.userId}">${element.user.userName}::</span>
+                        <span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
                         <span id = "date-${element.id}">${element.date}:</span>
                         <p id = "innermessage-${element.userId}">${element.message}</p>
                         <button id = "edit-${element.Id}">Edit</button>
+                        </div>
                     `
                     }
                     else {
                         document.querySelector("#chat-room").innerHTML +=
                             `
                             <div id = "message-${element.id}" class = "message">
-                            <span id = "userId-${element.userId}">${element.user.userName}::</span>
+                            <span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
                             <span id = "date-${element.id}">${element.date}:</span>
                             <p id = "innermessage-${element.id}">${element.message}</p>
+                            </div>
                         `
                     }
                 })
@@ -119,7 +150,7 @@ const chatObject = {
             .then(parsedData => {
                 console.log(parsedData);
                 parsedData.forEach(element => {
-                    document.querySelector(`#userId-${element.id}`).addEventListener("click", friendListObject.addToFriendsList)
+                    document.querySelector(`#message-${element.id} > .message-name`).addEventListener("click", friendListObject.addToFriendsList)
                 });
             })
     }
@@ -144,35 +175,7 @@ chatObject.returnFriendArray(1)
         });
     });
 
-
-authorization();
-
-console.log(
-	"main.js sessionStorage.userId: ",
-	sessionStorage.getItem("userId")
-);
-
-//event event listeners
-eventEvents.getAllEvents();
-eventEvents.submitEditEvent();
-eventEvents.deleteEvent();
-eventEvents.editEvent();
-
-//article event listeners
-articleEvents.getAllArticles();
-articleEvents.submitEditArticles();
-articleEvents.deleteArticle();
-articleEvents.editArticle();
-
-//task event listeners
-
-taskEvents.getAllTasks();
-taskEvents.submitEditTasks();
-taskEvents.deleteTask();
-taskEvents.editTask();
-taskEvents.taskComplete();
-taskEvents.finishedTasks();
-taskEvents.standardTasks();
+//End of James's stuff-----------------------------
 
 //dropdown sections
 
