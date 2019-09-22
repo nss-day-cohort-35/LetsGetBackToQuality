@@ -1,8 +1,6 @@
 const stringId = sessionStorage.getItem("userId");
-
 const currentUserId = parseInt(stringId);
-
-const currentUserFriends = [2, 3];
+const currentUserFriends = [];
 
 const API = {
 	saveEvent: eventObj => {
@@ -15,14 +13,21 @@ const API = {
 		});
 	},
 	getEvents: () => {
-		let searchString = "";
-		currentUserFriends.forEach(id => {
-			searchString += `&userId=${id}`;
-			// console.log("search", searchString);
-		});
-		return fetch(
-			`http://localhost:8088/events/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
-		).then(response => response.json());
+		return API.getFriends(currentUserId)
+			.then(data => {
+				data.forEach(obj => {
+					currentUserFriends.push(obj.userId);
+				});
+			})
+			.then(() => {
+				let searchString = "";
+				currentUserFriends.forEach(id => {
+					searchString += `&userId=${id}`;
+				});
+				return fetch(
+					`http://localhost:8088/events/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
+				).then(response => response.json());
+			});
 	},
 	deleteEvent: eventId => {
 		return fetch(`http://localhost:8088/events/${eventId}`, {
@@ -54,6 +59,12 @@ const API = {
 				document.querySelector("#eventDate").value = "";
 				document.querySelector("#eventLocation").value = "";
 			});
+	},
+	getFriends: currentUserId => {
+		currentUserFriends.length = 0;
+		return fetch(
+			`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
+		).then(response => response.json());
 	}
 };
 
@@ -99,6 +110,17 @@ const DOM = {
 const eventEvents = {
 	getAllEvents: () => {
 		API.getEvents().then(data => DOM.addEventsToDom(data));
+	},
+	generateEventsOnClick: () => {
+		window.addEventListener("click", event => {
+			if (
+				event.target.id === "events" &&
+				event.target.classList.contains("dropBtn")
+			) {
+				console.log("you clicked events");
+				API.getEvents().then(data => DOM.addEventsToDom(data));
+			}
+		});
 	},
 	submitEditEvent: () => {
 		document.querySelector("#submitEvent").addEventListener("click", event => {
