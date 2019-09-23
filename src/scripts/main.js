@@ -14,8 +14,8 @@ import messageEvents from "./messages/eventListeners"
 authorization();
 
 console.log(
-	"main.js sessionStorage.userId: ",
-	sessionStorage.getItem("userId")
+    "main.js sessionStorage.userId: ",
+    sessionStorage.getItem("userId")
 );
 
 //event event listeners
@@ -91,7 +91,6 @@ const friendListObject = {
             .then(data => {
                 const buttonList = document.querySelectorAll(".deleteButton")
                 buttonList.forEach(element => {
-                    console.log(element.id)
                     element.addEventListener("click", friendEvents.friendDelete)
                 });
             })
@@ -130,7 +129,7 @@ const chatObject = {
                 parsedData.forEach(element => {
                     if (mainUserNum === element.userId) { //If the userID matches the user's post...
                         document.querySelector("#chat-room").innerHTML += // Add the edit button with the DOM
-                    `
+                            `
                         <div id = "message-${element.id}" class = "message">
                         <span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
                         <span id = "date-${element.id}" class = "message-date">${element.date}:</span>
@@ -157,7 +156,6 @@ const chatObject = {
                     document.querySelector(`#message-${element.id} > .message-name`).addEventListener("click", friendListObject.addToFriendsList)
                 });
                 const listOfEditButtons = document.querySelectorAll(".edit-button");
-                console.log(listOfEditButtons)
                 listOfEditButtons.forEach(element => {
                     element.addEventListener("click", messageEvents.setEdit)
                 });
@@ -166,27 +164,32 @@ const chatObject = {
 }
 
 //Assign Submit button
-document.querySelector("#submitChat").addEventListener("click", function() {
+document.querySelector("#submitChat").addEventListener("click", function () {
     if (document.querySelector("#message-box").value === "") {
         alert("Please enter something.");
     }
 
-    else if (document.querySelector("#message-number").value !== 0){
-        messageEvents.putEdit(1)
-        .then(data =>{
-            document.querySelector("#message-number").value = "0";
-        document.querySelector("#edit-message").innerText = ""
-        document.querySelector("#submitChat").innerHTML = "Submit"
-        document.querySelector("#message-box").value = ""
-        chatObject.returnMessagesArray(data, 1)
-        })
-    }
+    else {
 
-    else{
-    messageEvents.addChat(1)
-    .then(data => {chatObject.returnMessagesArray(data, 1)})
+        if (document.querySelector("#message-number").value === "0") {
+            messageEvents.addChat(1)
+                .then(data => { chatObject.returnMessagesArray(data, 1) })
+        }
+        else {
+            console.log(document.querySelector("#message-number").value)
+            messageEvents.putEdit(1)
+                .then(data => {
+                    document.querySelector("#message-number").value = "0"
+                    document.querySelector("#edit-message").innerText = ""
+                    document.querySelector("#submitChat").innerHTML = "Submit"
+                    document.querySelector("#message-box").value = ""
+                    chatObject.returnMessagesArray(data, 1)
+
+                })
+        }
     }
 })
+
 
 
 //Populates the chatlog and friend list
@@ -212,22 +215,24 @@ chatObject.returnFriendArray(1)
 //dropdown sections
 
 window.addEventListener("click", event => {
-	if (event.target.matches(".dropBtn")) {
-		//turn off when clicked if open
-		if (event.target.querySelector("#myDropdown").classList.contains("show")) {
-			event.target.querySelector("#myDropdown").classList.toggle("show");
-		} else {
-			//cycle through all dropdown elements and close anything not clicked on
-			var dropdowns = document.getElementsByClassName("dropdown-content");
-			var i;
-			for (i = 0; i < dropdowns.length; i++) {
-				var openDropdown = dropdowns[i];
-				if (openDropdown.classList.contains("show")) {
-					openDropdown.classList.remove("show");
-				}
-			}
-			//open clicked element
-			event.target.querySelector("#myDropdown").classList.toggle("show");
-		}
-	}
-});
+    if (event.target.matches(".dropBtn")) {
+        //turn off when clicked if open
+        if (event.target.querySelector("#myDropdown").classList.contains("show")) {
+            event.target.querySelector("#myDropdown").classList.toggle("show");
+        }
+        else {
+            //cycle through all dropdown elements and close anything not clicked on
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+            }
+            if (openDropdown.classList.contains("show")) {
+                openDropdown.classList.remove("show");
+            }
+        }
+        //open clicked element
+        event.target.querySelector("#myDropdown").classList.toggle("show");
+    }
+})
+

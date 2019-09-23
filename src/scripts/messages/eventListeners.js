@@ -35,8 +35,6 @@ const messageEventListener = {
 
     setEdit: function(event){
         const splitID = event.target.id.split("-");
-        console.log(document.querySelector("#message-number").value)
-        console.log(splitID[1])
         document.querySelector("#message-number").value = splitID[1];
         document.querySelector("#edit-message").innerText = `${document.querySelector(`#message-${splitID[1]} .message-name`).innerText}:${document.querySelector(`#message-${splitID[1]} .message-date`).innerText}`
         document.querySelector("#submitChat").innerHTML = "Edit"
