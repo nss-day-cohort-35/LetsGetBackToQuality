@@ -10,15 +10,21 @@ const friendEvents = {
         })
     },
     friendSearch: function (event) {
-        document.querySelector("#search-friend-box").value
-        fetch(`http://localhost:8088/users?userName_like=${userIDDelete[1]}`)
+        console.log(document.querySelector("#search-friend-box").value)
+        fetch(`http://localhost:8088/users?userName_like=${document.querySelector("#search-friend-box").value}`)
             .then(data => data.json)
             .then(parsedData => {
                 if (Object.keys(parsedData).length === 0) {
-                    document.querySelector("#friends-list").innerHTML +=
-                    `
+                    document.querySelector("#search-results").innerHTML +=
+                        `
                     <p>No friends found.</p>
                     `
+                }
+                else {
+                    `<div id = "friendSearchCell-${element.id}" class = "friendCell"> 
+                    <p>${element.userName}</p>
+                    <button id = "addFriend-${element.id}" class = "addButton">Add</button>
+                    </div>`
                 }
             })
     },

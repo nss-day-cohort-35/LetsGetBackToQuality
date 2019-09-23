@@ -46,8 +46,7 @@ taskEvents.standardTasks();
 //**********************
 
 const chatObject = {
-
-    returnMessagesArray: function (fetchedArray, mainUserNum) { //Returns the friend array and ID of current user
+  returnMessagesArray: function (fetchedArray, mainUserNum) { //Returns the friend array and ID of current user
         //Populates the fetch string with multiple querys.
         document.querySelector("#chat-room").innerHTML = ""
         let fetchString = "http://localhost:8088/messages?_expand=user&_sort=date&_order=asc"
@@ -125,7 +124,7 @@ document.querySelector("#submitChat").addEventListener("click", function () {
 //****************************
 
 var friendArray = []
-
+document.querySelector("#submitSearch").addEventListener("click", friendEvents.friendSearch)
 friendEvents.returnFriendArray(1)
     .then(data => {
         friendArray = data;
