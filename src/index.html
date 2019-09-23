@@ -65,21 +65,36 @@
 	<form>
 		<input hidden id="message-number" value="0">
 		<label for="messageBox">Input:</label>
-		<span id = edit-message></span>
+		<span id=edit-message></span>
 		<input type="text" name="messageBox" id="message-box">
 		<button type="button" id="submitChat">Submit</button>
 	</form>
 	<article id="chatroom-container">
-
 		<div id=chat-room>
 
 		</div>
 
-		<aside id=friends-list>
+		<aside id="friends-container">
+			<div id="friend-search-container">
+
+				<label for="searchBox">Search for friends:</label>
+				<input type="text" name="searchBox" id="search-friend-box">
+				<button type="button" id="submitSearch">Submit</button>
+
+				<div id="search-results">
+
+				</div>
+
+			</div>
+
+			<div id="friends-list">
+
+			</div>
+
 
 		</aside>
-
 	</article>
+
 </body>
 
 </html>
