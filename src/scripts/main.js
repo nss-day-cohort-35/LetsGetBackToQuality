@@ -3,6 +3,7 @@ import authorization from "./auth/eventListeners.js";
 import eventEvents from "./events/eventListeners.js";
 import articleEvents from "./articles/eventListeners.js";
 import taskEvents from "./tasks/eventListeners";
+import messageEvents from "./messages/eventListeners"
 
 /*
     Import all the tools into main.js that are needed to display
@@ -97,6 +98,11 @@ const friendListObject = {
 
 //JM-Chatlog
 //**********************
+
+//Assign Submit button
+
+
+
 const chatObject = {
     returnFriendArray: function (mainUserNum) { //Load function with the current user id
         return fetch("http://localhost:8088/friends/?friendInitiate=1&_expand=user") //Fetch the friends of the user
