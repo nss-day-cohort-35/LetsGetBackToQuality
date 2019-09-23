@@ -1,10 +1,8 @@
 //article SECTION
 
 const stringId = sessionStorage.getItem("userId");
-
 const currentUserId = parseInt(stringId);
-
-const currentUserFriends = [2, 3];
+const currentUserFriends = [];
 
 //API Object
 const API = {
@@ -18,13 +16,21 @@ const API = {
 		});
 	},
 	getArticles: () => {
-		let searchString = "";
-		currentUserFriends.forEach(id => {
-			searchString += `&userId=${id}`;
-		});
-		return fetch(
-			`http://localhost:8088/articles/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
-		).then(response => response.json());
+		return API.getFriends(currentUserId)
+			.then(data => {
+				data.forEach(obj => {
+					currentUserFriends.push(obj.userId);
+				});
+			})
+			.then(() => {
+				let searchString = "";
+				currentUserFriends.forEach(id => {
+					searchString += `&userId=${id}`;
+				});
+				return fetch(
+					`http://localhost:8088/articles/?userId=${currentUserId}${searchString}&_sort=date&_order=asc`
+				).then(response => response.json());
+			});
 	},
 	deleteArticle: articleId => {
 		return fetch(`http://localhost:8088/articles/${articleId}`, {
@@ -58,6 +64,12 @@ const API = {
 				document.querySelector("#articleURL").value = "";
 				document.querySelector("#articleSummary").value = "";
 			});
+	},
+	getFriends: currentUserId => {
+		currentUserFriends.length = 0;
+		return fetch(
+			`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
+		).then(response => response.json());
 	}
 };
 
@@ -106,6 +118,17 @@ const articleEvents = {
 	//populate the article dom on first load
 	getAllArticles: () => {
 		API.getArticles().then(data => DOM.addArticlesToDom(data));
+	},
+	generateArticlesOnClick: () => {
+		window.addEventListener("click", event => {
+			if (
+				event.target.id === "articles" &&
+				event.target.classList.contains("dropBtn")
+			) {
+				console.log("you clicked articles");
+				API.getArticles().then(data => DOM.addArticlesToDom(data));
+			}
+		});
 	},
 	//article Listener for Submitting/editing
 	submitEditArticles: () => {
