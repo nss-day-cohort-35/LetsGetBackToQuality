@@ -31,6 +31,32 @@ const messageEventListener = {
             body: JSON.stringify(addedChat)
         })
         .then(data => data.json())
+    },
+
+    setEdit: function(event){
+        const splitID = event.target.id.split("-");
+        console.log(document.querySelector("#message-number").value)
+        console.log(splitID[1])
+        document.querySelector("#message-number").value = splitID[1];
+        document.querySelector("#edit-message").innerText = `${document.querySelector(`#message-${splitID[1]} .message-name`).innerText}:${document.querySelector(`#message-${splitID[1]} .message-date`).innerText}`
+        document.querySelector("#submitChat").innerHTML = "Edit"
+        document.querySelector("#message-box").value = document.querySelector(`#message-${splitID[1]} .message-value`).innerText
+    },
+
+    putEdit: function(userIdNum){
+        const editedChat = {
+            userId: userIdNum,
+            date: document.querySelector(`#message-${document.querySelector("#message-number").value} .message-date`).innerText,
+            message: document.querySelector("#message-box").value
+        }
+
+        return fetch(`http://localhost:8088/messages/${document.querySelector("#message-number").value}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(editedChat)
+        })
     }
 }
 

@@ -130,12 +130,12 @@ const chatObject = {
                 parsedData.forEach(element => {
                     if (mainUserNum === element.userId) { //If the userID matches the user's post...
                         document.querySelector("#chat-room").innerHTML += // Add the edit button with the DOM
-                            `
+                    `
                         <div id = "message-${element.id}" class = "message">
                         <span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
-                        <span id = "date-${element.id}">${element.date}:</span>
-                        <p id = "innermessage-${element.userId}">${element.message}</p>
-                        <button id = "edit-${element.Id}">Edit</button>
+                        <span id = "date-${element.id}" class = "message-date">${element.date}:</span>
+                        <p id = "innermessage-${element.userId}" class = "message-value">${element.message}</p>
+                        <button id = "edit-${element.id}" class = "edit-button">Edit</button>
                         </div>
                     `
                     }
@@ -144,8 +144,8 @@ const chatObject = {
                             `
                             <div id = "message-${element.id}" class = "message">
                             <span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
-                            <span id = "date-${element.id}">${element.date}:</span>
-                            <p id = "innermessage-${element.id}">${element.message}</p>
+                            <span id = "date-${element.id}" class = "message-date">${element.date}:</span>
+                            <p id = "innermessage-${element.id}" class = "message-value">${element.message}</p>
                             </div>
                         `
                     }
@@ -153,9 +153,13 @@ const chatObject = {
                 return parsedData
             })
             .then(parsedData => {
-                console.log(parsedData);
                 parsedData.forEach(element => {
                     document.querySelector(`#message-${element.id} > .message-name`).addEventListener("click", friendListObject.addToFriendsList)
+                });
+                const listOfEditButtons = document.querySelectorAll(".edit-button");
+                console.log(listOfEditButtons)
+                listOfEditButtons.forEach(element => {
+                    element.addEventListener("click", messageEvents.setEdit)
                 });
             })
     }
@@ -166,6 +170,18 @@ document.querySelector("#submitChat").addEventListener("click", function() {
     if (document.querySelector("#message-box").value === "") {
         alert("Please enter something.");
     }
+
+    else if (document.querySelector("#message-number").value !== 0){
+        messageEvents.putEdit(1)
+        .then(data =>{
+            document.querySelector("#message-number").value = "0";
+        document.querySelector("#edit-message").innerText = ""
+        document.querySelector("#submitChat").innerHTML = "Submit"
+        document.querySelector("#message-box").value = ""
+        chatObject.returnMessagesArray(data, 1)
+        })
+    }
+
     else{
     messageEvents.addChat(1)
     .then(data => {chatObject.returnMessagesArray(data, 1)})
