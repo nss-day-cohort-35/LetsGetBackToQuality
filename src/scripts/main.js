@@ -101,10 +101,6 @@ const friendListObject = {
 //JM-Chatlog
 //**********************
 
-//Assign Submit button
-
-
-
 const chatObject = {
     returnFriendArray: function (mainUserNum) { //Load function with the current user id
         return fetch("http://localhost:8088/friends/?friendInitiate=1&_expand=user") //Fetch the friends of the user
@@ -125,6 +121,7 @@ const chatObject = {
 
     returnMessagesArray: function (fetchedArray, mainUserNum) { //Returns the friend array and ID of current user
         //Populates the fetch string with multiple querys.
+        document.querySelector("#chat-room").innerHTML = ""
         let fetchString = "http://localhost:8088/messages?_expand=user&_sort=date&_order=asc"
         return fetch(fetchString)
             .then(data => data.json())
@@ -163,6 +160,17 @@ const chatObject = {
             })
     }
 }
+
+//Assign Submit button
+document.querySelector("#submitChat").addEventListener("click", function() {
+    if (document.querySelector("#message-box").value === "") {
+        alert("Please enter something.");
+    }
+    else{
+    messageEvents.addChat(1)
+    .then(data => {chatObject.returnMessagesArray(data, 1)})
+    }
+})
 
 
 //Populates the chatlog and friend list
