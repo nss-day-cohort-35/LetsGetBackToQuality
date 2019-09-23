@@ -1,10 +1,8 @@
 //task SECTION
 
 const stringId = sessionStorage.getItem("userId");
-
 const currentUserId = parseInt(stringId);
-
-const currentUserFriends = [2, 3];
+const currentUserFriends = [];
 
 //API Object
 const API = {
@@ -18,13 +16,21 @@ const API = {
 		});
 	},
 	getTasks: () => {
-		let searchString = "";
-		currentUserFriends.forEach(id => {
-			searchString += `&userId=${id}`;
-		});
-		return fetch(
-			`http://localhost:8088/tasks/?userId=${currentUserId}${searchString}&_sort=dueDate&_order=asc&completed=no`
-		).then(response => response.json());
+		return API.getFriends(currentUserId)
+			.then(data => {
+				data.forEach(obj => {
+					currentUserFriends.push(obj.userId);
+				});
+			})
+			.then(() => {
+				let searchString = "";
+				currentUserFriends.forEach(id => {
+					searchString += `&userId=${id}`;
+				});
+				return fetch(
+					`http://localhost:8088/tasks/?userId=${currentUserId}${searchString}&_sort=dueDate&_order=asc&completed=no`
+				).then(response => response.json());
+			});
 	},
 	getFinishedTasks: () => {
 		let searchString = "";
@@ -75,6 +81,12 @@ const API = {
 			},
 			body: JSON.stringify(updatedObject)
 		}).then(res => res.json());
+	},
+	getFriends: currentUserId => {
+		currentUserFriends.length = 0;
+		return fetch(
+			`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
+		).then(response => response.json());
 	}
 };
 
@@ -151,6 +163,17 @@ const taskEvents = {
 	//populate the task dom on first load
 	getAllTasks: () => {
 		API.getTasks().then(data => DOM.addTasksToDom(data));
+	},
+	generateTasksOnClick: () => {
+		window.addEventListener("click", event => {
+			if (
+				event.target.id === "tasks" &&
+				event.target.classList.contains("dropBtn")
+			) {
+				console.log("you clicked tasks");
+				API.getTasks().then(data => DOM.addTasksToDom(data));
+			}
+		});
 	},
 	//task Listener for Submitting/editing
 	submitEditTasks: () => {
