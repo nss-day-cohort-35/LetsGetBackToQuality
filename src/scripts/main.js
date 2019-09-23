@@ -19,20 +19,22 @@ console.log(
 );
 
 //event event listeners
-eventEvents.getAllEvents();
+
+eventEvents.generateEventsOnClick();
 eventEvents.submitEditEvent();
 eventEvents.deleteEvent();
 eventEvents.editEvent();
 
 //article event listeners
-articleEvents.getAllArticles();
+articleEvents.generateArticlesOnClick();
+
 articleEvents.submitEditArticles();
 articleEvents.deleteArticle();
 articleEvents.editArticle();
 
 //task event listeners
 
-taskEvents.getAllTasks();
+taskEvents.generateTasksOnClick();
 taskEvents.submitEditTasks();
 taskEvents.deleteTask();
 taskEvents.editTask();
