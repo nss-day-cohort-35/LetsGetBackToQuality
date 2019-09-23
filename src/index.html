@@ -63,9 +63,11 @@
 	</section>
 	<!--Chat Section-->
 	<form>
+		<input hidden id="message-number" value="0">
 		<label for="messageBox">Input:</label>
-		<input type="text" name="messageBox" id="message-box" autocomplete="Type new chat message here.">
-		<button type="submit" id="">Submit</button>
+		<span id = edit-message></span>
+		<input type="text" name="messageBox" id="message-box">
+		<button type="button" id="submitChat">Submit</button>
 	</form>
 	<article id="chatroom-container">
 
