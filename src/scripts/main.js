@@ -142,26 +142,24 @@ friendEvents.returnFriendArray(1)
 //End of James's stuff-----------------------------
 
 //dropdown sections
-
 window.addEventListener("click", event => {
     if (event.target.matches(".dropBtn")) {
         //turn off when clicked if open
         if (event.target.querySelector("#myDropdown").classList.contains("show")) {
             event.target.querySelector("#myDropdown").classList.toggle("show");
-        }
-        else {
+        } else {
             //cycle through all dropdown elements and close anything not clicked on
             var dropdowns = document.getElementsByClassName("dropdown-content");
             var i;
             for (i = 0; i < dropdowns.length; i++) {
                 var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains("show")) {
+                    openDropdown.classList.remove("show");
+                }
             }
-            if (openDropdown.classList.contains("show")) {
-                openDropdown.classList.remove("show");
-            }
+            //open clicked element
+            event.target.querySelector("#myDropdown").classList.toggle("show");
         }
-        //open clicked element
-        event.target.querySelector("#myDropdown").classList.toggle("show");
     }
-})
+});
 
