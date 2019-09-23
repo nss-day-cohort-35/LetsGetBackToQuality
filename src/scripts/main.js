@@ -59,7 +59,7 @@ const friendListObject = {
     addToFriendsList: function (event) {
         const userIDAdded = event.target.id.split("-");
         const addedFriend = {
-            userId: userIDAdded[1],
+            userId: parseInt(userIDAdded[1]),
             friendInitiate: 1
         }
 
