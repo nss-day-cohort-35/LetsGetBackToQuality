@@ -60,12 +60,12 @@ let addSignUp = () => {
 
         <fieldset class="signup__fieldset">
             <label class="input">New password:</label>
-            <input class="input" type="text" id="signup-password" placeholder="new password">
+            <input class="input" type="password" id="signup-password" placeholder="new password">
         </fieldset>
 
         <fieldset class="signup__fieldset">
             <label class="input">New password confirmation:</label>
-            <input class="input" type="text" id="signup-password-confirm" placeholder="new password">
+            <input class="input" type="password" id="signup-password-confirm" placeholder="new password">
         </fieldset>
 
         <fieldset class="signup__fieldset">
