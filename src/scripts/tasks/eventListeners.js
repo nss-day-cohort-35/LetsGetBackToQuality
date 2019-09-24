@@ -94,22 +94,32 @@ const API = {
 const WEB = {
 	myTaskHTML: obj => {
 		return `
-            <div class="myTasks">
-                <h5>${obj.title}<h5>
-                <p>Due Date: ${obj.dueDate} </p>
-                <p>completed?: 	<input type="checkbox" id="taskCompleted--${obj.id}" class="taskCompleted" value="yes"></p>
-                <button type="button" id="edit--${obj.id}">EDIT</button>
-                <button type="button" id="delete--${obj.id}">DELETE</button>
-            </div>
+			<div class="taskContainer">
+				<div class="userImage">
+					<img class="profileImg" src="/src/images/users/${obj.userId}.png">
+				</div>
+				<div class="myTasks">
+					<h5>${obj.title}<h5>
+					<p>Due Date: ${obj.dueDate} </p>
+					<p>completed?: 	<input type="checkbox" id="taskCompleted--${obj.id}" class="taskCompleted" value="yes"></p>
+					<button type="button" id="edit--${obj.id}">EDIT</button>
+					<button type="button" id="delete--${obj.id}">DELETE</button>
+				</div>
+			</div>
             `;
 	},
 	friendTaskHTML: obj => {
 		return `
-            <div class="friendsTasks">
-                <h5>${obj.title}<h5>
-                <p>Due Date: ${obj.dueDate} </p>
-                <p>completed?: ${obj.completed}</p>
-            </div>
+			<div class="friendsTaskContainer">
+				<div class="friendsTasks">
+					<h5>${obj.title}<h5>
+					<p>Due Date: ${obj.dueDate} </p>
+					<p>completed?: ${obj.completed}</p>
+				</div>
+				<div class="userImage">
+						<img class="profileImg" src="/src/images/users/${obj.userId}.png">
+				</div>
+			</div>
             `;
 	},
 	myFinishedTaskHTML: obj => {

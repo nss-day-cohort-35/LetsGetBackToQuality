@@ -50,8 +50,10 @@ const friendListObject = {
 		const friendListElement = document.querySelector("#friends-list");
 		friendArray.forEach(element => {
 			friendListElement.innerHTML += `
+			
             <div id = "friendCell-${element.id}" class = "friendCell"> 
-                <p>${element.userName}</p>
+				<p>${element.userName}</p>
+				<img class="friendListImg" src="/src/images/users/${element.id}.png">
                 <button id = "delete-${element.id}" class = "deleteButton">Remove Friend</button>
             </div>
             `;
@@ -80,10 +82,13 @@ const friendListObject = {
 					.then(parsedFriend => {
 						const friendListElement = document.querySelector("#friends-list");
 						friendListElement.innerHTML += `
-            <div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
-                <p>${parsedFriend[0].user.userName}</p>
-                <button id = "delete-${parsedFriend[0].id}" class = "deleteButton">Remove Friend</button>
-            </div>
+						<div class="friendEl">
+							<img class="profileImg" src="/src/images/users/${parsedFriend[0].id}.png">
+							<div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
+								<p>${parsedFriend[0].user.userName}</p>
+								<button id = "delete-${parsedFriend[0].id}" class = "deleteButton">Remove Friend</button>
+							</div>
+						</div>
             `;
 						return parsedFriend;
 					});
@@ -136,20 +141,32 @@ const chatObject = {
 						document.querySelector("#chat-room").innerHTML +=
 							// Add the edit button with the DOM
 							`
-                        <div id = "message-${element.id}" class = "message">
-                        <span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
-                        <span id = "date-${element.id}" class = "message-date">${element.date}:</span>
-                        <p id = "innermessage-${element.userId}" class = "message-value">${element.message}</p>
-                        <button id = "edit-${element.id}" class = "edit-button">Edit</button>
-                        </div>
+						<div class="myChatContainer">
+							<img class="chatImg" src="/src/images/users/${element.userId}.png">
+							<div id = "message-${element.id}" class = "message myMsg">
+								<div class="arrow-left"></div>
+								<span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
+								<span id = "date-${element.id}" class = "message-date">${element.date}:</span>
+								<p id = "innermessage-${element.userId}" class = "message-value">${element.message}</p>
+								<button id = "edit-${element.id}" class = "edit-button">Edit</button>
+							</div>
+						</div>
                     `;
 					} else {
 						document.querySelector("#chat-room").innerHTML += `
-                            <div id = "message-${element.id}" class = "message">
-                            <span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
-                            <span id = "date-${element.id}" class = "message-date">${element.date}:</span>
-                            <p id = "innermessage-${element.id}" class = "message-value">${element.message}</p>
-                            </div>
+						<div class="friendChatContainer">
+								
+							<div id = "message-${element.id}" class = "message friendMsg">
+								<svg class="arrow-right" viewbox="0 0 50 50" height="20px">
+									<path d="M1 50 V10 Q1 1 10 1 H50z" fill="lightgreen" />
+								</svg>
+								<span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
+								<span id = "date-${element.id}" class = "message-date">${element.date}:</span>
+								<p id = "innermessage-${element.id}" class = "message-value">${element.message}</p>
+								
+								</div>
+							<img class="chatImg" src="/src/images/users/${element.userId}.png">
+						</div>
                         `;
 					}
 				});
@@ -214,6 +231,7 @@ chatObject
 
 //End of James's stuff-----------------------------
 
+//dropdown sections
 window.addEventListener("click", event => {
 	if (event.target.matches(".dropBtn")) {
 		//turn off when clicked if open

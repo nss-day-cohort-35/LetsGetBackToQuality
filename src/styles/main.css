@@ -1,34 +1,99 @@
-#chatroom-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    border: 2px black solid;
+/* primary layout */
+
+body {
+	display: flex;
+	flex-direction: row;
 }
 
-#chat-room{
-    width: 80%;
-    overflow: auto;
-    height: 420px;
+.leftCol {
+	display: flex;
+	flex-direction: column;
 }
 
-#friends-list{
-    display: flex;
-    flex-direction: column;
-    width: 15%;
-    overflow: auto;
-    height: 420px;
-    border-left: 0.01em solid black;
+.rightCol {
+	display: flex;
+	flex-direction: column;
 }
 
-.message{
-    border-bottom: 2px lightgray solid;
-    padding-left: 2%;
+.taskContainer,
+.myChatContainer {
+	display: flex;
 }
 
-.friendCell{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.friendsTaskContainer,
+.friendChatContainer {
+	display: flex;
+	align-self: flex-end;
+}
+
+.profileImg {
+	height: 70px;
+}
+
+.userImage {
+	align-self: auto;
+	margin-top: 1em;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+/* friends/messages */
+
+#chatroom-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	border: solid red;
+}
+
+#chat-room {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	height: auto;
+	border: 1px rgb(255, 0, 0) solid;
+}
+
+#friends-list {
+	display: flex;
+	flex-direction: column;
+	/* width: 15%; */
+	overflow: auto;
+	/* height: 420px; */
+	/* border-left: 0.01em solid black; */
+	justify-content: center;
+}
+
+.message {
+	/* border-bottom: 2px lightgray solid; */
+	padding-left: 2%;
+}
+
+.message-value {
+	margin-bottom: 0;
+}
+
+.friendCell {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.friendListImg {
+	margin: 0.5em;
+	margin-top: 0;
+	height: 50px;
+	width: 50px;
+}
+
+.chatImg {
+	margin: 0.5em 1em;
+	height: 50px;
+	width: 50px;
+	margin-top: 20px;
 }
 /* tasks css */
 
@@ -51,24 +116,28 @@
 
 #tasksOutput {
 	border: 1px solid red;
-	max-width: 500px;
-	min-width: 300px;
-	max-height: 500px;
-	overflow: scroll;
 	background: white;
+	display: flex;
+	flex-direction: column;
+	width: inherit;
 }
 
-.myTasks:first-child,
-.friendsTasks:first-child {
-	font-size: 1.5em;
-}
-
-.myTasks {
+.myTasks,
+.myMsg {
 	background-color: lightblue;
+	align-self: baseline;
+	margin: 0.5em;
+	padding: 0em 1.5em;
+	border-radius: 5px 5px 5px 5px;
 }
-.friendsTasks {
+.friendsTasks,
+.friendMsg {
 	background-color: lightgreen;
 	font-style: italic;
+	align-self: flex-end;
+	margin: 0.5em;
+	padding: 0em 1.5em;
+	border-radius: 5px 5px 5px 5px;
 }
 
 /* articles CSS */
@@ -181,4 +250,26 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	width: -webkit-fill-available;
+}
+
+/* text bubble arrow */
+
+.arrow-left {
+	width: 20px;
+	height: 20px;
+	background: linear-gradient(to bottom right, lightblue 50%, transparent 0);
+	border-radius: 5px 0 0 0;
+	transform: rotate(-45deg);
+	position: relative;
+	right: 34px;
+	bottom: -27px;
+}
+
+.arrow-right {
+	transform: rotate(136deg);
+	position: relative;
+
+	left: 106%;
+	bottom: -20px;
 }
