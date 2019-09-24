@@ -97,7 +97,17 @@ const chatObject = {
 }
 
 //Assign Submit button
+
+if(sessionStorage.getItem("userId") !== ""){
+    document.querySelector("#submitChat").disabled = false;
+}
+
+else{
+    document.querySelector("#submitChat").disabled = true;
+}
+
 document.querySelector("#submitChat").addEventListener("click", function () {
+
     if (document.querySelector("#message-box").value === "") {
         alert("Please enter something.");
     }

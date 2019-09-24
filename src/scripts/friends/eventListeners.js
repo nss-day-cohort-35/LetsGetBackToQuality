@@ -10,10 +10,10 @@ const friendEvents = {
         })
     },
     friendSearch: function (event, session) {
+        document.querySelector("#search-results").innerHTML = ""
         fetch(`http://localhost:8088/users?userName_like=${document.querySelector("#search-friend-box").value}`)
             .then(data => data.json())
             .then(parsedData => {
-                document.querySelector("#search-results").innerHTML += ""
                 if (Object.keys(parsedData).length === 0) {
                     document.querySelector("#search-results").innerHTML +=
                         `
