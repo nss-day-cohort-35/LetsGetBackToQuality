@@ -9,10 +9,9 @@ const friendEvents = {
             }
         })
     },
-    friendSearch: function (event) {
-        console.log(document.querySelector("#search-friend-box").value)
+    friendSearch: function (event, session) {
         fetch(`http://localhost:8088/users?userName_like=${document.querySelector("#search-friend-box").value}`)
-            .then(data => data.json)
+            .then(data => data.json())
             .then(parsedData => {
                 if (Object.keys(parsedData).length === 0) {
                     document.querySelector("#search-results").innerHTML +=
@@ -21,11 +20,23 @@ const friendEvents = {
                     `
                 }
                 else {
-                    `<div id = "friendSearchCell-${element.id}" class = "friendCell"> 
-                    <p>${element.userName}</p>
-                    <button id = "addFriend-${element.id}" class = "addButton">Add</button>
-                    </div>`
+                    parsedData.forEach(element => {
+                        document.querySelector("#search-results").innerHTML +=
+                            `<div id = "friendSearchCell-${element.id}" class = "friendCell"> 
+                        <p>${element.userName}</p>
+                        <button id = "addFriend-${element.id}" class = "addButton">Add</button>
+                        </div>`
+                    })
                 }
+            })
+            .then(data => {
+                const addButtonArray = document.querySelectorAll(".addButton")
+                addButtonArray.forEach(element => {
+                    console.log(element);
+                    element.addEventListener("click", function(event) {
+                        friendEvents.addToFriendsList(event.target.id, session);
+                    })
+                });
             })
     },
     fillFriendList: function (friendArray, mainUserNum) {
@@ -41,11 +52,13 @@ const friendEvents = {
         });
     },
 
-    addToFriendsList: function (event) {
-        const userIDAdded = event.target.id.split("-");
+    addToFriendsList: function (userID, session) {
+        console.log(session)
+        const mainUserNum = parseInt(session);
+        const userIDAdded = userID.split("-");
         const addedFriend = {
             userId: parseInt(userIDAdded[1]),
-            friendInitiate: 1
+            friendInitiate: mainUserNum
         }
 
         fetch("http://localhost:8088/friends", {
@@ -78,10 +91,13 @@ const friendEvents = {
             })
     },
 
-    returnFriendArray: function (mainUserNum) { //Load function with the current user id
-        return fetch("http://localhost:8088/friends/?friendInitiate=1&_expand=user") //Fetch the friends of the user
+    returnFriendArray: function (session) { //Load function with the current user id
+        const mainUserNum = parseInt(session)
+        console.log(mainUserNum)
+        return fetch(`http://localhost:8088/friends/?friendInitiate=${mainUserNum}&_expand=user`) //Fetch the friends of the user
             .then(data => data.json())
             .then(parsedData => {
+                console.table(parsedData)
                 let objectArray = []; //Array of users
                 parsedData.forEach(dataElement => {
                     const friendObject = { //Collects the id and username of each user.

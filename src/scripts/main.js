@@ -46,8 +46,9 @@ taskEvents.standardTasks();
 //**********************
 
 const chatObject = {
-  returnMessagesArray: function (fetchedArray, mainUserNum) { //Returns the friend array and ID of current user
+  returnMessagesArray: function (fetchedArray, session) { //Returns the friend array and ID of current user
         //Populates the fetch string with multiple querys.
+        const mainUserNum = parseInt(session);
         document.querySelector("#chat-room").innerHTML = ""
         let fetchString = "http://localhost:8088/messages?_expand=user&_sort=date&_order=asc"
         return fetch(fetchString)
@@ -80,13 +81,17 @@ const chatObject = {
                 return parsedData
             })
             .then(parsedData => {
+                if(sessionStorage.getItem("userId") !== ""){
                 parsedData.forEach(element => {
-                    document.querySelector(`#message-${element.id} > .message-name`).addEventListener("click", friendEvents.addToFriendsList)
+                    document.querySelector(`#message-${element.id} > .message-name`).addEventListener("click", function(event){
+                        friendEvents.addToFriendsList(event.target.id, sessionStorage.getItem("userId"))
+                    })
                 });
                 const listOfEditButtons = document.querySelectorAll(".edit-button");
                 listOfEditButtons.forEach(element => {
                     element.addEventListener("click", messageEvents.setEdit)
                 });
+            }
             })
     }
 }
@@ -111,7 +116,7 @@ document.querySelector("#submitChat").addEventListener("click", function () {
                     document.querySelector("#edit-message").innerText = ""
                     document.querySelector("#submitChat").innerHTML = "Submit"
                     document.querySelector("#message-box").value = ""
-                    chatObject.returnMessagesArray(data, 1)
+                    chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"))
 
                 })
         }
@@ -124,12 +129,17 @@ document.querySelector("#submitChat").addEventListener("click", function () {
 //****************************
 
 var friendArray = []
-document.querySelector("#submitSearch").addEventListener("click", friendEvents.friendSearch)
-friendEvents.returnFriendArray(1)
+document.querySelector("#submitSearch").addEventListener("click", function(){
+    friendEvents.friendSearch(event, sessionStorage.getItem("userId"))
+})
+if(sessionStorage.getItem("userId") !== ""){
+    console.log(sessionStorage.getItem("userId"))
+    document.querySelector("#submitSearch").disabled = false;
+friendEvents.returnFriendArray(sessionStorage.getItem("userId"))
     .then(data => {
         friendArray = data;
-        chatObject.returnMessagesArray(friendArray, 1);
-        friendEvents.fillFriendList(friendArray, 1);
+        chatObject.returnMessagesArray(friendArray, sessionStorage.getItem("userId"));
+        friendEvents.fillFriendList(friendArray);
         return friendArray;
     })
     .then(data => {
@@ -137,6 +147,12 @@ friendEvents.returnFriendArray(1)
             document.querySelector(`#friendCell-${element.id}`).addEventListener("click", friendEvents.friendDelete)
         });
     });
+}
+
+else{
+    chatObject.returnMessagesArray(friendArray, sessionStorage.getItem("userId"));
+    document.querySelector("#submitSearch").disabled = true;
+}
 
 //End of James's stuff-----------------------------
 
