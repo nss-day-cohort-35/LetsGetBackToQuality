@@ -33,10 +33,12 @@ const friendEvents = {
             .then(data => {
                 const addButtonArray = document.querySelectorAll(".addButton")
                 addButtonArray.forEach(element => {
-                    console.log(element);
                     element.addEventListener("click", function(event) {
-                        friendEvents.addToFriendsList(event.target.id, session);
-                    })
+                            document.querySelector("#hover-confirm-friend").style.display = "block";
+                            const splitUserID = event.target.id.split("-")
+                            console.log(splitUserID[1]);
+                            document.querySelector("#friendID").value = splitUserID[1];
+                        })
                 });
             })
     },
