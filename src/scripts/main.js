@@ -143,12 +143,13 @@ const chatObject = {
 							`
 						<div class="myChatContainer">
 							<img class="chatImg" src="/src/images/users/${element.userId}.png">
-							<div id = "message-${element.id}" class = "message myMsg">
+                            <div id = "message-${element.id}" class = "message myMsg">
+                                
 								<div class="arrow-left"></div>
 								<span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
 								<span id = "date-${element.id}" class = "message-date">${element.date}:</span>
 								<p id = "innermessage-${element.userId}" class = "message-value">${element.message}</p>
-								<button id = "edit-${element.id}" class = "edit-button">Edit</button>
+								<div id = "edit-${element.id}" class = "edit-button">Edit</div>
 							</div>
 						</div>
                     `;
