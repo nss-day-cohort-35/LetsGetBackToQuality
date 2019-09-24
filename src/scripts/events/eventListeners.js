@@ -13,6 +13,7 @@ const API = {
 		});
 	},
 	getEvents: () => {
+		let currentUserId = parseInt(sessionStorage.getItem("userId"))
 		return API.getFriends(currentUserId)
 			.then(data => {
 				data.forEach(obj => {
@@ -60,7 +61,7 @@ const API = {
 				document.querySelector("#eventLocation").value = "";
 			});
 	},
-	getFriends: currentUserId => {
+	getFriends: (currentUserId = parseInt(sessionStorage.getItem("userId"))) => {
 		currentUserFriends.length = 0;
 		return fetch(
 			`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
@@ -98,7 +99,7 @@ const DOM = {
 		const eventContainer = document.querySelector("#eventsOutput");
 		eventContainer.innerHTML = "";
 		for (let i = 0; i < events.length; i++) {
-			if (events[i].userId === currentUserId) {
+			if (events[i].userId === parseInt(sessionStorage.getItem("userId"))) {
 				eventContainer.innerHTML += WEB.myEventHTML(events[i]);
 			} else {
 				eventContainer.innerHTML += WEB.friendEventHTML(events[i]);
@@ -127,14 +128,16 @@ const eventEvents = {
 			let hiddenId = document.querySelector("#eventId").value;
 			if (hiddenId === "") {
 				const newEvent = {
-					userId: currentUserId,
+					userId: parseInt(sessionStorage.getItem("userId")),
 					title: document.querySelector("#eventTitle").value,
 					date: document.querySelector("#eventDate").value,
 					location: document.querySelector("#eventLocation").value
 				};
-				API.saveEvent(newEvent).then(() => {
-					API.getEvents().then(data => DOM.addEventsToDom(data));
-				});
+				if (sessionStorage.getItem("userId")) {
+					API.saveEvent(newEvent).then(() => {
+						API.getEvents().then(data => DOM.addEventsToDom(data));
+					});
+				}
 				document.querySelector("#eventTitle").value = "";
 				document.querySelector("#eventDate").value = "";
 				document.querySelector("#eventLocation").value = "";

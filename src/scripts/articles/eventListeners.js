@@ -16,6 +16,7 @@ const API = {
 		});
 	},
 	getArticles: () => {
+		let currentUserId = parseInt(sessionStorage.getItem("userId"))
 		return API.getFriends(currentUserId)
 			.then(data => {
 				data.forEach(obj => {
@@ -65,7 +66,7 @@ const API = {
 				document.querySelector("#articleSummary").value = "";
 			});
 	},
-	getFriends: currentUserId => {
+	getFriends: (currentUserId = parseInt(sessionStorage.getItem("userId"))) => {
 		currentUserFriends.length = 0;
 		return fetch(
 			`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
@@ -105,7 +106,7 @@ const DOM = {
 		const articleContainer = document.querySelector("#articlesOutput");
 		articleContainer.innerHTML = "";
 		for (let i = 0; i < articles.length; i++) {
-			if (articles[i].userId === currentUserId) {
+			if (articles[i].userId === parseInt(sessionStorage.getItem("userId"))) {
 				articleContainer.innerHTML += WEB.myArticleHTML(articles[i]);
 			} else {
 				articleContainer.innerHTML += WEB.friendArticleHTML(articles[i]);
@@ -138,15 +139,17 @@ const articleEvents = {
 				let hiddenId = document.querySelector("#articleId").value;
 				if (hiddenId === "") {
 					const newArticle = {
-						userId: currentUserId,
+						userId: parseInt(sessionStorage.getItem("userId")),
 						title: document.querySelector("#articleTitle").value,
 						date: document.querySelector("#articleDate").value,
 						location: document.querySelector("#articleURL").value,
 						summary: document.querySelector("#articleSummary").value
 					};
-					API.saveArticle(newArticle).then(() => {
-						API.getArticles().then(data => DOM.addArticlesToDom(data));
-					});
+					if (sessionStorage.getItem("userId")) {
+						API.saveArticle(newArticle).then(() => {
+							API.getArticles().then(data => DOM.addArticlesToDom(data));
+						});
+					}
 					document.querySelector("#articleTitle").value = "";
 					document.querySelector("#articleDate").value = "";
 					document.querySelector("#articleURL").value = "";
