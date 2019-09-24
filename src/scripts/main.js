@@ -148,12 +148,12 @@ document.querySelector("#submitChat").addEventListener("click", function() {
 		alert("Please enter something.");
 	} else {
 		if (document.querySelector("#message-number").value === "0") {
-			messageEvents.addChat(1).then(data => {
+			messageEvents.addChat(sessionStorage.getItem("userId")).then(data => {
 				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"));
 			});
 		} else {
 			console.log(document.querySelector("#message-number").value);
-			messageEvents.putEdit(1).then(data => {
+			messageEvents.putEdit(sessionStorage.getItem("userId")).then(data => {
 				document.querySelector("#message-number").value = "0";
 				document.querySelector("#edit-message").innerText = "";
 				document.querySelector("#submitChat").innerHTML = "Submit";
