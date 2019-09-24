@@ -45,6 +45,16 @@ taskEvents.standardTasks();
 //JM-Chatlog
 //**********************
 
+//Friend request hover
+document.querySelector("#hover-confirm-friend").style.display = "none";
+document.querySelector("#submitFriend").addEventListener("click", function(event){
+    friendEvents.addToFriendsList(document.querySelector("#friendID").value, sessionStorage.getItem("userId"))
+    document.querySelector("#hover-confirm-friend").style.display = "none";
+})
+document.querySelector("#closeFriendHover").addEventListener("click", function(event){
+    document.querySelector("#hover-confirm-friend").style.display = "none";
+})
+
 const chatObject = {
   returnMessagesArray: function (fetchedArray, session) { //Returns the friend array and ID of current user
         //Populates the fetch string with multiple querys.
@@ -84,14 +94,16 @@ const chatObject = {
                 if(sessionStorage.getItem("userId") !== ""){
                 parsedData.forEach(element => {
                     document.querySelector(`#message-${element.id} > .message-name`).addEventListener("click", function(event){
-                        friendEvents.addToFriendsList(event.target.id, sessionStorage.getItem("userId"))
+                        document.querySelector("#hover-confirm-friend").style.display = "block";
+                        const splitUserID = document.querySelector(`#message-${element.id} > .message-name`).id.split("-")
+                        document.querySelector("#friendID").value =  splitUserID[1];
                     })
                 });
                 const listOfEditButtons = document.querySelectorAll(".edit-button");
                 listOfEditButtons.forEach(element => {
                     element.addEventListener("click", messageEvents.setEdit)
                 });
-            }
+                }
             })
     }
 }

@@ -58,7 +58,7 @@ const friendEvents = {
         const mainUserNum = parseInt(session);
         const userIDAdded = userID.split("-");
         const addedFriend = {
-            userId: parseInt(userIDAdded[1]),
+            userId: parseInt(userIDAdded[0]),
             friendInitiate: mainUserNum
         }
 
