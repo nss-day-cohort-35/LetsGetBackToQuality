@@ -83,9 +83,10 @@ const friendListObject = {
 						const friendListElement = document.querySelector("#friends-list");
 						friendListElement.innerHTML += `
 						<div class="friendEl">
-							<img class="profileImg" src="/src/images/users/${parsedFriend[0].id}.png">
+							
 							<div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
 								<p>${parsedFriend[0].user.userName}</p>
+								<img class="friendListImg" src="/src/images/users/${parsedFriend[0].id}.png">
 								<button id = "delete-${parsedFriend[0].id}" class = "deleteButton">Remove Friend</button>
 							</div>
 						</div>

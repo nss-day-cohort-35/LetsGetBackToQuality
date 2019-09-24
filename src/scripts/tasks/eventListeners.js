@@ -102,8 +102,8 @@ const WEB = {
 					<h5>${obj.title}<h5>
 					<p>Due Date: ${obj.dueDate} </p>
 					<p>completed?: 	<input type="checkbox" id="taskCompleted--${obj.id}" class="taskCompleted" value="yes"></p>
-					<button type="button" id="edit--${obj.id}">EDIT</button>
-					<button type="button" id="delete--${obj.id}">DELETE</button>
+					<button class="edit-button" type="button" id="edit--${obj.id}">EDIT</button>
+					<button class="delete-button" type="button" id="delete--${obj.id}">DELETE</button>
 				</div>
 			</div>
             `;

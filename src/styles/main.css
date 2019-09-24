@@ -82,6 +82,13 @@ body {
 	align-items: center;
 }
 
+.friendEl {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .friendListImg {
 	margin: 0.5em;
 	margin-top: 0;
@@ -278,8 +285,35 @@ body {
 	bottom: -20px;
 }
 
-.edit-button,
-.delete-buttton {
+.edit-button {
+	position: relative;
+	left: 29px;
+	bottom: -5px;
+	display: inline-block;
+	padding: 0.1em 0.8em;
+	padding-bottom: 0.2em;
+	border: 0.07em solid white;
+	margin: 0.3em;
+	border-radius: 0.15em 0em 0em 0em;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: "Oswald", sans-serif;
+	font-weight: 500;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	transition: all 0.2s;
+	background: rgba(255, 255, 255, 0);
+	font-size: 0.7em;
+	float: right;
+}
+
+.edit-button:hover {
+	color: rgb(41, 54, 73);
+	background-color: white;
+	cursor: pointer;
+}
+
+.delete-button {
 	position: relative;
 	left: 29px;
 	bottom: -5px;
@@ -301,8 +335,7 @@ body {
 	font-size: 0.7em;
 }
 
-.delete-button:hover,
-.edit-button:hover {
+.delete-button:hover {
 	color: rgb(41, 54, 73);
 	background-color: white;
 	cursor: pointer;
