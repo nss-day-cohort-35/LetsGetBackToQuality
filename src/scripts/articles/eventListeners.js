@@ -82,7 +82,7 @@ const WEB = {
                 <p>Date: ${obj.date} </p>
                 <p>url: ${obj.url}</p>
                 <p>summary: ${obj.summary}</p>
-                <button type="button" id="edit--${obj.id}">EDIT</button>
+                <button class="edit-button" type="button" id="edit--${obj.id}">EDIT</button>
                 <button type="button" id="delete--${obj.id}">DELETE</button>
             </div>
             `;
