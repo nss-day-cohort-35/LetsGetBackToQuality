@@ -14,6 +14,13 @@
 				<img height="150px" width="auto" src="/src/images/onlineFriends.png" />
 			</div>
 			<article id="container"></article>
+			<div id="friend-search-container">
+				<label for="searchBox">Search for friends:</label>
+				<input type="text" name="searchBox" id="search-friend-box" />
+				<button type="button" id="submitSearch">Submit</button>
+
+				<div id="search-results"></div>
+			</div>
 			<aside id="friends-list"></aside>
 		</div>
 		<div class="rightCol">
@@ -89,6 +96,16 @@
 					<button type="button" id="submitChat">Submit</button>
 				</form>
 			</article>
+		</div>
+		<div id="hover-confirm-friend">
+			<input hidden value="0" id="friendID" />
+			<div>
+				<p>Would you like to add this friend?</p>
+			</div>
+			<div class="hover-button-friend">
+				<button type="button" id="submitFriend">Yes!</button>
+				<button type="button" id="closeFriendHover">No...</button>
+			</div>
 		</div>
 	</body>
 </html>

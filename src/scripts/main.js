@@ -1,7 +1,7 @@
 import friendEvents from "./friends/eventListeners";
-import authorization from "./auth/eventListeners.js";
-import eventEvents from "./events/eventListeners.js";
-import articleEvents from "./articles/eventListeners.js";
+import authorization from "./auth/eventListeners";
+import eventEvents from "./events/eventListeners";
+import articleEvents from "./articles/eventListeners";
 import taskEvents from "./tasks/eventListeners";
 import messageEvents from "./messages/eventListeners";
 
@@ -42,93 +42,31 @@ taskEvents.taskComplete();
 taskEvents.finishedTasks();
 taskEvents.standardTasks();
 
-//Friends List Object
-//****************************
-
-const friendListObject = {
-	fillFriendList: function(friendArray, mainUserNum) {
-		const friendListElement = document.querySelector("#friends-list");
-		friendArray.forEach(element => {
-			friendListElement.innerHTML += `
-			
-            <div id = "friendCell-${element.id}" class = "friendCell"> 
-				<p>${element.userName}</p>
-				<img class="friendListImg" src="/src/images/users/${element.id}.png">
-                <button id = "delete-${element.id}" class = "deleteButton">Remove Friend</button>
-            </div>
-            `;
-		});
-	},
-
-	addToFriendsList: function(event) {
-		const userIDAdded = event.target.id.split("-");
-		const addedFriend = {
-			userId: parseInt(userIDAdded[1]),
-			friendInitiate: 1
-		};
-
-		fetch("http://localhost:8088/friends", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(addedFriend)
-		})
-			.then(data => {
-				return fetch(
-					`http://localhost:8088/friends?userId=${addedFriend.userId}&friendInitiate=${addedFriend.friendInitiate}&_expand=user`
-				)
-					.then(newFriend => newFriend.json())
-					.then(parsedFriend => {
-						const friendListElement = document.querySelector("#friends-list");
-						friendListElement.innerHTML += `
-						<div class="friendEl">
-							
-							<div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
-								<p>${parsedFriend[0].user.userName}</p>
-								<img class="friendListImg" src="/src/images/users/${parsedFriend[0].id}.png">
-								<button id = "delete-${parsedFriend[0].id}" class = "deleteButton">Remove Friend</button>
-							</div>
-						</div>
-            `;
-						return parsedFriend;
-					});
-			})
-			.then(data => {
-				const buttonList = document.querySelectorAll(".deleteButton");
-				buttonList.forEach(element => {
-					element.addEventListener("click", friendEvents.friendDelete);
-				});
-			});
-	}
-};
-
 //JM-Chatlog
 //**********************
 
-const chatObject = {
-	returnFriendArray: function(mainUserNum) {
-		//Load function with the current user id
-		return fetch("http://localhost:8088/friends/?friendInitiate=1&_expand=user") //Fetch the friends of the user
-			.then(data => data.json())
-			.then(parsedData => {
-				let objectArray = []; //Array of users
-				parsedData.forEach(dataElement => {
-					const friendObject = {
-						//Collects the id and username of each user.
-						id: dataElement.id,
-						userNum: dataElement.user.id,
-						userName: dataElement.user.userName
-					};
-					objectArray.push(friendObject);
-				});
-				return objectArray; //Returns array
-			});
-	},
+//Friend request hover
+document.querySelector("#hover-confirm-friend").style.display = "none";
+document
+	.querySelector("#submitFriend")
+	.addEventListener("click", function(event) {
+		friendEvents.addToFriendsList(
+			document.querySelector("#friendID").value,
+			sessionStorage.getItem("userId")
+		);
+		document.querySelector("#hover-confirm-friend").style.display = "none";
+	});
+document
+	.querySelector("#closeFriendHover")
+	.addEventListener("click", function(event) {
+		document.querySelector("#hover-confirm-friend").style.display = "none";
+	});
 
-	returnMessagesArray: function(fetchedArray, mainUserNum) {
+const chatObject = {
+	returnMessagesArray: function(fetchedArray, session) {
 		//Returns the friend array and ID of current user
 		//Populates the fetch string with multiple querys.
+		const mainUserNum = parseInt(session);
 		document.querySelector("#chat-room").innerHTML = "";
 		let fetchString =
 			"http://localhost:8088/messages?_expand=user&_sort=date&_order=asc";
@@ -142,7 +80,7 @@ const chatObject = {
 						document.querySelector("#chat-room").innerHTML +=
 							// Add the edit button with the DOM
 							`
-						<div class="myChatContainer">
+							<div class="myChatContainer">
 							<img class="chatImg" src="/src/images/users/${element.userId}.png">
                             <div id = "message-${element.id}" class = "message myMsg">
                                 
@@ -156,7 +94,7 @@ const chatObject = {
                     `;
 					} else {
 						document.querySelector("#chat-room").innerHTML += `
-						<div class="friendChatContainer">
+                            <div class="friendChatContainer">
 								
 							<div id = "message-${element.id}" class = "message friendMsg">
 								<svg class="arrow-right" viewbox="0 0 50 50" height="20px">
@@ -175,27 +113,43 @@ const chatObject = {
 				return parsedData;
 			})
 			.then(parsedData => {
-				parsedData.forEach(element => {
-					document
-						.querySelector(`#message-${element.id} > .message-name`)
-						.addEventListener("click", friendListObject.addToFriendsList);
-				});
-				const listOfEditButtons = document.querySelectorAll(".edit-button");
-				listOfEditButtons.forEach(element => {
-					element.addEventListener("click", messageEvents.setEdit);
-				});
+				if (sessionStorage.getItem("userId") !== "") {
+					parsedData.forEach(element => {
+						document
+							.querySelector(`#message-${element.id} > .message-name`)
+							.addEventListener("click", function(event) {
+								document.querySelector("#hover-confirm-friend").style.display =
+									"block";
+								const splitUserID = document
+									.querySelector(`#message-${element.id} > .message-name`)
+									.id.split("-");
+								document.querySelector("#friendID").value = splitUserID[1];
+							});
+					});
+					const listOfEditButtons = document.querySelectorAll(".edit-button");
+					listOfEditButtons.forEach(element => {
+						element.addEventListener("click", messageEvents.setEdit);
+					});
+				}
 			});
 	}
 };
 
 //Assign Submit button
+
+if (sessionStorage.getItem("userId") !== "") {
+	document.querySelector("#submitChat").disabled = false;
+} else {
+	document.querySelector("#submitChat").disabled = true;
+}
+
 document.querySelector("#submitChat").addEventListener("click", function() {
 	if (document.querySelector("#message-box").value === "") {
 		alert("Please enter something.");
 	} else {
 		if (document.querySelector("#message-number").value === "0") {
 			messageEvents.addChat(1).then(data => {
-				chatObject.returnMessagesArray(data, 1);
+				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"));
 			});
 		} else {
 			console.log(document.querySelector("#message-number").value);
@@ -204,7 +158,7 @@ document.querySelector("#submitChat").addEventListener("click", function() {
 				document.querySelector("#edit-message").innerText = "";
 				document.querySelector("#submitChat").innerHTML = "Submit";
 				document.querySelector("#message-box").value = "";
-				chatObject.returnMessagesArray(data, 1);
+				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"));
 			});
 		}
 	}
@@ -214,22 +168,34 @@ document.querySelector("#submitChat").addEventListener("click", function() {
 //****************************
 
 var friendArray = [];
-
-chatObject
-	.returnFriendArray(1)
-	.then(data => {
-		friendArray = data;
-		chatObject.returnMessagesArray(friendArray, 1);
-		friendListObject.fillFriendList(friendArray, 1);
-		return friendArray;
-	})
-	.then(data => {
-		data.forEach(element => {
-			document
-				.querySelector(`#friendCell-${element.id}`)
-				.addEventListener("click", friendEvents.friendDelete);
+document.querySelector("#submitSearch").addEventListener("click", function() {
+	friendEvents.friendSearch(event, sessionStorage.getItem("userId"));
+});
+if (sessionStorage.getItem("userId") !== "") {
+	console.log(sessionStorage.getItem("userId"));
+	document.querySelector("#submitSearch").disabled = false;
+	friendEvents
+		.returnFriendArray(sessionStorage.getItem("userId"))
+		.then(data => {
+			friendArray = data;
+			chatObject.returnMessagesArray(
+				friendArray,
+				sessionStorage.getItem("userId")
+			);
+			friendEvents.fillFriendList(friendArray);
+			return friendArray;
+		})
+		.then(data => {
+			data.forEach(element => {
+				document
+					.querySelector(`#friendCell-${element.id}`)
+					.addEventListener("click", friendEvents.friendDelete);
+			});
 		});
-	});
+} else {
+	chatObject.returnMessagesArray(friendArray, sessionStorage.getItem("userId"));
+	document.querySelector("#submitSearch").disabled = true;
+}
 
 //End of James's stuff-----------------------------
 

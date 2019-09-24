@@ -36,15 +36,19 @@ const messageEventListener = {
     setEdit: function(event){
         const splitID = event.target.id.split("-");
         document.querySelector("#message-number").value = splitID[1];
-        document.querySelector("#edit-message").innerText = `${document.querySelector(`#message-${splitID[1]} .message-name`).innerText}:${document.querySelector(`#message-${splitID[1]} .message-date`).innerText}`
+        const name = document.querySelector(`#message-${splitID[1]} .message-name`).innerText.split(":")
+        const date = document.querySelector(`#message-${splitID[1]} .message-date`).innerText.split(":")
+        console.log(date)
+        document.querySelector("#edit-message").innerText = `${name[0]}::${date[0]}:`
         document.querySelector("#submitChat").innerHTML = "Edit"
         document.querySelector("#message-box").value = document.querySelector(`#message-${splitID[1]} .message-value`).innerText
     },
 
     putEdit: function(userIdNum){
+        const dateSplit = document.querySelector(`#message-${document.querySelector("#message-number").value} .message-date`).innerText.split(":")
         const editedChat = {
             userId: userIdNum,
-            date: document.querySelector(`#message-${document.querySelector("#message-number").value} .message-date`).innerText,
+            date: dateSplit[0],
             message: document.querySelector("#message-box").value
         }
 
