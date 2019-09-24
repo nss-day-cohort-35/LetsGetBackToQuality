@@ -11,10 +11,10 @@
     height: 420px;
 }
 
-#friends-list{
+#friends-container{
     display: flex;
     flex-direction: column;
-    width: 15%;
+    width: 18%;
     overflow: auto;
     height: 420px;
     border-left: 0.01em solid black;

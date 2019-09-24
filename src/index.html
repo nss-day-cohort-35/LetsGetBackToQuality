@@ -65,21 +65,47 @@
 	<form>
 		<input hidden id="message-number" value="0">
 		<label for="messageBox">Input:</label>
-		<span id = edit-message></span>
+		<span id=edit-message></span>
 		<input type="text" name="messageBox" id="message-box">
 		<button type="button" id="submitChat">Submit</button>
 	</form>
 	<article id="chatroom-container">
-
 		<div id=chat-room>
 
 		</div>
 
-		<aside id=friends-list>
+		<aside id="friends-container">
+			<div id="friend-search-container">
+
+				<label for="searchBox">Search for friends:</label>
+				<input type="text" name="searchBox" id="search-friend-box">
+				<button type="button" id="submitSearch">Submit</button>
+
+				<div id="search-results">
+
+				</div>
+
+			</div>
+
+			<div id="friends-list">
+
+			</div>
+
 
 		</aside>
-
 	</article>
+
+	<div id="hover-confirm-friend">
+		<input hidden value = "0" id = "friendID">
+		<div>
+			<p>Would you like to add this friend?</p>
+		</div>
+		<div class = hover-button-friend>
+			<button type="button" id ="submitFriend">Yes!</button>
+			<button type="button" id ="closeFriendHover">No...</button> 
+		</div>
+	</div>
+
 </body>
 
 </html>
