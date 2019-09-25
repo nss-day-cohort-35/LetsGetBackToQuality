@@ -55,7 +55,7 @@ const friendEvents = {
 					<img class="profileImg" src="/src/images/users/${element.userNum}.png">
 				</div>
                 <p>${element.userName}</p>
-                <button id = "delete-${element.id}" class="submitBtnSm">Remove Friend</button>
+                <button id = "delete-${element.id}" class="submitBtnSm delete-button">Remove Friend</button>
             </div>
             `;
 		});
@@ -81,7 +81,6 @@ const friendEvents = {
 				)
 					.then(newFriend => newFriend.json())
 					.then(parsedFriend => {
-						console.log("Adding");
 						const friendListElement = document.querySelector("#friends-list");
 						friendListElement.innerHTML += `
 						<div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
@@ -89,7 +88,7 @@ const friendEvents = {
 						<img class="profileImg" src="/src/images/users/${parsedFriend[0].userId}.png">
 						</div>
                 		<p>${parsedFriend[0].user.userName}</p>
-                		<button id = "delete-${parsedFriend[0].id}" class="submitBtn delete-button">Remove Friend</button>
+                		<button id = "delete-${parsedFriend[0].id}" class="submitBtnSm delete-button">Remove Friend</button>
             			</div>
             			`;
 						return parsedFriend;
@@ -97,6 +96,7 @@ const friendEvents = {
 			})
 			.then(data => {
 				const buttonList = document.querySelectorAll(".delete-button");
+				console.log(buttonList);
 				buttonList.forEach(element => {
 					element.addEventListener("click", friendEvents.friendDelete);
 				});
