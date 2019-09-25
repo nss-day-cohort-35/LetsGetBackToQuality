@@ -109,6 +109,13 @@ body {
 	justify-content: center;
 }
 
+#friend-search-container {
+	border: 1px solid white;
+	padding: 0.5em;
+	margin: 1em, 0em;
+	margin-top: 2em;
+}
+
 .friendsList {
 	display: flex;
 	justify-content: center;
@@ -175,7 +182,8 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin-bottom: 1em;
+	margin-bottom: 0.5em;
+	align-items: center;
 }
 
 #tasksOutput {
@@ -223,6 +231,7 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	margin-bottom: 1em;
+	align-items: center;
 }
 
 #articlesOutput {
@@ -270,6 +279,7 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	margin-bottom: 1em;
+	align-items: center;
 }
 
 #eventsOutput {
@@ -413,4 +423,36 @@ body {
 	color: rgb(41, 54, 73);
 	background-color: white;
 	cursor: pointer;
+}
+
+.submitBtn {
+	display: inline-block;
+	padding: 0.1em 1.5em;
+	border: 0.07em solid white;
+	margin: auto;
+	border-radius: 0.15em;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: "Oswald", sans-serif;
+	font-weight: 500;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	transition: all 0.2s;
+	background-color: rgba(255, 255, 255, 0);
+	height: 2.2em;
+}
+
+.submitBtn:hover {
+	color: rgb(64, 96, 145);
+	background-color: white;
+	cursor: pointer;
+}
+
+.textField {
+	height: 2em;
+	border-radius: 0.15em;
+	border: none;
+	font-family: "Oswald", sans-serif;
+	padding: 2px;
+	margin: 0.5em;
 }
