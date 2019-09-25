@@ -149,16 +149,18 @@ document.querySelector("#submitChat").addEventListener("click", function() {
 	} else {
 		if (document.querySelector("#message-number").value === "0") {
 			messageEvents.addChat(sessionStorage.getItem("userId")).then(data => {
-				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"));
+				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"))
+				.then(data => {window.scrollTo(0, document.querySelector("body").scrollHeight);})
 			});
 		} else {
-			console.log(document.querySelector("#message-number").value);
+			console.log(document.querySelector("#submitChat").scrollHeight);
 			messageEvents.putEdit(sessionStorage.getItem("userId")).then(data => {
 				document.querySelector("#message-number").value = "0";
 				document.querySelector("#edit-message").innerText = "";
 				document.querySelector("#submitChat").innerHTML = "Submit";
 				document.querySelector("#message-box").value = "";
-				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"));
+				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"))
+				.then(data => {window.scrollTo(0, document.querySelector("body").scrollHeight);})
 			});
 		}
 	}
@@ -172,7 +174,7 @@ document.querySelector("#submitSearch").addEventListener("click", function() {
 	friendEvents.friendSearch(event, sessionStorage.getItem("userId"));
 });
 if (sessionStorage.getItem("userId") !== "") {
-	console.log(sessionStorage.getItem("userId"));
+
 	document.querySelector("#submitSearch").disabled = false;
 	friendEvents
 		.returnFriendArray(sessionStorage.getItem("userId"))
@@ -193,7 +195,6 @@ if (sessionStorage.getItem("userId") !== "") {
 			});
 		});
 } else {
-	chatObject.returnMessagesArray(friendArray, sessionStorage.getItem("userId"));
 	document.querySelector("#submitSearch").disabled = true;
 }
 
