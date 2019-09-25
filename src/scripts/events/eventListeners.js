@@ -13,7 +13,7 @@ const API = {
 		});
 	},
 	getEvents: () => {
-		let currentUserId = parseInt(sessionStorage.getItem("userId"))
+		let currentUserId = parseInt(sessionStorage.getItem("userId"));
 		return API.getFriends(currentUserId)
 			.then(data => {
 				data.forEach(obj => {
@@ -73,22 +73,32 @@ const API = {
 const WEB = {
 	myEventHTML: obj => {
 		return `
+		<div class="eventContainer">
+				<div class="userImage">
+					<img class="profileImg" src="/src/images/users/${obj.userId}.png">
+				</div>
             <div class="myEvents">
                 <h5>${obj.title}<h5>
                 <p>Date: ${obj.date} </p>
                 <p>location: ${obj.location}</p>
                 <button type="button" id="edit--${obj.id}">EDIT</button>
                 <button type="button" id="delete--${obj.id}">DELETE</button>
-            </div>
+			</div>
+			</div>
             `;
 	},
 	friendEventHTML: obj => {
 		return `
+		<div class="friendEventContainer">
             <div class="friendsEvents">
                 <h5>${obj.title}<h5>
                 <p>Date: ${obj.date} </p>
                 <p>location: ${obj.location}</p>
-            </div>
+			</div>
+			<div class="userImage">
+					<img class="profileImg" src="/src/images/users/${obj.userId}.png">
+				</div>
+				</div>
             `;
 	}
 };

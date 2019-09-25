@@ -16,7 +16,7 @@ const API = {
 		});
 	},
 	getArticles: () => {
-		let currentUserId = parseInt(sessionStorage.getItem("userId"))
+		let currentUserId = parseInt(sessionStorage.getItem("userId"));
 		return API.getFriends(currentUserId)
 			.then(data => {
 				data.forEach(obj => {
@@ -78,6 +78,10 @@ const API = {
 const WEB = {
 	myArticleHTML: obj => {
 		return `
+		<div class="articleContainer">
+				<div class="userImage">
+					<img class="profileImg" src="/src/images/users/${obj.userId}.png">
+				</div>
             <div class="myArticles">
                 <h5>${obj.title}<h5>
                 <p>Date: ${obj.date} </p>
@@ -85,17 +89,23 @@ const WEB = {
                 <p>summary: ${obj.summary}</p>
                 <button class="edit-button" type="button" id="edit--${obj.id}">EDIT</button>
                 <button type="button" id="delete--${obj.id}">DELETE</button>
-            </div>
+			</div>
+			</div>
             `;
 	},
 	friendArticleHTML: obj => {
 		return `
+		<div class="friendArticleContainer">
             <div class="friendsArticles">
                 <h5>${obj.title}<h5>
                 <p>Date: ${obj.date} </p>
                 <p>url: ${obj.url}</p>
                 <p>summary: ${obj.summary}</p>
-            </div>
+			</div>
+			<div class="userImage">
+					<img class="profileImg" src="/src/images/users/${obj.userId}.png">
+				</div>
+				</div>
             `;
 	}
 };
