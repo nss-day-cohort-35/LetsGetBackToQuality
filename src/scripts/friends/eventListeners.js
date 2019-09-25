@@ -1,5 +1,5 @@
 const friendEvents = {
-	friendDelete: function(event) {
+	friendDelete: function (event) {
 		const userIDDelete = event.target.id.split("-");
 		document.querySelector(`#friendCell-${userIDDelete[1]}`).remove();
 		fetch(`http://localhost:8088/friends/${userIDDelete[1]}`, {
@@ -9,11 +9,11 @@ const friendEvents = {
 			}
 		});
 	},
-	friendSearch: function(event, session) {
+	friendSearch: function (event, session) {
 		document.querySelector("#search-results").innerHTML = "";
 		fetch(
 			`http://localhost:8088/users?userName_like=${
-				document.querySelector("#search-friend-box").value
+			document.querySelector("#search-friend-box").value
 			}`
 		)
 			.then(data => data.json())
@@ -36,47 +36,44 @@ const friendEvents = {
 			.then(data => {
 				const addButtonArray = document.querySelectorAll(".addButton");
 				addButtonArray.forEach(element => {
-					element.addEventListener("click", function(event) {
+					element.addEventListener("click", function (event) {
 						document.querySelector("#hover-confirm-friend").style.display =
 							"block";
 						const splitUserID = event.target.id.split("-");
-						console.log(splitUserID[1]);
 						document.querySelector("#friendID").value = splitUserID[1];
 					});
 				});
 			});
 	},
-	fillFriendList: function(friendArray, mainUserNum) {
+	fillFriendList: function (friendArray, mainUserNum) {
 		const friendListElement = document.querySelector("#friends-list");
 		friendArray.forEach(element => {
-			console.log(friendArray);
 			friendListElement.innerHTML += `
             <div id = "friendCell-${element.id}" class = "friendCell"> 
             <div class="userImage">
 					<img class="profileImg" src="/src/images/users/${element.userNum}.png">
 				</div>
                 <p>${element.userName}</p>
-                <button id = "delete-${element.id}" class = "deleteButton">Remove Friend</button>
+                <button id = "delete-${element.id}" class = "class="submitBtn">Remove Friend</button>
             </div>
             `;
 		});
 	},
 
-	addToFriendsList: function(userID, session) {
-		console.log(session);
+	addToFriendsList: function (userID, session) {
 		const mainUserNum = parseInt(session);
 		const userIDAdded = userID.split("-");
 		const addedFriend = {
 			userId: parseInt(userIDAdded[0]),
 			friendInitiate: mainUserNum
 		};
-
 		fetch("http://localhost:8088/friends", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify(addedFriend)
+			
 		})
 			.then(data => {
 				return fetch(
@@ -84,13 +81,17 @@ const friendEvents = {
 				)
 					.then(newFriend => newFriend.json())
 					.then(parsedFriend => {
+						console.log("Adding");
 						const friendListElement = document.querySelector("#friends-list");
 						friendListElement.innerHTML += `
-            <div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
-                <p>${parsedFriend[0].user.userName}</p>
-                <button id = "delete-${parsedFriend[0].id}" class = "deleteButton">Remove Friend</button>
-            </div>
-            `;
+						<div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
+						<div class="userImage">
+						<img class="profileImg" src="/src/images/users/${parsedFriend[0].userId}.png">
+						</div>
+                		<p>${parsedFriend[0].user.userName}</p>
+                		<button id = "delete-${parsedFriend[0].id}" class="submitBtn">Remove Friend</button>
+            			</div>
+            			`;
 						return parsedFriend;
 					});
 			})
@@ -102,16 +103,14 @@ const friendEvents = {
 			});
 	},
 
-	returnFriendArray: function(session) {
+	returnFriendArray: function (session) {
 		//Load function with the current user id
 		const mainUserNum = parseInt(session);
-		console.log(mainUserNum);
 		return fetch(
 			`http://localhost:8088/friends/?friendInitiate=${mainUserNum}&_expand=user`
 		) //Fetch the friends of the user
 			.then(data => data.json())
 			.then(parsedData => {
-				console.table(parsedData);
 				let objectArray = []; //Array of users
 				parsedData.forEach(dataElement => {
 					const friendObject = {

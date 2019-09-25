@@ -40,7 +40,6 @@ const messageEventListener = {
 		const date = document
 			.querySelector(`#message-${splitID[1]} .message-date`)
 			.innerText.split(":");
-		console.log(date);
 		document.querySelector("#edit-message").innerText = `${name[0]}::${
 			date[0]
 		}:`;
