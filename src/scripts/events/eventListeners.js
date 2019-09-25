@@ -81,8 +81,8 @@ const WEB = {
                 <h5>${obj.title}<h5>
                 <p>Date: ${obj.date} </p>
                 <p>location: ${obj.location}</p>
-                <button type="button" id="edit--${obj.id}">EDIT</button>
-                <button type="button" id="delete--${obj.id}">DELETE</button>
+                <button type="button" class="edit-button" id="edit--${obj.id}">EDIT</button>
+                <button type="button" class="delete-button" id="delete--${obj.id}">DELETE</button>
 			</div>
 			</div>
             `;

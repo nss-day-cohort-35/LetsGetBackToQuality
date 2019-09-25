@@ -16,7 +16,7 @@ const API = {
 		});
 	},
 	getTasks: () => {
-		let currentUserId = parseInt(sessionStorage.getItem("userId"))
+		let currentUserId = parseInt(sessionStorage.getItem("userId"));
 		return API.getFriends(currentUserId)
 			.then(data => {
 				data.forEach(obj => {
@@ -129,7 +129,7 @@ const WEB = {
                 <h5>${obj.title}<h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>
-                <button type="button" id="delete--${obj.id}">DELETE</button>
+                <button type="button" class="delete-button" id="delete--${obj.id}">DELETE</button>
             </div>
             `;
 	},

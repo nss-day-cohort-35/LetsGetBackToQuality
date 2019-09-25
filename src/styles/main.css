@@ -368,16 +368,16 @@ body {
 	padding-bottom: 0.2em;
 	border: 0.07em solid white;
 	margin: 0.3em;
-	border-radius: 0.15em 0em 0em 0em;
+	border-radius: 5px 0px 5px 0px;
 	box-sizing: border-box;
 	text-decoration: none;
 	font-family: "Oswald", sans-serif;
 	font-weight: 500;
-	color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 	text-align: center;
 	transition: all 0.2s;
 	background: rgba(255, 255, 255, 0);
-	font-size: 0.7em;
+	font-size: 0.8em;
 	float: right;
 }
 
@@ -396,17 +396,17 @@ body {
 	padding-bottom: 0.2em;
 	border: 0.07em solid white;
 	margin: 0.3em;
-	border-radius: 0.15em 0em 0em 0em;
+	border-radius: 5px 0px 5px 0px;
 	box-sizing: border-box;
 	text-decoration: none;
 	font-family: "Oswald", sans-serif;
 	font-weight: 500;
-	color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 	text-align: center;
 	transition: all 0.2s;
 	background: rgba(255, 255, 255, 0);
 	float: right;
-	font-size: 0.7em;
+	font-size: 0.8em;
 }
 
 .delete-button:hover {
