@@ -53,7 +53,7 @@ document
 		friendEvents.addToFriendsList(
 			document.querySelector("#friendID").value,
 			sessionStorage.getItem("userId")
-		);
+		)
 		document.querySelector("#hover-confirm-friend").style.display = "none";
 	});
 document
@@ -173,7 +173,7 @@ var friendArray = [];
 document.querySelector("#submitSearch").addEventListener("click", function() {
 	friendEvents.friendSearch(event, sessionStorage.getItem("userId"));
 });
-if (sessionStorage.getItem("userId") !== "") {
+if (sessionStorage.getItem("userId") !== "" && sessionStorage.getItem("userId") !== null) {
 
 	document.querySelector("#submitSearch").disabled = false;
 	friendEvents

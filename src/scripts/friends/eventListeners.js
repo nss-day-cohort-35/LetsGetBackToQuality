@@ -1,5 +1,6 @@
 const friendEvents = {
 	friendDelete: function(event) {
+		console.log("Clicky!")
 		const userIDDelete = event.target.id.split("-");
 		document.querySelector(`#friendCell-${userIDDelete[1]}`).remove();
 		fetch(`http://localhost:8088/friends/${userIDDelete[1]}`, {
@@ -88,14 +89,14 @@ const friendEvents = {
 						<img class="profileImg" src="/src/images/users/${parsedFriend[0].userId}.png">
 						</div>
                 		<p>${parsedFriend[0].user.userName}</p>
-                		<button id = "delete-${parsedFriend[0].id}" class="submitBtnSm">Remove Friend</button>
+                		<button id = "delete-${parsedFriend[0].id}" class="submitBtn delete-button">Remove Friend</button>
             			</div>
             			`;
 						return parsedFriend;
 					});
 			})
 			.then(data => {
-				const buttonList = document.querySelectorAll(".deleteButton");
+				const buttonList = document.querySelectorAll(".delete-button");
 				buttonList.forEach(element => {
 					element.addEventListener("click", friendEvents.friendDelete);
 				});
