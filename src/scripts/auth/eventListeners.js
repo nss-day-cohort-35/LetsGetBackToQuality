@@ -35,7 +35,7 @@ let addSignIn = () => {
 
         <fieldset class="signin__fieldset">
             <label class="input">Password:</label>
-            <input class="input" type="text" id="signin-password" placeholder="password">
+            <input class="input" type="password" id="signin-password" placeholder="password">
         </fieldset>
 
         <fieldset class="signin__fieldset">
@@ -152,6 +152,8 @@ const signInListener = (outputElement) => {
 				sessionStorageData(signData)
 				document.querySelector("#auth-signin-button").innerHTML = "Sign Out"
 				removeSignSection("signin-section")
+				//
+				document.location.reload()
 			} else {
 				alert("Input data is not valid. Try again!")
 			}
@@ -292,10 +294,6 @@ const signIn = (outputElement) => {
 		if (status === "Sign In") {
 			signInListener(outputElement)
 			console.log("Sign In userId: ", sessionStorage.getItem("userId"))
-			//
-			eventEvents.getAllEvents()
-			articleEvents.getAllArticles()
-			taskEvents.getAllTasks()
 		}
 		if (status === "Sign Out") {
 			signData = newSignData("", "", "")
@@ -303,11 +301,8 @@ const signIn = (outputElement) => {
 			console.log("Sign Out userId: ", sessionStorage.getItem("userId"))
 			event.target.innerHTML = "Sign In"
 			//
-			eventEvents.getAllEvents()
-			articleEvents.getAllArticles()
-			taskEvents.getAllTasks()
+			document.location.reload()
 		}
-
 	})
 }
 
