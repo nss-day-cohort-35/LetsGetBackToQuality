@@ -1,6 +1,6 @@
 const friendEvents = {
 	friendDelete: function(event) {
-		console.log("Clicky!")
+		console.log("Clicky!");
 		const userIDDelete = event.target.id.split("-");
 		document.querySelector(`#friendCell-${userIDDelete[1]}`).remove();
 		fetch(`http://localhost:8088/friends/${userIDDelete[1]}`, {
@@ -26,10 +26,10 @@ const friendEvents = {
 				} else {
 					parsedData.forEach(element => {
 						document.querySelector(
-						"#search-results"
+							"#search-results"
 						).innerHTML += `<div id = "friendSearchCell-${element.id}" class = "friendCell"> 
                         <p>${element.userName}</p>
-                        <button id = "addFriend-${element.id}" class = "submitBtn addButton">Add</button>
+                        <button id = "addFriend-${element.id}" class = "submitBtnSm addButton">Add</button>
                         </div>`;
 					});
 				}

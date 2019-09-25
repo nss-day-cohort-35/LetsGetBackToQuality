@@ -483,6 +483,29 @@ body {
 	cursor: pointer;
 }
 
+.submitBtnModal {
+	display: inline-block;
+	padding: 0.1em 1.5em;
+	border: 0.07em solid rgb(0, 0, 0);
+
+	border-radius: 0.15em;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: "Oswald", sans-serif;
+	font-weight: 500;
+	color: rgb(29, 29, 29);
+	text-align: center;
+	transition: all 0.2s;
+	background-color: rgba(211, 70, 70, 0);
+	height: 2.2em;
+}
+
+.submitBtnModal:hover {
+	color: rgb(255, 255, 255);
+	background-color: rgb(187, 56, 56);
+	cursor: pointer;
+}
+
 .textField {
 	height: 2em;
 	border-radius: 0.15em;
