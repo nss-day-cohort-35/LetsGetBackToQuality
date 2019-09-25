@@ -55,7 +55,7 @@ const friendEvents = {
 					<img class="profileImg" src="/src/images/users/${element.userNum}.png">
 				</div>
                 <p>${element.userName}</p>
-                <button id = "delete-${element.id}" class="submitBtnSm delete-button">Remove Friend</button>
+                <button id = "delete-${element.id}" class="submitBtnSm deleteQuery">Remove Friend</button>
             </div>
             `;
 		});
@@ -88,14 +88,14 @@ const friendEvents = {
 						<img class="profileImg" src="/src/images/users/${parsedFriend[0].userId}.png">
 						</div>
                 		<p>${parsedFriend[0].user.userName}</p>
-                		<button id = "delete-${parsedFriend[0].id}" class="submitBtnSm delete-button">Remove Friend</button>
+                		<button id = "delete-${parsedFriend[0].id}" class="submitBtnSm deleteQuery">Remove Friend</button>
             			</div>
             			`;
 						return parsedFriend;
 					});
 			})
 			.then(data => {
-				const buttonList = document.querySelectorAll(".delete-button");
+				const buttonList = document.querySelectorAll(".deleteQuert");
 				console.log(buttonList);
 				buttonList.forEach(element => {
 					element.addEventListener("click", friendEvents.friendDelete);
