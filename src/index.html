@@ -64,6 +64,7 @@
 							Submit task
 						</button>
 					</div>
+					<hr />
 					<div>
 						<button class="submitBtn" type="button" id="unfinishedTasks">
 							Unfinished
@@ -151,13 +152,15 @@
 				<div id="chat-room"></div>
 				<form>
 					<input hidden id="message-number" value="0" />
-					<label for="messageBox">Input:</label>
+
 					<span id="edit-message"></span>
 					<input
 						class="textField"
 						type="text"
 						name="messageBox"
 						id="message-box"
+						placeholder="Share a message!"
+						style="width: 200px;"
 					/>
 					<button class="submitBtn" type="button" id="submitChat">
 						Submit

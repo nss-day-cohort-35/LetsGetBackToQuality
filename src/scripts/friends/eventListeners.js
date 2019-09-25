@@ -54,7 +54,7 @@ const friendEvents = {
 					<img class="profileImg" src="/src/images/users/${element.userNum}.png">
 				</div>
                 <p>${element.userName}</p>
-                <button id = "delete-${element.id}" class = "class="submitBtn">Remove Friend</button>
+                <button id = "delete-${element.id}" class="submitBtnSm">Remove Friend</button>
             </div>
             `;
 		});
@@ -88,7 +88,7 @@ const friendEvents = {
 						<img class="profileImg" src="/src/images/users/${parsedFriend[0].userId}.png">
 						</div>
                 		<p>${parsedFriend[0].user.userName}</p>
-                		<button id = "delete-${parsedFriend[0].id}" class="submitBtn">Remove Friend</button>
+                		<button id = "delete-${parsedFriend[0].id}" class="submitBtnSm">Remove Friend</button>
             			</div>
             			`;
 						return parsedFriend;
