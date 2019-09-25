@@ -40,7 +40,6 @@ const friendEvents = {
 						document.querySelector("#hover-confirm-friend").style.display =
 							"block";
 						const splitUserID = event.target.id.split("-");
-						console.log(splitUserID[1]);
 						document.querySelector("#friendID").value = splitUserID[1];
 					});
 				});
@@ -49,7 +48,6 @@ const friendEvents = {
 	fillFriendList: function(friendArray, mainUserNum) {
 		const friendListElement = document.querySelector("#friends-list");
 		friendArray.forEach(element => {
-			console.log(friendArray);
 			friendListElement.innerHTML += `
             <div id = "friendCell-${element.id}" class = "friendCell"> 
             <div class="userImage">
@@ -63,7 +61,6 @@ const friendEvents = {
 	},
 
 	addToFriendsList: function(userID, session) {
-		console.log(session);
 		const mainUserNum = parseInt(session);
 		const userIDAdded = userID.split("-");
 		const addedFriend = {
@@ -105,13 +102,11 @@ const friendEvents = {
 	returnFriendArray: function(session) {
 		//Load function with the current user id
 		const mainUserNum = parseInt(session);
-		console.log(mainUserNum);
 		return fetch(
 			`http://localhost:8088/friends/?friendInitiate=${mainUserNum}&_expand=user`
 		) //Fetch the friends of the user
 			.then(data => data.json())
 			.then(parsedData => {
-				console.table(parsedData);
 				let objectArray = []; //Array of users
 				parsedData.forEach(dataElement => {
 					const friendObject = {
