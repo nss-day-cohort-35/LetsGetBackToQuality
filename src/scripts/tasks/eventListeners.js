@@ -16,6 +16,7 @@ const API = {
 		});
 	},
 	getTasks: () => {
+		let currentUserId = parseInt(sessionStorage.getItem("userId"))
 		return API.getFriends(currentUserId)
 			.then(data => {
 				data.forEach(obj => {
@@ -82,7 +83,7 @@ const API = {
 			body: JSON.stringify(updatedObject)
 		}).then(res => res.json());
 	},
-	getFriends: currentUserId => {
+	getFriends: (currentUserId = parseInt(sessionStorage.getItem("userId"))) => {
 		currentUserFriends.length = 0;
 		return fetch(
 			`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
@@ -160,7 +161,7 @@ const DOM = {
 		const taskContainer = document.querySelector("#tasksOutput");
 		taskContainer.innerHTML = "";
 		for (let i = 0; i < tasks.length; i++) {
-			if (tasks[i].userId === currentUserId) {
+			if (tasks[i].userId === parseInt(sessionStorage.getItem("userId"))) {
 				taskContainer.innerHTML += WEB.myFinishedTaskHTML(tasks[i]);
 			} else {
 				taskContainer.innerHTML += WEB.friendsFinishedTaskHTML(tasks[i]);
@@ -192,14 +193,16 @@ const taskEvents = {
 			if (hiddenId === "") {
 				let hiddenId = document.querySelector("#taskId").name;
 				const newTask = {
-					userId: currentUserId,
+					userId: parseInt(sessionStorage.getItem("userId")),
 					title: document.querySelector("#taskTitle").value,
 					dueDate: document.querySelector("#taskDueDate").value,
 					completed: "no"
 				};
-				API.saveTask(newTask).then(() => {
-					API.getTasks().then(data => DOM.addTasksToDom(data));
-				});
+				if (sessionStorage.getItem("userId")) {
+					API.saveTask(newTask).then(() => {
+						API.getTasks().then(data => DOM.addTasksToDom(data));
+					});
+				}
 				document.querySelector("#taskTitle").value = "";
 				document.querySelector("#taskDueDate").value = "";
 				// document.querySelector("#taskCompleted").value = "";

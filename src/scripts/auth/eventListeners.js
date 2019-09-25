@@ -1,4 +1,7 @@
 import API from "../api.js"
+import articleEvents from "../articles/eventListeners.js"
+import eventEvents from "../events/eventListeners.js"
+import taskEvents from "../tasks/eventListeners.js"
 
 
 //
@@ -57,12 +60,12 @@ let addSignUp = () => {
 
         <fieldset class="signup__fieldset">
             <label class="input">New password:</label>
-            <input class="input" type="text" id="signup-password" placeholder="new password">
+            <input class="input" type="password" id="signup-password" placeholder="new password">
         </fieldset>
 
         <fieldset class="signup__fieldset">
             <label class="input">New password confirmation:</label>
-            <input class="input" type="text" id="signup-password-confirm" placeholder="new password">
+            <input class="input" type="password" id="signup-password-confirm" placeholder="new password">
         </fieldset>
 
         <fieldset class="signup__fieldset">
@@ -102,8 +105,6 @@ const newSignData = (username, password, userId) => {
 		password: password,
 		userId: userId
 	}
-	//
-	sessionStorageData(signData)
 
 	console.log("signData.userId: ", signData.userId)
 
@@ -147,8 +148,8 @@ const signInListener = (outputElement) => {
 
 		API.getRecord(query).then((userList) => {
 			if (userList.length) {
-
 				signData = newSignData(userList[0].userName, userList[0].password, userList[0].id)
+				sessionStorageData(signData)
 				document.querySelector("#auth-signin-button").innerHTML = "Sign Out"
 				removeSignSection("signin-section")
 			} else {
@@ -281,13 +282,32 @@ const signIn = (outputElement) => {
 
 		let status = event.target.innerHTML
 
-		if (status === "Sign In") {
+		/*if (status === "Sign In") {
 			signInListener(outputElement)
 		}
 		if (status === "Sign Out") {
 			signData = newSignData("", "", "")
 			event.target.innerHTML = "Sign In"
+		}*/
+		if (status === "Sign In") {
+			signInListener(outputElement)
+			console.log("Sign In userId: ", sessionStorage.getItem("userId"))
+			//
+			eventEvents.getAllEvents()
+			articleEvents.getAllArticles()
+			taskEvents.getAllTasks()
 		}
+		if (status === "Sign Out") {
+			signData = newSignData("", "", "")
+			sessionStorageData(signData)
+			console.log("Sign Out userId: ", sessionStorage.getItem("userId"))
+			event.target.innerHTML = "Sign In"
+			//
+			eventEvents.getAllEvents()
+			articleEvents.getAllArticles()
+			taskEvents.getAllTasks()
+		}
+
 	})
 }
 

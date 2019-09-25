@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="./styles/main.css" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Notable|Oswald&display=swap"
+			rel="stylesheet"
+		/>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<link rel="stylesheet" href="./styles/main.css" />
-	<title>Document</title>
-</head>
+		<title>Document</title>
+	</head>
 
-<body>
-	<div class="leftCol">
-		<div class="logoContainer">
-			<img height="150px" width="auto" src="/src/images/onlineFriends.png" />
-		</div>
-		<article id="container"></article>
-		<div id="friend-search-container">
-			<label for="searchBox">Search for friends:</label>
-			<input type="text" name="searchBox" id="search-friend-box" />
-			<button type="button" id="submitSearch">Submit</button>
+	<body>
+		<div class="leftCol">
+			<div class="logoContainer">
+				<img height="150px" width="auto" src="/src/images/onlineFriends.png" />
+			</div>
+			<article id="container"></article>
+			<div class="friendsList">
+				<div id="friend-search-container">
+					<input
+						type="text"
+						name="searchBox"
+						placeholder="Search for friends"
+						id="search-friend-box"
+					/>
+					<button type="button" id="submitSearch">Submit</button>
 
-			<div id="search-results"></div>
+					<div id="search-results"></div>
+				</div>
+
+				<aside id="friends-list"></aside>
+			</div>
 		</div>
 		<aside id="friends-list"></aside>
 	</div>
@@ -78,20 +91,20 @@
 		</section>
 		<!--Chat Section-->
 
-		<article id="chatroom-container">
-			<h1 class="noClick">CHATROOM</h1>
-			<div id="chat-room"></div>
-			<form>
-				<input hidden id="message-number" value="0" />
-				<label for="messageBox">Input:</label>
-				<span id="edit-message"></span>
-				<input type="text" name="messageBox" id="message-box" />
-				<button type="button" id="submitChat">Submit</button>
-			</form>
-		</article>
-	</div>
-	<div id="hover-confirm-friend">
-		<div>
+			<article id="chatroom-container">
+				<h1 class="noClick">CHATROOM</h1>
+				<div id="chat-room"></div>
+				<form>
+					<input hidden id="message-number" value="0" />
+					<label for="messageBox">Input:</label>
+					<span id="edit-message"></span>
+					<input type="text" name="messageBox" id="message-box" />
+					<button type="button" id="submitChat">Submit</button>
+				</form>
+			</article>
+		</div>
+
+		<div id="hover-confirm-friend">
 			<input hidden value="0" id="friendID" />
 			<div>
 				<p>Would you like to add this friend?</p>
