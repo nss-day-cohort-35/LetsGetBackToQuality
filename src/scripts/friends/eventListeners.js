@@ -1,5 +1,6 @@
 const friendEvents = {
 	friendDelete: function(event) {
+		console.log("Clicky!")
 		const userIDDelete = event.target.id.split("-");
 		document.querySelector(`#friendCell-${userIDDelete[1]}`).remove();
 		fetch(`http://localhost:8088/friends/${userIDDelete[1]}`, {
@@ -25,10 +26,10 @@ const friendEvents = {
 				} else {
 					parsedData.forEach(element => {
 						document.querySelector(
-							"#search-results"
+						"#search-results"
 						).innerHTML += `<div id = "friendSearchCell-${element.id}" class = "friendCell"> 
                         <p>${element.userName}</p>
-                        <button id = "addFriend-${element.id}" class = "addButton">Add</button>
+                        <button id = "addFriend-${element.id}" class = "submitBtn addButton">Add</button>
                         </div>`;
 					});
 				}
@@ -54,7 +55,7 @@ const friendEvents = {
 					<img class="profileImg" src="/src/images/users/${element.userNum}.png">
 				</div>
                 <p>${element.userName}</p>
-                <button id = "delete-${element.id}" class="submitBtnSm">Remove Friend</button>
+                <button id = "delete-${element.id}" class="submitBtnSm deleteQuery">Remove Friend</button>
             </div>
             `;
 		});
@@ -80,7 +81,6 @@ const friendEvents = {
 				)
 					.then(newFriend => newFriend.json())
 					.then(parsedFriend => {
-						console.log("Adding");
 						const friendListElement = document.querySelector("#friends-list");
 						friendListElement.innerHTML += `
 						<div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
@@ -88,14 +88,15 @@ const friendEvents = {
 						<img class="profileImg" src="/src/images/users/${parsedFriend[0].userId}.png">
 						</div>
                 		<p>${parsedFriend[0].user.userName}</p>
-                		<button id = "delete-${parsedFriend[0].id}" class="submitBtnSm">Remove Friend</button>
+                		<button id = "delete-${parsedFriend[0].id}" class="submitBtnSm deleteQuery">Remove Friend</button>
             			</div>
             			`;
 						return parsedFriend;
 					});
 			})
 			.then(data => {
-				const buttonList = document.querySelectorAll(".deleteButton");
+				const buttonList = document.querySelectorAll(".deleteQuery");
+				console.log(buttonList);
 				buttonList.forEach(element => {
 					element.addEventListener("click", friendEvents.friendDelete);
 				});
