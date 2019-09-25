@@ -26,10 +26,10 @@ const friendEvents = {
 				} else {
 					parsedData.forEach(element => {
 						document.querySelector(
-							"#search-results"
+						"#search-results"
 						).innerHTML += `<div id = "friendSearchCell-${element.id}" class = "friendCell"> 
                         <p>${element.userName}</p>
-                        <button id = "addFriend-${element.id}" class = "addButton">Add</button>
+                        <button id = "addFriend-${element.id}" class = "submitBtn addButton">Add</button>
                         </div>`;
 					});
 				}
@@ -95,7 +95,7 @@ const friendEvents = {
 					});
 			})
 			.then(data => {
-				const buttonList = document.querySelectorAll(".deleteQuert");
+				const buttonList = document.querySelectorAll(".deleteQuery");
 				console.log(buttonList);
 				buttonList.forEach(element => {
 					element.addEventListener("click", friendEvents.friendDelete);
