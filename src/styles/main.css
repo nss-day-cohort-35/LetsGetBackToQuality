@@ -1,8 +1,48 @@
+/* color scheme */
+
+.leftCol {
+	background-color: #95d1c7;
+	border-radius: 10px;
+	margin: 0.5em;
+}
+
+#tasks {
+	background-color: #f4848a;
+	margin: 0.5em;
+	border-radius: 10px;
+}
+
+#articles {
+	background-color: #f9a96a;
+	margin: 0.5em;
+	border-radius: 10px;
+	border: solid white;
+}
+
+#events {
+	background-color: #fcd681;
+	margin: 0.5em;
+	border-radius: 10px;
+	border: solid white;
+}
+
+#chatroom-container {
+	background-color: #a09ab2;
+	margin: 0.5em;
+	border-radius: 10px;
+}
+
 /* primary layout */
 
+h1 {
+	font-family: "Notable", sans-serif;
+	letter-spacing: 5px;
+}
 body {
 	display: flex;
 	flex-direction: row;
+	font-family: "Oswald", sans-serif;
+	justify-content: center;
 }
 
 .leftCol {
@@ -16,12 +56,16 @@ body {
 }
 
 .taskContainer,
-.myChatContainer {
+.myChatContainer,
+.eventContainer,
+.articleContainer {
 	display: flex;
 }
 
 .friendsTaskContainer,
-.friendChatContainer {
+.friendChatContainer,
+.friendEventContainer,
+.friendArticleContainer {
 	display: flex;
 	align-self: flex-end;
 }
@@ -44,7 +88,7 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
-	border: solid red;
+	border: solid white;
 }
 
 #chat-room {
@@ -53,7 +97,6 @@ body {
 	flex-direction: column;
 	overflow: auto;
 	height: auto;
-	border: 1px rgb(255, 0, 0) solid;
 }
 
 #friends-list {
@@ -64,6 +107,13 @@ body {
 	/* height: 420px; */
 	/* border-left: 0.01em solid black; */
 	justify-content: center;
+}
+
+.friendsList {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
 
 .message {
@@ -114,7 +164,6 @@ body {
 /* tasks css */
 
 #tasks {
-	border: 1px solid red;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -122,7 +171,6 @@ body {
 }
 
 #tasksInput {
-	border: 1px solid red;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -131,35 +179,38 @@ body {
 }
 
 #tasksOutput {
-	border: 1px solid red;
-	background: white;
 	display: flex;
 	flex-direction: column;
 	width: inherit;
 }
 
 .myTasks,
-.myMsg {
-	background-color: lightblue;
+.myMsg,
+.myArticles {
+	background-color: rgba(255, 255, 255, 0.473);
 	align-self: baseline;
 	margin: 0.5em;
 	padding: 0em 1.5em;
 	border-radius: 5px 5px 5px 5px;
+	border: 2px solid white;
+	font-family: "Oswald", sans-serif;
 }
 .friendsTasks,
-.friendMsg {
-	background-color: lightgreen;
-	font-style: italic;
+.friendMsg,
+.friendsArticles {
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 	align-self: flex-end;
 	margin: 0.5em;
 	padding: 0em 1.5em;
 	border-radius: 5px 5px 5px 5px;
+	border: 2px solid white;
+	font-family: "Oswald", sans-serif;
 }
 
 /* articles CSS */
 
 #articles {
-	border: 1px solid red;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -167,7 +218,6 @@ body {
 }
 
 #articlesInput {
-	border: 1px solid red;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -176,31 +226,38 @@ body {
 }
 
 #articlesOutput {
-	border: 1px solid red;
-	max-width: 500px;
-	min-width: 300px;
-	max-height: 500px;
-	overflow: scroll;
-	background: white;
+	display: flex;
+	flex-direction: column;
+	width: inherit;
 }
 
-.myArticles:first-child,
+/* .myArticles:first-child,
 .friendsArticles:first-child {
 	font-size: 1.5em;
-}
+} */
 
 .myArticles {
-	background-color: lightblue;
+	background-color: rgba(255, 255, 255, 0.473);
+	align-self: baseline;
+	margin: 0.5em;
+	padding: 0em 1.5em;
+	border-radius: 5px 5px 5px 5px;
+	border: 2px solid white;
+	font-family: "Oswald", sans-serif;
 }
 .friendsArticles {
-	background-color: lightgreen;
-	font-style: italic;
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+	align-self: flex-end;
+	margin: 0.5em;
+	padding: 0em 1.5em;
+	border-radius: 5px 5px 5px 5px;
+	border: 2px solid white;
+	font-family: "Oswald", sans-serif;
 }
-
 /* events css */
 
 #events {
-	border: 1px solid red;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -208,7 +265,6 @@ body {
 }
 
 #eventsInput {
-	border: 1px solid red;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -217,25 +273,34 @@ body {
 }
 
 #eventsOutput {
-	border: 1px solid red;
-	max-width: 500px;
-	min-width: 300px;
-	max-height: 500px;
-	overflow: scroll;
-	background: white;
+	display: flex;
+	flex-direction: column;
+	width: inherit;
 }
 
-.myEvents:first-child,
+/* .myEvents:first-child,
 .friendsEvents:first-child {
 	font-size: 1.5em;
-}
+} */
 
 .myEvents {
-	background-color: lightblue;
+	background-color: rgba(255, 255, 255, 0.473);
+	align-self: baseline;
+	margin: 0.5em;
+	padding: 0em 1.5em;
+	border-radius: 5px 5px 5px 5px;
+	border: 2px solid white;
+	font-family: "Oswald", sans-serif;
 }
 .friendsEvents {
-	background-color: lightgreen;
-	font-style: italic;
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+	align-self: flex-end;
+	margin: 0.5em;
+	padding: 0em 1.5em;
+	border-radius: 5px 5px 5px 5px;
+	border: 2px solid white;
+	font-family: "Oswald", sans-serif;
 }
 
 /* dropdown accordian */
@@ -278,7 +343,7 @@ body {
 .arrow-left {
 	width: 20px;
 	height: 20px;
-	background: linear-gradient(to bottom right, lightblue 50%, transparent 0);
+	background: linear-gradient(to bottom right, white 50%, transparent 0);
 	border-radius: 5px 0 0 0;
 	transform: rotate(-45deg);
 	position: relative;

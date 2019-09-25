@@ -98,7 +98,7 @@ const chatObject = {
 								
 							<div id = "message-${element.id}" class = "message friendMsg">
 								<svg class="arrow-right" viewbox="0 0 50 50" height="20px">
-									<path d="M1 50 V10 Q1 1 10 1 H50z" fill="lightgreen" />
+									<path d="M1 50 V10 Q1 1 10 1 H50z" fill="white" />
 								</svg>
 								<span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
 								<span id = "date-${element.id}" class = "message-date">${element.date}:</span>
