@@ -1,5 +1,5 @@
 const friendEvents = {
-	friendDelete: function (event) {
+	friendDelete: function(event) {
 		const userIDDelete = event.target.id.split("-");
 		document.querySelector(`#friendCell-${userIDDelete[1]}`).remove();
 		fetch(`http://localhost:8088/friends/${userIDDelete[1]}`, {
@@ -9,11 +9,11 @@ const friendEvents = {
 			}
 		});
 	},
-	friendSearch: function (event, session) {
+	friendSearch: function(event, session) {
 		document.querySelector("#search-results").innerHTML = "";
 		fetch(
 			`http://localhost:8088/users?userName_like=${
-			document.querySelector("#search-friend-box").value
+				document.querySelector("#search-friend-box").value
 			}`
 		)
 			.then(data => data.json())
@@ -36,7 +36,7 @@ const friendEvents = {
 			.then(data => {
 				const addButtonArray = document.querySelectorAll(".addButton");
 				addButtonArray.forEach(element => {
-					element.addEventListener("click", function (event) {
+					element.addEventListener("click", function(event) {
 						document.querySelector("#hover-confirm-friend").style.display =
 							"block";
 						const splitUserID = event.target.id.split("-");
@@ -45,7 +45,7 @@ const friendEvents = {
 				});
 			});
 	},
-	fillFriendList: function (friendArray, mainUserNum) {
+	fillFriendList: function(friendArray, mainUserNum) {
 		const friendListElement = document.querySelector("#friends-list");
 		friendArray.forEach(element => {
 			friendListElement.innerHTML += `
@@ -60,7 +60,7 @@ const friendEvents = {
 		});
 	},
 
-	addToFriendsList: function (userID, session) {
+	addToFriendsList: function(userID, session) {
 		const mainUserNum = parseInt(session);
 		const userIDAdded = userID.split("-");
 		const addedFriend = {
@@ -73,7 +73,6 @@ const friendEvents = {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify(addedFriend)
-			
 		})
 			.then(data => {
 				return fetch(
@@ -103,7 +102,7 @@ const friendEvents = {
 			});
 	},
 
-	returnFriendArray: function (session) {
+	returnFriendArray: function(session) {
 		//Load function with the current user id
 		const mainUserNum = parseInt(session);
 		return fetch(
