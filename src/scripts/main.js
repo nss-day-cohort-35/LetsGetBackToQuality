@@ -195,7 +195,6 @@ if (sessionStorage.getItem("userId") !== "") {
 			});
 		});
 } else {
-	chatObject.returnMessagesArray(friendArray, sessionStorage.getItem("userId"));
 	document.querySelector("#submitSearch").disabled = true;
 }
 
