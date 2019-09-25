@@ -48,11 +48,14 @@ body {
 .leftCol {
 	display: flex;
 	flex-direction: column;
+	padding-bottom: 2em;
+	padding: 1em;
 }
 
 .rightCol {
 	display: flex;
 	flex-direction: column;
+	max-width: 600px;
 }
 
 .taskContainer,
@@ -89,6 +92,11 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	border: solid white;
+	padding-bottom: 1em;
+}
+
+#chatroom-container > form {
+	padding-top: 1em;
 }
 
 #chat-room {
@@ -103,10 +111,17 @@ body {
 	display: flex;
 	flex-direction: column;
 	/* width: 15%; */
-	overflow: auto;
+	/* overflow: auto; */
 	/* height: 420px; */
 	/* border-left: 0.01em solid black; */
 	justify-content: center;
+}
+
+#friend-search-container {
+	border: 1px solid white;
+	padding: 0.5em;
+	margin: 1em, 0em;
+	margin-top: 2em;
 }
 
 .friendsList {
@@ -175,13 +190,15 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin-bottom: 1em;
+	align-items: center;
 }
 
 #tasksOutput {
+	margin-top: 1em;
 	display: flex;
 	flex-direction: column;
 	width: inherit;
+	padding-bottom: 1em;
 }
 
 .myTasks,
@@ -223,12 +240,14 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	margin-bottom: 1em;
+	align-items: center;
 }
 
 #articlesOutput {
 	display: flex;
 	flex-direction: column;
 	width: inherit;
+	padding-bottom: 1em;
 }
 
 /* .myArticles:first-child,
@@ -270,12 +289,14 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	margin-bottom: 1em;
+	align-items: center;
 }
 
 #eventsOutput {
 	display: flex;
 	flex-direction: column;
 	width: inherit;
+	padding-bottom: 1em;
 }
 
 /* .myEvents:first-child,
@@ -368,16 +389,16 @@ body {
 	padding-bottom: 0.2em;
 	border: 0.07em solid white;
 	margin: 0.3em;
-	border-radius: 0.15em 0em 0em 0em;
+	border-radius: 5px 0px 5px 0px;
 	box-sizing: border-box;
 	text-decoration: none;
 	font-family: "Oswald", sans-serif;
 	font-weight: 500;
-	color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 	text-align: center;
 	transition: all 0.2s;
 	background: rgba(255, 255, 255, 0);
-	font-size: 0.7em;
+	font-size: 0.8em;
 	float: right;
 }
 
@@ -396,17 +417,17 @@ body {
 	padding-bottom: 0.2em;
 	border: 0.07em solid white;
 	margin: 0.3em;
-	border-radius: 0.15em 0em 0em 0em;
+	border-radius: 5px 0px 5px 0px;
 	box-sizing: border-box;
 	text-decoration: none;
 	font-family: "Oswald", sans-serif;
 	font-weight: 500;
-	color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 	text-align: center;
 	transition: all 0.2s;
 	background: rgba(255, 255, 255, 0);
 	float: right;
-	font-size: 0.7em;
+	font-size: 0.8em;
 }
 
 .delete-button:hover {
@@ -415,30 +436,133 @@ body {
 	cursor: pointer;
 }
 
+.submitBtn {
+	display: inline-block;
+	padding: 0.1em 1.5em;
+	border: 0.07em solid white;
+
+	border-radius: 0.15em;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: "Oswald", sans-serif;
+	font-weight: 500;
+	color: rgb(29, 29, 29);
+	text-align: center;
+	transition: all 0.2s;
+	background-color: rgba(255, 255, 255, 0);
+	height: 2.2em;
+}
+
+.submitBtn:hover {
+	color: rgb(58, 58, 58);
+	background-color: white;
+	cursor: pointer;
+}
+
+.submitBtnSm {
+	display: inline-block;
+	padding: 0.1em 1.5em;
+	padding-bottom: 0.3em;
+	border: 0em solid white;
+
+	border-radius: 0.15em;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: "Oswald", sans-serif;
+	font-weight: 500;
+	color: rgb(41, 41, 41);
+	text-align: center;
+	transition: all 0.2s;
+	background-color: rgba(255, 255, 255, 0);
+	font-size: 0.7em;
+}
+
+.submitBtnSm:hover {
+	color: rgb(59, 59, 59);
+	background-color: white;
+	cursor: pointer;
+}
+
+.textField {
+	height: 2em;
+	border-radius: 0.15em;
+	border: none;
+	font-family: "Oswald", sans-serif;
+	padding: 2px;
+	margin: 0.5em;
+}
+
 /*Saves Module*/
-#hover-confirm-friend{
-	background:rgba(0,0,0,.4);
-    cursor:pointer;
-    display:none;
-    height:100%;
-    position:fixed;
-    text-align:center;
-    top:0;
-    width:100%;
-    z-index:10000;
+#hover-confirm-friend {
+	background: rgba(0, 0, 0, 0.4);
+	cursor: pointer;
+	display: none;
+	height: 100%;
+	position: fixed;
+	text-align: center;
+	top: 0;
+	width: 100%;
+	z-index: 10000;
 }
 
 #hover-confirm-friend > div {
-    background-color: #fff;
-    box-shadow: 10px 10px 60px #555;
-    display: inline-block;
-    height: auto;
-    max-width: 300px;
-    min-height: 100px;
+	background-color: #fff;
+	box-shadow: 10px 10px 60px #555;
+	display: inline-block;
+	height: auto;
+	max-width: 300px;
+	min-height: 100px;
 	vertical-align: middle;
 	top: 40%;
-    width: 60%;
-    position: relative;
-    border-radius: 8px;
-    padding: 15px 5%;
+	width: 60%;
+	position: relative;
+	border-radius: 8px;
+	padding: 15px 5%;
+}
+
+.friendCell > p {
+	font-size: 1.5em;
+	margin: 0;
+	text-align: center;
+}
+
+.friendCell {
+	border: 1px solid white;
+	margin: 0.5em;
+	padding: 0.5em 2em;
+	transition: 0.4s;
+}
+
+.friendCell:hover {
+	transform: scale(1.2);
+	transition: 0.4s;
+	background: rgba(255, 255, 255, 0.452);
+	border-radius: 10px;
+}
+
+/* auth section styling */
+
+#container {
+	padding: 1em 0em;
+}
+
+hr {
+	border: 0;
+	clear: both;
+	display: block;
+	width: 96%;
+	background-color: white;
+	height: 2px;
+	margin-top: 0em;
+}
+
+fieldset {
+	border: white;
+}
+
+.auth-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }

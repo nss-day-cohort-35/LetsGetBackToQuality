@@ -20,86 +20,151 @@
 			</div>
 			<article id="container"></article>
 			<div class="friendsList">
+				<aside id="friends-list"></aside>
 				<div id="friend-search-container">
 					<input
+						class="textField"
 						type="text"
 						name="searchBox"
 						placeholder="Search for friends"
 						id="search-friend-box"
 					/>
-					<button type="button" id="submitSearch">Submit</button>
+					<button class="submitBtn" type="button" id="submitSearch">
+						Submit
+					</button>
 
 					<div id="search-results"></div>
 				</div>
-
-				<aside id="friends-list"></aside>
 			</div>
 		</div>
-		<aside id="friends-list"></aside>
-	</div>
-	<div class="rightCol">
-		<!-- login section -->
+		<div class="rightCol">
+			<!-- login section -->
 
-		<!-- tasks Section -->
-		<section class="dropBtn" id="tasks">
-			<h1 class="noClick">TASKS</h1>
-			<div id="myDropdown" class="dropdown-content">
-				<div id="tasksInput">
-					<input type="text" placeholder="Task Title" id="taskTitle" />
-					<input type="date" placeholder="Task Due" id="taskDueDate" />
-					<!-- <input type="checkbox" id="taskCompleted" value="false" /> -->
-					<!-- <input type="text" placeholder="task Completed" id="taskCompleted" /> -->
-					<input style="display: none" name="" id="taskId" />
-					<button type="button" id="submitTask">Submit task</button>
+			<!-- tasks Section -->
+			<section class="dropBtn" id="tasks">
+				<h1 class="noClick">TASKS</h1>
+				<div id="myDropdown" class="dropdown-content">
+					<div id="tasksInput">
+						<input
+							class="textField"
+							type="text"
+							placeholder="Task Title"
+							id="taskTitle"
+						/>
+						<input
+							class="textField"
+							type="date"
+							placeholder="Task Due"
+							id="taskDueDate"
+						/>
+						<!-- <input type="checkbox" id="taskCompleted" value="false" /> -->
+						<!-- <input type="text" placeholder="task Completed" id="taskCompleted" /> -->
+						<input style="display: none" name="" id="taskId" />
+						<button class="submitBtn" type="button" id="submitTask">
+							Submit task
+						</button>
+					</div>
+					<hr />
+					<div>
+						<button class="submitBtn" type="button" id="unfinishedTasks">
+							Unfinished
+						</button>
+						<button class="submitBtn" type="button" id="finishedTasks">
+							Finished
+						</button>
+					</div>
+					<article id="tasksOutput"></article>
 				</div>
-				<div>
-					<button type="button" id="unfinishedTasks">Unfinished</button>
-					<button type="button" id="finishedTasks">Finished</button>
+			</section>
+			<!-- articles Section -->
+			<section class="dropBtn" id="articles">
+				<h1 class="noClick">ARTICLES</h1>
+				<div id="myDropdown" class="dropdown-content">
+					<div id="articlesInput">
+						<input
+							class="textField"
+							type="date"
+							placeholder="articleDate"
+							id="articleDate"
+						/>
+						<input
+							class="textField"
+							type="text"
+							placeholder="Article Title"
+							id="articleTitle"
+						/>
+						<input
+							class="textField"
+							type="text"
+							placeholder="Article Summary"
+							id="articleSummary"
+						/>
+						<input
+							class="textField"
+							type="text"
+							placeholder="article Url"
+							id="articleURL"
+						/>
+						<input style="display: none" name="" id="articleId" />
+						<button class="submitBtn" type="button" id="submitArticle">
+							Submit article
+						</button>
+					</div>
+					<article id="articlesOutput"></article>
 				</div>
-				<article id="tasksOutput"></article>
-			</div>
-		</section>
-		<!-- articles Section -->
-		<section class="dropBtn" id="articles">
-			<h1 class="noClick">ARTICLES</h1>
-			<div id="myDropdown" class="dropdown-content">
-				<div id="articlesInput">
-					<input type="date" placeholder="articleDate" id="articleDate" />
-					<input type="text" placeholder="Article Title" id="articleTitle" />
-					<input type="text" placeholder="Article Summary" id="articleSummary" />
-					<input type="text" placeholder="article Url" id="articleURL" />
-					<input style="display: none" name="" id="articleId" />
-					<button type="button" id="submitArticle">Submit article</button>
-				</div>
-				<article id="articlesOutput"></article>
-			</div>
-		</section>
+			</section>
 
-		<!-- Events Section -->
-		<section class="dropBtn" id="events">
-			<h1 class="noClick">EVENTS</h1>
-			<div id="myDropdown" class="dropdown-content">
-				<div id="eventsInput">
-					<input type="date" placeholder="eventDate" id="eventDate" />
-					<input type="text" placeholder="Event Title" id="eventTitle" />
-					<input type="text" placeholder="Event location" id="eventLocation" />
-					<input style="display: none" name="" id="eventId" />
-					<button type="button" id="submitEvent">Submit Event</button>
+			<!-- Events Section -->
+			<section class="dropBtn" id="events">
+				<h1 class="noClick">EVENTS</h1>
+				<div id="myDropdown" class="dropdown-content">
+					<div id="eventsInput">
+						<input
+							class="textField"
+							type="date"
+							placeholder="eventDate"
+							id="eventDate"
+						/>
+						<input
+							class="textField"
+							type="text"
+							placeholder="Event Title"
+							id="eventTitle"
+						/>
+						<input
+							class="textField"
+							type="text"
+							placeholder="Event location"
+							id="eventLocation"
+						/>
+						<input style="display: none" name="" id="eventId" />
+						<button class="submitBtn" type="button" id="submitEvent">
+							Submit Event
+						</button>
+					</div>
+					<article id="eventsOutput"></article>
 				</div>
-				<article id="eventsOutput"></article>
-			</div>
-		</section>
-		<!--Chat Section-->
+			</section>
+			<!--Chat Section-->
 
 			<article id="chatroom-container">
 				<h1 class="noClick">CHATROOM</h1>
 				<div id="chat-room"></div>
 				<form>
 					<input hidden id="message-number" value="0" />
-					<label for="messageBox">Input:</label>
+
 					<span id="edit-message"></span>
-					<input type="text" name="messageBox" id="message-box" />
-					<button type="button" id="submitChat">Submit</button>
+					<input
+						class="textField"
+						type="text"
+						name="messageBox"
+						id="message-box"
+						placeholder="Share a message!"
+						style="width: 200px;"
+					/>
+					<button class="submitBtn" type="button" id="submitChat">
+						Submit
+					</button>
 				</form>
 			</article>
 		</div>
@@ -114,7 +179,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
-
+	</body>
 </html>
