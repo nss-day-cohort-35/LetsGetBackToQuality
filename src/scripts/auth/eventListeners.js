@@ -261,7 +261,7 @@ const signUpListener = outputElement => {
 				if (verifyInput(query)) {
 					const record = newRecord(query);
 					API.putRecord("users", record).then(data => {
-						alert('New account "' + record.userName + '" created. Good job!');
+						alert("New account " + record.userName + " created. Good job!");
 						removeSignSection("signup-section");
 					});
 				} else {
