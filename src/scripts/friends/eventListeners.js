@@ -67,13 +67,13 @@ const friendEvents = {
 			userId: parseInt(userIDAdded[0]),
 			friendInitiate: mainUserNum
 		};
-		newFriend = true;
 		fetch("http://localhost:8088/friends", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify(addedFriend)
+			
 		})
 			.then(data => {
 				return fetch(
@@ -81,7 +81,7 @@ const friendEvents = {
 				)
 					.then(newFriend => newFriend.json())
 					.then(parsedFriend => {
-						console.log(parsedFriend);
+						console.log("Adding");
 						const friendListElement = document.querySelector("#friends-list");
 						friendListElement.innerHTML += `
 						<div id = "friendCell-${parsedFriend[0].id}" class = "friendCell"> 
