@@ -4,6 +4,7 @@ import eventEvents from "./events/eventListeners";
 import articleEvents from "./articles/eventListeners";
 import taskEvents from "./tasks/eventListeners";
 import messageEvents from "./messages/eventListeners";
+import API from "./api";
 
 /*
     Import all the tools into main.js that are needed to display
@@ -49,7 +50,7 @@ taskEvents.standardTasks();
 document.querySelector("#hover-confirm-friend").style.display = "none";
 document
 	.querySelector("#submitFriend")
-	.addEventListener("click", function(event) {
+	.addEventListener("click", function (event) {
 		friendEvents.addToFriendsList(
 			document.querySelector("#friendID").value,
 			sessionStorage.getItem("userId")
@@ -58,12 +59,12 @@ document
 	});
 document
 	.querySelector("#closeFriendHover")
-	.addEventListener("click", function(event) {
+	.addEventListener("click", function (event) {
 		document.querySelector("#hover-confirm-friend").style.display = "none";
 	});
 
 const chatObject = {
-	returnMessagesArray: function(fetchedArray, session) {
+	returnMessagesArray: function (fetchedArray, session) {
 		//Returns the friend array and ID of current user
 		//Populates the fetch string with multiple querys.
 		const mainUserNum = parseInt(session);
@@ -83,7 +84,7 @@ const chatObject = {
 							<div class="myChatContainer">
 							<img class="chatImg" src="/src/images/users/${element.userId}.png">
                             <div id = "message-${element.id}" class = "message myMsg">
-                                
+
 								<div class="arrow-left"></div>
 								<span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
 								<span id = "date-${element.id}" class = "message-date">${element.date}:</span>
@@ -95,7 +96,7 @@ const chatObject = {
 					} else {
 						document.querySelector("#chat-room").innerHTML += `
                             <div class="friendChatContainer">
-								
+
 							<div id = "message-${element.id}" class = "message friendMsg">
 								<svg class="arrow-right" viewbox="0 0 50 50" height="20px">
 									<path d="M1 50 V10 Q1 1 10 1 H50z" fill="white" />
@@ -103,7 +104,7 @@ const chatObject = {
 								<span id = "userId-${element.userId}" class = "message-name">${element.user.userName}::</span>
 								<span id = "date-${element.id}" class = "message-date">${element.date}:</span>
 								<p id = "innermessage-${element.id}" class = "message-value">${element.message}</p>
-								
+
 								</div>
 							<img class="chatImg" src="/src/images/users/${element.userId}.png">
 						</div>
@@ -117,7 +118,7 @@ const chatObject = {
 					parsedData.forEach(element => {
 						document
 							.querySelector(`#message-${element.id} > .message-name`)
-							.addEventListener("click", function(event) {
+							.addEventListener("click", function (event) {
 								document.querySelector("#hover-confirm-friend").style.display =
 									"block";
 								const splitUserID = document
@@ -143,14 +144,14 @@ if (sessionStorage.getItem("userId") !== "") {
 	document.querySelector("#submitChat").disabled = true;
 }
 
-document.querySelector("#submitChat").addEventListener("click", function() {
+document.querySelector("#submitChat").addEventListener("click", function () {
 	if (document.querySelector("#message-box").value === "") {
 		alert("Please enter something.");
 	} else {
 		if (document.querySelector("#message-number").value === "0") {
 			messageEvents.addChat(sessionStorage.getItem("userId")).then(data => {
 				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"))
-				.then(data => {window.scrollTo(0, document.querySelector("body").scrollHeight);})
+					.then(data => { window.scrollTo(0, document.querySelector("body").scrollHeight); })
 			});
 		} else {
 			console.log(document.querySelector("#submitChat").scrollHeight);
@@ -160,7 +161,7 @@ document.querySelector("#submitChat").addEventListener("click", function() {
 				document.querySelector("#submitChat").innerHTML = "Submit";
 				document.querySelector("#message-box").value = "";
 				chatObject.returnMessagesArray(data, sessionStorage.getItem("userId"))
-				.then(data => {window.scrollTo(0, document.querySelector("body").scrollHeight);})
+					.then(data => { window.scrollTo(0, document.querySelector("body").scrollHeight); })
 			});
 		}
 	}
@@ -170,7 +171,7 @@ document.querySelector("#submitChat").addEventListener("click", function() {
 //****************************
 
 var friendArray = [];
-document.querySelector("#submitSearch").addEventListener("click", function() {
+document.querySelector("#submitSearch").addEventListener("click", function () {
 	friendEvents.friendSearch(event, sessionStorage.getItem("userId"));
 });
 if (sessionStorage.getItem("userId") !== "" && sessionStorage.getItem("userId") !== null) {
@@ -221,3 +222,78 @@ window.addEventListener("click", event => {
 		}
 	}
 });
+
+
+
+const currentUserFriends = []
+
+const newFriend = (id, name) => {
+	const friend = {
+		userId: id,
+		name: name
+	}
+	return friend
+}
+
+const getFriends = (currentUserId = parseInt(sessionStorage.getItem("userId"))) => {
+
+	return fetch(
+		`http://localhost:8088/friends/?friendInitiate=${currentUserId}&_expand=user`
+	).then(response => response.json())
+		.then(data => {
+			data.forEach(friend => {
+				currentUserFriends.push(newFriend(friend.userId, friend.user.userName))
+			})
+			return currentUserFriends
+		})
+		.then(data => {
+			console.log("data: ", data)
+			return data
+		})
+}
+
+
+const friendsOfFriends = () => {
+
+	getFriends().then(data => {
+		let searchString = ""
+
+		data.forEach(friend => {
+			searchString += `friendInitiate=${friend.userId}&`
+		});
+
+		return fetch(
+			`http://localhost:8088/friends/?${searchString}&_expand=user`
+		).then(response => response.json()).then(data => {
+			let friendsOfFriends = []
+
+			//console.log("data: ", data)
+
+			data.forEach(friend => {
+
+				if (!friendsOfFriends.includes(newFriend(friend.userId, friend.user.userName)) &&
+					!currentUserFriends.includes(newFriend(friend.userId, friend.user.userName))) {
+					friendsOfFriends.push(newFriend(friend.userId, friend.user.userName))
+				}
+			})
+
+			const currentUser = newFriend(parseInt(sessionStorage.getItem("userId")), sessionStorage.getItem("username"))
+
+			console.log("currentUser: ", currentUser)
+			console.log("before friendsOfFriends: ", friendsOfFriends)
+			const userIndex = friendsOfFriends.indexOf(currentUser)
+			console.log("userIndex: ", userIndex)
+			if (userIndex !== -1) {
+				friendsOfFriends.splice(userIndex, 1)
+			}
+			console.log("after friendsOfFriends: ", friendsOfFriends)
+			return friendsOfFriends
+		})
+	})
+
+	//let userId = parseInt(sessionStorage.getItem("userId"))
+}
+
+friendsOfFriends()
+
+
