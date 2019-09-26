@@ -614,3 +614,24 @@ fieldset {
 	justify-content: flex-end;
 	width: 100%;
 }
+
+/* chat styling */
+
+.message-value {
+	margin-bottom: 0em;
+	margin-top: 0;
+	font-style: bold;
+	font-size: 1.2em;
+}
+
+.message-date,
+.message-name {
+	font-size: 0.8em;
+	position: relative;
+	/* top: -20px; */
+}
+
+h5 {
+	font-size: 1.3em;
+	margin: 0.5em 0em 0em 0em;
+}

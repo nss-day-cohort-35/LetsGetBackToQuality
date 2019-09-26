@@ -78,7 +78,7 @@ const WEB = {
 					<img class="profileImg" src="/src/images/users/${obj.userId}.png">
 				</div>
             <div class="myEvents">
-                <h5>${obj.title}<h5>
+                <h5>${obj.title}</h5>
                 <p>Date: ${obj.date} </p>
                 <p>location: ${obj.location}</p>
                 <button type="button" class="edit-button" id="edit--${obj.id}">EDIT</button>
@@ -91,7 +91,7 @@ const WEB = {
 		return `
 		<div class="friendEventContainer">
             <div class="friendsEvents">
-                <h5>${obj.title}<h5>
+                <h5>${obj.title}</h5>
                 <p>Date: ${obj.date} </p>
                 <p>location: ${obj.location}</p>
 			</div>
