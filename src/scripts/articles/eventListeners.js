@@ -85,7 +85,7 @@ const WEB = {
             <div class="myArticles">
                 <h5>${obj.title}</h5>
                 <p>Date: ${obj.date} </p>
-                <p>url: ${obj.url}</p>
+                <a target="_blank" href="${obj.url}">${obj.url}</a>
                 <p>summary: ${obj.summary}</p>
                 <button class="edit-button" type="button" id="edit--${obj.id}">EDIT</button>
                 <button type="button" class="delete-button" id="delete--${obj.id}">DELETE</button>
@@ -99,7 +99,7 @@ const WEB = {
             <div class="friendsArticles">
                 <h5>${obj.title}</h5>
                 <p>Date: ${obj.date} </p>
-                <p>url: ${obj.url}</p>
+                <a target="_blank" href="${obj.url}">${obj.url}</a>
                 <p>summary: ${obj.summary}</p>
 			</div>
 			<div class="userImage">
