@@ -607,12 +607,19 @@ fieldset {
 	display: flex;
 	justify-content: baseline;
 	width: 100%;
+	flex-wrap: wrap;
 }
 
 .secondWord {
 	display: flex;
 	justify-content: flex-end;
 	width: 100%;
+	flex-wrap: wrap;
+}
+
+.firstWord > img,
+.secondWord > img {
+	margin: 0.5em;
 }
 
 /* chat styling */
