@@ -100,7 +100,7 @@ const WEB = {
 					<img class="profileImg" src="/src/images/users/${obj.userId}.png">
 				</div>
 				<div class="myTasks">
-					<h5>${obj.title}<h5>
+					<h5>${obj.title}</h5>
 					<p>Due Date: ${obj.dueDate} </p>
 					<p>completed?: 	<input type="checkbox" id="taskCompleted--${obj.id}" class="taskCompleted" value="yes"></p>
 					<button class="edit-button" type="button" id="edit--${obj.id}">EDIT</button>
@@ -113,7 +113,7 @@ const WEB = {
 		return `
 			<div class="friendsTaskContainer">
 				<div class="friendsTasks">
-					<h5>${obj.title}<h5>
+					<h5>${obj.title}</h5>
 					<p>Due Date: ${obj.dueDate} </p>
 					<p>completed?: ${obj.completed}</p>
 				</div>
@@ -126,7 +126,7 @@ const WEB = {
 	myFinishedTaskHTML: obj => {
 		return `
             <div class="myTasks">
-                <h5>${obj.title}<h5>
+                <h5>${obj.title}</h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>
                 <button type="button" class="delete-button" id="delete--${obj.id}">DELETE</button>
@@ -136,7 +136,7 @@ const WEB = {
 	friendsFinishedTaskHTML: obj => {
 		return `
             <div class="friendsTasks">
-                <h5>${obj.title}<h5>
+                <h5>${obj.title}</h5>
                 <p>Due Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>   
             </div>

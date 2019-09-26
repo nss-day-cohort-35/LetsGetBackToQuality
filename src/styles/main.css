@@ -27,7 +27,7 @@
 }
 
 #chatroom-container {
-	background-color: #a09ab2;
+	background-color: #967bb6;
 	margin: 0.5em;
 	border-radius: 10px;
 }
@@ -56,6 +56,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	max-width: 600px;
+	margin-top: 0.5em;
 }
 
 .taskContainer,
@@ -588,4 +589,56 @@ fieldset {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+.logoContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.firstWord {
+	display: flex;
+	justify-content: baseline;
+	width: 100%;
+	flex-wrap: wrap;
+}
+
+.secondWord {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	flex-wrap: wrap;
+}
+
+.firstWord > img,
+.secondWord > img {
+	margin: 0.5em;
+}
+
+/* chat styling */
+
+.message-value {
+	margin-bottom: 0em;
+	margin-top: 0;
+	font-style: bold;
+	font-size: 1.2em;
+}
+
+.message-date,
+.message-name {
+	font-size: 0.8em;
+	position: relative;
+	/* top: -20px; */
+}
+
+h5 {
+	font-size: 1.3em;
+	margin: 0.5em 0em 0em 0em;
 }
