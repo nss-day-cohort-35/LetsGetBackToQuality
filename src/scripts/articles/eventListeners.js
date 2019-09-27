@@ -86,7 +86,7 @@ const WEB = {
                 <h5>${obj.title}</h5>
                 <p>Date: ${obj.date} </p>
                 <a target="_blank" href="${obj.url}">${obj.url}</a>
-                <p>summary: ${obj.summary}</p>
+                <p>"${obj.summary}"</p>
                 <button class="edit-button" type="button" id="edit--${obj.id}">EDIT</button>
                 <button type="button" class="delete-button" id="delete--${obj.id}">DELETE</button>
 			</div>
@@ -100,7 +100,7 @@ const WEB = {
                 <h5>${obj.title}</h5>
                 <p>Date: ${obj.date} </p>
                 <a target="_blank" href="${obj.url}">${obj.url}</a>
-                <p>summary: ${obj.summary}</p>
+                <p>"${obj.summary}"</p>
 			</div>
 			<div class="userImage">
 					<img class="profileImg" src="/src/images/users/${obj.userId}.png">
