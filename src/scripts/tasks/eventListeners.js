@@ -48,9 +48,7 @@ const API = {
 		});
 	},
 	getTask: taskId => {
-		return fetch(`http://localhost:8088/tasks/${taskId}`).then(response =>
-			response.json()
-		);
+		return fetch(`http://localhost:8088/tasks/${taskId}`).then(response => response.json());
 	},
 	editTask: taskId => {
 		const updatedObject = {
@@ -101,8 +99,8 @@ const WEB = {
 				</div>
 				<div class="myTasks">
 					<h5>${obj.title}</h5>
-					<p>Due Date: ${obj.dueDate} </p>
-					<p>completed?: 	<input type="checkbox" id="taskCompleted--${obj.id}" class="taskCompleted" value="yes"></p>
+					<p>Target Date: ${obj.dueDate} </p>
+					<p>completed? 	<input type="checkbox" id="taskCompleted--${obj.id}" class="taskCompleted" value="yes"></p>
 					<button class="edit-button" type="button" id="edit--${obj.id}">EDIT</button>
 					<button class="delete-button" type="button" id="delete--${obj.id}">DELETE</button>
 				</div>
@@ -114,8 +112,8 @@ const WEB = {
 			<div class="friendsTaskContainer">
 				<div class="friendsTasks">
 					<h5>${obj.title}</h5>
-					<p>Due Date: ${obj.dueDate} </p>
-					<p>completed?: ${obj.completed}</p>
+					<p>Target Date: ${obj.dueDate} </p>
+					<p>completed? ${obj.completed}</p>
 				</div>
 				<div class="userImage">
 						<img class="profileImg" src="/src/images/users/${obj.userId}.png">
@@ -127,7 +125,7 @@ const WEB = {
 		return `
             <div class="myTasks">
                 <h5>${obj.title}</h5>
-                <p>Due Date: ${obj.dueDate} </p>
+                <p>Target Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>
                 <button type="button" class="delete-button" id="delete--${obj.id}">DELETE</button>
             </div>
@@ -137,7 +135,7 @@ const WEB = {
 		return `
             <div class="friendsTasks">
                 <h5>${obj.title}</h5>
-                <p>Due Date: ${obj.dueDate} </p>
+                <p>Target Date: ${obj.dueDate} </p>
                 <p>completed?: ${obj.completed}</p>   
             </div>
             `;
@@ -177,10 +175,7 @@ const taskEvents = {
 	},
 	generateTasksOnClick: () => {
 		window.addEventListener("click", event => {
-			if (
-				event.target.id === "tasks" &&
-				event.target.classList.contains("dropBtn")
-			) {
+			if (event.target.id === "tasks" && event.target.classList.contains("dropBtn")) {
 				console.log("you clicked tasks");
 				API.getTasks().then(data => DOM.addTasksToDom(data));
 			}
@@ -251,19 +246,15 @@ const taskEvents = {
 	},
 	//view finished tasks
 	finishedTasks: () => {
-		document
-			.querySelector("#finishedTasks")
-			.addEventListener("click", event => {
-				API.getFinishedTasks().then(data => DOM.addFinishedTasksToDom(data));
-			});
+		document.querySelector("#finishedTasks").addEventListener("click", event => {
+			API.getFinishedTasks().then(data => DOM.addFinishedTasksToDom(data));
+		});
 	},
 	//view standard tasks
 	standardTasks: () => {
-		document
-			.querySelector("#unfinishedTasks")
-			.addEventListener("click", event => {
-				API.getTasks().then(data => DOM.addTasksToDom(data));
-			});
+		document.querySelector("#unfinishedTasks").addEventListener("click", event => {
+			API.getTasks().then(data => DOM.addTasksToDom(data));
+		});
 	}
 };
 

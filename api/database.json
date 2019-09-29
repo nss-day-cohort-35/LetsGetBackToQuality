@@ -128,45 +128,27 @@
 	"articles": [
 		{
 			"id": 1,
-			"userId": 1,
+			"userId": 2,
 			"date": "2019-09-01",
 			"title": "Nashville Pride ",
-			"summary": "ok",
-			"url": "https://first-link.net"
+			"summary": "This looks so amazing, lets be sure to put this in events next year!!!!  xxxx",
+			"url": "https://www.nashvillepride.org"
 		},
 		{
 			"id": 2,
-			"userId": 2,
+			"userId": 1,
 			"date": "2019-09-02",
-			"title": "Title of second article",
-			"summary": "Summary for 2nd YESS",
-			"url": "https://second-link.net3"
+			"title": "Lets explore Nashville",
+			"summary": "My friend just shared this with me, you can watch videos of the best things to do and see in Nashville hared this with me, you can watch videos of the best things to do and see in Nashvillehared this with me, you can watch videos of the best things to do and see in Nashville",
+			"url": "https://seenash.com"
 		},
 		{
 			"id": 3,
 			"userId": 3,
 			"date": "2019-09-03",
-			"title": "Title of third article",
-			"summary": "Summary for third article",
-			"url": "https://third-link.net"
-		},
-		{
-			"userId": 1,
-			"title": "some title",
-			"date": "2019-09-10",
-			"location": "www.google.com",
-			"summary": "some text",
-			"id": 4,
-			"url": "www.google.com"
-		},
-		{
-			"userId": 1,
-			"title": "test2",
-			"date": "2019-09-04",
-			"location": "someurl.com",
-			"summary": "summart",
-			"id": 5,
-			"url": "undefined"
+			"title": "Best Restaurants in Town",
+			"summary": "Friends.  Lets start going to some of these new restaurants.  Its a well curated list of the best in Nashville.",
+			"url": "https://www.foodnetwork.com/restaurants/photos/restaurant-guide-nashville"
 		}
 	],
 	"messages": [
@@ -227,7 +209,7 @@
 		{
 			"userId": 1,
 			"date": "2019-09-25",
-			"message": "hellpo",
+			"message": "hellpo hellpo",
 			"id": 10
 		}
 	],
@@ -272,38 +254,30 @@
 		{
 			"id": 1,
 			"userId": 1,
-			"title": "some task to do",
+			"title": "Working out EVERY day this month",
 			"dueDate": "2023-03-24",
-			"completed": "yes"
+			"completed": "no"
 		},
 		{
 			"id": 1,
 			"userId": 2,
-			"title": "clean up",
+			"title": "Get that promotion!!",
 			"dueDate": "2019-11-24",
 			"completed": "no"
 		},
 		{
 			"id": 3,
 			"userId": 3,
-			"title": "sing karaoke",
+			"title": "learn to play piano",
 			"dueDate": "2020-11-24",
 			"completed": "no"
 		},
 		{
-			"taskName": "some task",
-			"taskDescription": "its a task!",
-			"dueDate": "2019-09-12",
-			"isComplete": "no",
-			"id": 5
-		},
-		{
-			"userId": "7",
-			"taskName": "task",
-			"taskDescription": "task",
-			"dueDate": "2019-09-12",
-			"isComplete": "no",
-			"id": 6
+			"id": 3,
+			"userId": 1,
+			"title": "Visit a new country",
+			"dueDate": "2020-11-24",
+			"completed": "yes"
 		}
 	]
 }
