@@ -1,11 +1,5 @@
 /* color scheme */
 
-.leftCol {
-	background-color: #95d1c7;
-	border-radius: 10px;
-	margin: 0.5em;
-}
-
 #tasks {
 	background-color: #f4848a;
 	margin: 0.5em;
@@ -37,12 +31,16 @@
 h1 {
 	font-family: "Notable", sans-serif;
 	letter-spacing: 5px;
+	text-align: center;
 }
 body {
 	display: flex;
 	flex-direction: row;
 	font-family: "Oswald", sans-serif;
 	justify-content: center;
+	flex-wrap: wrap;
+	margin: auto;
+	max-width: 800px;
 }
 
 .leftCol {
@@ -50,13 +48,23 @@ body {
 	flex-direction: column;
 	padding-bottom: 2em;
 	padding: 1em;
+	flex-basis: 30%;
+	flex: 0.8;
+	background-color: #95d1c7;
+	border-radius: 10px;
+	margin: 0.5em;
+	flex-grow: 1;
 }
 
 .rightCol {
 	display: flex;
 	flex-direction: column;
 	max-width: 600px;
+	min-width: 350px;
 	margin-top: 0.5em;
+	flex-basis: 70%;
+	flex: 2;
+	flex-grow: 3;
 }
 
 .taskContainer,
@@ -595,6 +603,8 @@ fieldset {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
+	text-align: center;
 }
 
 .title {

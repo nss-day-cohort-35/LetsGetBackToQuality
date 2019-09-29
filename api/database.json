@@ -1,0 +1,309 @@
+{
+	"users": [
+		{
+			"id": 1,
+			"name": "Steven James",
+			"userName": "steve",
+			"password": "pass",
+			"email": "steve@gmail.com"
+		},
+		{
+			"id": 2,
+			"name": "Lucy Lane",
+			"userName": "Lucy",
+			"password": "pass",
+			"email": "lucy@gmail.com"
+		},
+		{
+			"id": 3,
+			"name": "Tom Sellars",
+			"userName": "Tom",
+			"password": "pass",
+			"email": "tom@gmail.com"
+		},
+		{
+			"name": "Sherry Tate",
+			"userName": "Sherry",
+			"password": "pass",
+			"email": "sherry@email.com",
+			"id": 4
+		},
+		{
+			"name": "Jim Jones",
+			"userName": "Jim",
+			"password": "pass",
+			"email": "jim@email.com",
+			"id": 5
+		},
+		{
+			"name": "Jules Andrews",
+			"userName": "Jules",
+			"password": "pass",
+			"email": "jules@gmail.com",
+			"id": 6
+		}
+	],
+	"friends": [
+		{
+			"id": 1,
+			"userId": 2,
+			"friendInitiate": 1
+		},
+		{
+			"userId": 3,
+			"friendInitiate": 1,
+			"id": 9
+		},
+		{
+			"userId": 5,
+			"friendInitiate": 1,
+			"id": 10
+		},
+		{
+			"userId": 1,
+			"friendInitiate": 2,
+			"id": 11
+		},
+		{
+			"userId": 3,
+			"friendInitiate": 2,
+			"id": 12
+		},
+		{
+			"userId": 6,
+			"friendInitiate": 1,
+			"id": 22
+		},
+		{
+			"userId": 2,
+			"friendInitiate": 3,
+			"id": 23
+		},
+		{
+			"userId": 4,
+			"friendInitiate": 3,
+			"id": 26
+		},
+		{
+			"userId": 5,
+			"friendInitiate": 3,
+			"id": 27
+		},
+		{
+			"userId": 2,
+			"friendInitiate": 4,
+			"id": 28
+		},
+		{
+			"userId": 5,
+			"friendInitiate": 4,
+			"id": 29
+		},
+		{
+			"userId": 2,
+			"friendIntiate": 5,
+			"id": 30
+		},
+		{
+			"userId": 1,
+			"friendInitiate": 5,
+			"id": 31
+		},
+		{
+			"userId": 2,
+			"friendInitiate": 6,
+			"id": 32
+		},
+		{
+			"userId": 4,
+			"friendInitiate": 1,
+			"id": 33
+		},
+		{
+			"userId": 4,
+			"friendInitiate": 6,
+			"id": 34
+		}
+	],
+	"articles": [
+		{
+			"id": 1,
+			"userId": 1,
+			"date": "2019-09-01",
+			"title": "Nashville Pride ",
+			"summary": "ok",
+			"url": "https://first-link.net"
+		},
+		{
+			"id": 2,
+			"userId": 2,
+			"date": "2019-09-02",
+			"title": "Title of second article",
+			"summary": "Summary for 2nd YESS",
+			"url": "https://second-link.net3"
+		},
+		{
+			"id": 3,
+			"userId": 3,
+			"date": "2019-09-03",
+			"title": "Title of third article",
+			"summary": "Summary for third article",
+			"url": "https://third-link.net"
+		},
+		{
+			"userId": 1,
+			"title": "some title",
+			"date": "2019-09-10",
+			"location": "www.google.com",
+			"summary": "some text",
+			"id": 4,
+			"url": "www.google.com"
+		},
+		{
+			"userId": 1,
+			"title": "test2",
+			"date": "2019-09-04",
+			"location": "someurl.com",
+			"summary": "summart",
+			"id": 5,
+			"url": "undefined"
+		}
+	],
+	"messages": [
+		{
+			"userId": 1,
+			"date": "2019-09-01",
+			"message": "Content of first messsdfage",
+			"id": 1
+		},
+		{
+			"userId": 2,
+			"date": "2019-09-02",
+			"message": "Content of second OK message",
+			"id": 2
+		},
+		{
+			"id": 3,
+			"userId": 3,
+			"date": "2019-09-03",
+			"message": "Content of third message"
+		},
+		{
+			"userId": 1,
+			"date": "2019-09-23",
+			"message": "sweet!asdfYES",
+			"id": 4
+		},
+		{
+			"userId": 1,
+			"date": "2019-09-23",
+			"message": "hi There friend.",
+			"id": 5
+		},
+		{
+			"userId": 1,
+			"date": "2019-09-25",
+			"message": "yp",
+			"id": 6
+		},
+		{
+			"userId": 1,
+			"date": "2019-09-25",
+			"message": "hey!!",
+			"id": 7
+		},
+		{
+			"userId": 1,
+			"date": "2019-09-25",
+			"message": "hi",
+			"id": 8
+		},
+		{
+			"userId": 1,
+			"date": "2019-09-25",
+			"message": "hi",
+			"id": 9
+		},
+		{
+			"userId": 1,
+			"date": "2019-09-25",
+			"message": "hellpo",
+			"id": 10
+		}
+	],
+	"events": [
+		{
+			"id": 1,
+			"userId": 2,
+			"title": "The Great Argument",
+			"date": "2019-10-25",
+			"location": "nashville"
+		},
+		{
+			"id": 3,
+			"userId": 2,
+			"title": "The Great Exibition",
+			"date": "2020-01-25",
+			"location": "nashville"
+		},
+		{
+			"id": 4,
+			"userId": 3,
+			"title": "The Great Mouse Detective screening",
+			"date": "2020-03-25",
+			"location": "nashville"
+		},
+		{
+			"userId": 1,
+			"title": "test33sdfg",
+			"date": "2019-09-10",
+			"location": "test",
+			"id": 5
+		},
+		{
+			"userId": 1,
+			"title": "some event",
+			"date": "2019-09-17",
+			"location": "sage house",
+			"id": 6
+		}
+	],
+	"tasks": [
+		{
+			"id": 1,
+			"userId": 1,
+			"title": "some task to do",
+			"dueDate": "2023-03-24",
+			"completed": "yes"
+		},
+		{
+			"id": 1,
+			"userId": 2,
+			"title": "clean up",
+			"dueDate": "2019-11-24",
+			"completed": "no"
+		},
+		{
+			"id": 3,
+			"userId": 3,
+			"title": "sing karaoke",
+			"dueDate": "2020-11-24",
+			"completed": "no"
+		},
+		{
+			"taskName": "some task",
+			"taskDescription": "its a task!",
+			"dueDate": "2019-09-12",
+			"isComplete": "no",
+			"id": 5
+		},
+		{
+			"userId": "7",
+			"taskName": "task",
+			"taskDescription": "task",
+			"dueDate": "2019-09-12",
+			"isComplete": "no",
+			"id": 6
+		}
+	]
+}
